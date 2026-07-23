@@ -77,6 +77,470 @@
   --z-tooltip: 1070;
 }
 
+/* ============================================================
+   DARK MODE - Override CSS Variables
+   ============================================================ */
+:root.dark-mode {
+  --color-primary: #60A5FA;
+  --color-primary-dark: #3B82F6;
+  --color-primary-light: #1E3A5F;
+  --color-secondary: #22D3EE;
+  --color-secondary-dark: #06B6D4;
+  --color-accent: #FBBF24;
+  --color-accent-dark: #F59E0B;
+  --color-background: #0F172A;
+  --color-text: #E2E8F0;
+  --color-text-light: #94A3B8;
+  --color-text-muted: #64748B;
+  --color-white: #1E293B;
+  --color-dark: #F1F5F9;
+  --color-border: #334155;
+  --color-success: #34D399;
+  --color-error: #F87171;
+
+  --glass-bg: rgba(15, 23, 42, 0.95);
+  --glass-border: rgba(255, 255, 255, 0.08);
+
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.5);
+  --shadow-xl: 0 20px 50px rgba(0, 0, 0, 0.6);
+}
+
+/* Dark Mode - Component Overrides */
+:root.dark-mode .top-bar {
+  background: #020617;
+}
+
+:root.dark-mode .footer {
+  background: #020617;
+}
+
+:root.dark-mode .section-bg-white {
+  background: var(--color-white);
+}
+
+:root.dark-mode .section-bg-gray {
+  background: #1A2332;
+}
+
+:root.dark-mode .page-hero {
+  background: linear-gradient(135deg, #1E3A5F, #0F172A);
+}
+
+:root.dark-mode .statistics-section {
+  background: linear-gradient(135deg, #1E3A5F, #0F172A);
+}
+
+:root.dark-mode .cta-section {
+  background: linear-gradient(135deg, #1E3A5F, #0F172A);
+}
+
+:root.dark-mode .loading-spinner {
+  background: var(--color-background);
+}
+
+:root.dark-mode .breadcrumb-nav {
+  background: var(--color-white);
+  border-bottom-color: var(--color-border);
+}
+
+:root.dark-mode .modal-content {
+  background: var(--color-white);
+}
+
+:root.dark-mode .modal-header,
+:root.dark-mode .modal-footer {
+  border-color: var(--color-border);
+}
+
+:root.dark-mode .trainer-card,
+:root.dark-mode .testimonial-card,
+:root.dark-mode .contact-info-card .contact-icon {
+  background: var(--color-white);
+}
+
+:root.dark-mode .testimonial-card::before {
+  color: rgba(255, 255, 255, 0.05);
+}
+
+:root.dark-mode .partner-scroll .partner-track img {
+  filter: grayscale(100%) brightness(1.5);
+  opacity: 0.6;
+}
+
+:root.dark-mode .partner-scroll .partner-track img:hover {
+  filter: grayscale(0) brightness(1.5);
+  opacity: 1;
+}
+
+:root.dark-mode .about-image-wrapper .experience-badge {
+  background: var(--color-primary-dark);
+}
+
+:root.dark-mode .footer .newsletter-form .form-control {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+:root.dark-mode .footer-bottom {
+  border-top-color: rgba(255, 255, 255, 0.06);
+}
+
+:root.dark-mode .whatsapp-float {
+  box-shadow: 0 4px 16px rgba(37, 211, 102, 0.3);
+}
+
+:root.dark-mode .trust-strip .trust-card {
+  background: var(--color-white);
+}
+
+:root.dark-mode .main-navbar .navbar-brand span { color: var(--color-primary-dark); }
+
+/* Fix: Stat numbers must stay white on dark gradient background */
+:root.dark-mode .stat-card .stat-number {
+  color: #fff;
+}
+
+/* Fix: Section tag contrast in dark mode - use brighter text on darker bg */
+:root.dark-mode .section-tag {
+  color: #93C5FD;
+  background: #1E3A8A;
+}
+
+/* Fix: Accordion active button contrast in dark mode */
+:root.dark-mode .accordion-button:not(.collapsed) {
+  color: #93C5FD;
+  background: #1E3A8A;
+}
+
+/* Fix: Course badge must stay readable in dark mode */
+:root.dark-mode .course-card .course-badge {
+  background: #2563EB;
+  color: #fff;
+}
+
+/* Fix: Trainer image border visibility in dark mode */
+:root.dark-mode .trainer-card .trainer-image {
+  border-color: #3B82F6;
+}
+
+/* Fix: Trainer designation contrast in dark mode */
+:root.dark-mode .trainer-card .trainer-designation {
+  color: #93C5FD;
+}
+
+/* Fix: Course category tag contrast in dark mode */
+:root.dark-mode .course-category-tag {
+  color: #93C5FD;
+  background: #1E3A8A;
+}
+
+/* Fix: Contact icon contrast in dark mode */
+:root.dark-mode .contact-info-card .contact-icon {
+  background: #1E3A8A;
+  color: #93C5FD;
+}
+
+/* Fix: Filter active count badge in dark mode */
+:root.dark-mode .course-filters .filter-btn.active .filter-count {
+  background: #2563EB !important;
+}
+
+/* Fix: Gallery overlay stays at good contrast */
+:root.dark-mode .gallery-item .gallery-overlay {
+  background: rgba(37, 99, 235, 0.85);
+}
+
+/* Fix: Section tag on statistics section already uses hardcoded white - fine */
+/* Fix: Ensure hero floating card text always white */
+:root.dark-mode .hero-floating-card {
+  color: #fff;
+}
+
+/* Fix: Ensure page-hero text always white */
+:root.dark-mode .page-hero {
+  color: #fff;
+}
+:root.dark-mode .page-hero h1 {
+  color: #fff;
+}
+:root.dark-mode .page-hero .breadcrumb-item,
+:root.dark-mode .page-hero .breadcrumb-item a {
+  color: rgba(255, 255, 255, 0.8);
+}
+:root.dark-mode .page-hero .breadcrumb-item.active {
+  color: #fff;
+}
+
+/* Fix: CTA section text always white */
+:root.dark-mode .cta-section {
+  color: #fff;
+}
+:root.dark-mode .cta-section h2 {
+  color: #fff;
+}
+:root.dark-mode .cta-section p {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* Fix: Statistics section heading text always white */
+:root.dark-mode .statistics-section .section-title {
+  color: #fff;
+}
+:root.dark-mode .statistics-section .section-subtitle {
+  color: rgba(255, 255, 255, 0.7);
+}
+:root.dark-mode .statistics-section .section-tag {
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+}
+
+/* Fix: Experience badge text always white */
+:root.dark-mode .about-image-wrapper .experience-badge {
+  color: #fff;
+}
+:root.dark-mode .about-image-wrapper .experience-badge h3 {
+  color: #fff;
+}
+
+/* ============================================================
+   INNER PAGES - Dark Mode Overrides
+   (Bootstrap utility classes + page-specific fixes)
+   ============================================================ */
+
+/* --- Bootstrap utility overrides --- */
+
+/* text-muted on dark card/surface backgrounds */
+:root.dark-mode .text-muted {
+  color: var(--color-text-muted) !important;
+}
+
+/* text-primary on dark backgrounds */
+:root.dark-mode .text-primary {
+  color: var(--color-primary) !important;
+}
+
+/* bg-light (used for tags, badges) on dark backgrounds */
+:root.dark-mode .bg-light {
+  background: #334155 !important;
+}
+
+/* text-dark (paired with bg-light) must become light text on dark bg */
+:root.dark-mode .text-dark {
+  color: var(--color-dark) !important;
+}
+
+/* text-success (green check icons) on dark card surfaces */
+:root.dark-mode .text-success {
+  color: var(--color-success) !important;
+}
+
+/* hr / horizontal rule border on dark surfaces */
+:root.dark-mode hr {
+  border-color: var(--color-border);
+  opacity: 1;
+}
+
+/* Bootstrap badge bg-primary - Featured article badge, etc. */
+:root.dark-mode .badge.bg-primary {
+  background: var(--color-primary-dark) !important;
+  color: #fff !important;
+}
+
+/* Bootstrap badge bg-secondary - Category badges */
+:root.dark-mode .badge.bg-secondary {
+  background: #475569 !important;
+  color: #fff !important;
+}
+
+/* btn-outline-primary on dark backgrounds (gallery filters, blog read-more) */
+:root.dark-mode .btn-outline-primary {
+  border-color: var(--color-primary) !important;
+  color: var(--color-primary) !important;
+}
+:root.dark-mode .btn-outline-primary:hover {
+  background: var(--color-primary) !important;
+  color: var(--color-white) !important;
+}
+
+/* btn-primary on dark backgrounds (gallery "All" filter) */
+:root.dark-mode .btn-primary {
+  background: var(--color-primary-dark) !important;
+  border-color: var(--color-primary-dark) !important;
+  color: #fff !important;
+}
+:root.dark-mode .btn-primary:hover {
+  background: var(--color-primary) !important;
+  border-color: var(--color-primary) !important;
+}
+
+/* --- Page-specific dark mode fixes --- */
+
+/* About: director quote block text */
+:root.dark-mode blockquote.text-muted {
+  color: var(--color-text-muted) !important;
+}
+
+/* About: director title text */
+:root.dark-mode p.text-muted.small {
+  color: var(--color-text-muted) !important;
+}
+
+/* Blog: sidebar sticky card background */
+:root.dark-mode .blog-sidebar-card {
+  background: var(--color-white);
+}
+
+/* Blog: featured article card body text-muted on dark card bg */
+:root.dark-mode .card-body .text-muted.small {
+  color: var(--color-text-muted) !important;
+}
+
+/* Placements: stat card heading stays readable */
+:root.dark-mode .card h3.text-primary.fw-bold {
+  color: var(--color-primary) !important;
+}
+
+/* Placements: process card step number */
+:root.dark-mode .card .display-5.text-primary {
+  color: var(--color-primary) !important;
+}
+
+/* Placements: process card small muted text */
+:root.dark-mode .card p.small.text-muted {
+  color: var(--color-text-muted) !important;
+}
+
+/* Contact: info card heading and paragraph on dark bg */
+:root.dark-mode .contact-info-card h6 {
+  color: var(--color-dark);
+}
+:root.dark-mode .contact-info-card p {
+  color: var(--color-text-light);
+}
+
+/* Card surface transitions for smooth dark mode switch */
+/* Note: .card, .testimonial-card, .trainer-card, .course-card, .stat-card
+   already have transition: all from base styles — not re-listed here */
+.card-body,
+.card-header,
+.card-footer,
+.gallery-item,
+.accordion-body,
+.contact-info-card {
+  transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+/* Dark Mode - Dark Toggle Button */
+.dark-mode-toggle {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--color-border);
+  background: transparent;
+  color: var(--color-text);
+  cursor: pointer;
+  transition: all var(--transition-base);
+  padding: 0;
+  font-size: 1rem;
+}
+
+.dark-mode-toggle:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+  transform: rotate(15deg);
+}
+
+.dark-mode-toggle:focus {
+  box-shadow: 0 0 0 3px rgba(255, 193, 7, 0.2);
+  outline: none;
+}
+
+:root.dark-mode .dark-mode-toggle {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+:root.dark-mode .dark-mode-toggle:hover {
+  background: rgba(251, 191, 36, 0.15);
+  color: #FCD34D;
+  border-color: #FCD34D;
+}
+
+:root.dark-mode .dark-mode-btn-text {
+  color: var(--color-text);
+}
+
+/* Smooth transition for body bg and text on theme switch */
+body {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Theme transition overlay */
+#theme-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+/* Enhanced transitions on themed surface elements */
+.section-bg-white,
+.section-bg-gray,
+.top-bar,
+.footer,
+.breadcrumb-nav,
+.modal-content,
+.modal-header,
+.modal-footer,
+.accordion-item,
+.loading-spinner {
+  transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Headings and body text color transitions */
+h1, h2, h3, h4, h5, h6,
+p,
+.section-title,
+.section-subtitle,
+.section-tag,
+.main-navbar .nav-link,
+.main-navbar .navbar-brand,
+.main-navbar .navbar-brand span,
+.trust-strip .trust-number,
+.trainer-card h5,
+.testimonial-card .testimonial-author h6,
+.contact-info-card h6,
+.footer h5,
+.footer p,
+.footer .footer-links a {
+  transition: color 0.3s ease;
+}
+
+/* Card surfaces - only for ones without existing 'all' transitions */
+.contact-info-card .contact-icon {
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Border transitions on form controls */
+.form-control,
+.form-select {
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Partner logo filter transition */
+.partner-scroll .partner-track img {
+  transition: filter 0.3s ease, opacity 0.3s ease;
+}
+
+
+
 /* ----- Base Reset ----- */
 *,
 *::before,
@@ -595,45 +1059,133 @@ ul {
   color: rgba(255, 255, 255, 0.5);
 }
 
-/* ----- Section: Hero (Home) ----- */
+/* ============================================================
+   HERO SLIDER (Swiper-based, full-screen)
+   ============================================================ */
 .hero-section {
-  min-height: 90vh;
-  display: flex;
-  align-items: center;
-  background: linear-gradient(135deg, var(--color-primary), #002D73);
   position: relative;
   overflow: hidden;
-  padding: 120px 0 100px;
 }
 
-.hero-section::before {
-  content: '';
+.hero-slider {
+  width: 100%;
+  height: 100vh;
+  min-height: 700px;
+  max-height: 900px;
+}
+
+.hero-slider .swiper-slide {
+  display: flex;
+  align-items: center;
+  padding: 140px 0 100px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Individual slide backgrounds */
+.hero-slide-bg {
   position: absolute;
-  top: -30%;
-  right: -20%;
-  width: 800px;
-  height: 800px;
-  background: radial-gradient(circle, rgba(0, 180, 216, 0.15), transparent);
+  inset: 0;
+  z-index: 0;
+}
+
+.hero-slide-bg .bg-gradient-layer {
+  position: absolute;
+  inset: 0;
+}
+
+.hero-slide-bg .bg-blob {
+  position: absolute;
   border-radius: 50%;
+  pointer-events: none;
 }
 
-.hero-section::after {
-  content: '';
-  position: absolute;
-  bottom: -20%;
-  left: -10%;
+/* Slide 1 - Blue gradient */
+.hero-slide-1 .bg-gradient-layer {
+  background: linear-gradient(135deg, #0057D9 0%, #002D73 50%, #001A4D 100%);
+}
+.hero-slide-1 .bg-blob-1 {
+  top: -20%;
+  right: -10%;
+  width: 700px;
+  height: 700px;
+  background: radial-gradient(circle, rgba(0, 180, 216, 0.2), transparent 70%);
+}
+.hero-slide-1 .bg-blob-2 {
+  bottom: -15%;
+  left: -5%;
   width: 500px;
   height: 500px;
-  background: radial-gradient(circle, rgba(0, 87, 217, 0.2), transparent);
-  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 193, 7, 0.08), transparent 70%);
+}
+.hero-slide-1 .bg-blob-3 {
+  top: 40%;
+  left: 40%;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(0, 87, 217, 0.3), transparent 70%);
 }
 
-.hero-section .hero-content {
+/* Slide 2 - Teal/Purple gradient */
+.hero-slide-2 .bg-gradient-layer {
+  background: linear-gradient(135deg, #0F172A 0%, #1E3A5F 30%, #0A558C 100%);
+}
+.hero-slide-2 .bg-blob-1 {
+  top: -10%;
+  left: -5%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(0, 180, 216, 0.15), transparent 70%);
+}
+.hero-slide-2 .bg-blob-2 {
+  bottom: -10%;
+  right: -5%;
+  width: 450px;
+  height: 450px;
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.12), transparent 70%);
+}
+.hero-slide-2 .bg-blob-3 {
+  top: 30%;
+  left: 60%;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.05), transparent 70%);
+}
+
+/* Slide 3 - Dark/Accent gradient */
+.hero-slide-3 .bg-gradient-layer {
+  background: linear-gradient(135deg, #111827 0%, #1E3A8A 40%, #0057D9 100%);
+}
+.hero-slide-3 .bg-blob-1 {
+  top: -15%;
+  right: 10%;
+  width: 550px;
+  height: 550px;
+  background: radial-gradient(circle, rgba(255, 193, 7, 0.1), transparent 70%);
+}
+.hero-slide-3 .bg-blob-2 {
+  bottom: -20%;
+  left: 10%;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(0, 180, 216, 0.15), transparent 70%);
+}
+.hero-slide-3 .bg-blob-3 {
+  top: 60%;
+  left: 50%;
+  width: 250px;
+  height: 250px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.04), transparent 70%);
+}
+
+/* Hero slide content */
+.hero-slide-content {
   position: relative;
-  z-index: 1;
+  z-index: 2;
+  width: 100%;
 }
 
-.hero-section .hero-title {
+.hero-slide-content .hero-title {
   font-size: 3.5rem;
   font-weight: 800;
   color: var(--color-white);
@@ -641,11 +1193,15 @@ ul {
   margin-bottom: 1.5rem;
 }
 
-.hero-section .hero-title span {
+.hero-slide-content .hero-title .highlight {
   color: var(--color-accent);
 }
 
-.hero-section .hero-text {
+.hero-slide-content .hero-title .highlight-cyan {
+  color: var(--color-secondary);
+}
+
+.hero-slide-content .hero-text {
   font-size: var(--font-size-lg);
   color: rgba(255, 255, 255, 0.85);
   max-width: 540px;
@@ -653,53 +1209,209 @@ ul {
   line-height: 1.8;
 }
 
-.hero-section .hero-buttons {
+.hero-slide-content .hero-buttons {
   display: flex;
   gap: var(--gap-md);
   flex-wrap: wrap;
 }
 
-.hero-section .hero-image {
+/* Hero image area */
+.hero-image-wrapper {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-image-wrapper .hero-main-img {
+  width: 100%;
+  max-width: 500px;
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-xl);
   position: relative;
   z-index: 1;
-  text-align: center;
 }
 
-.hero-section .hero-image img {
-  border-radius: var(--radius-xl);
-  max-width: 100%;
+/* Floating card on hero */
+.hero-floating-card {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem 1.5rem;
+  color: var(--color-white);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  z-index: 2;
+  animation: float 6s ease-in-out infinite;
+  min-width: 180px;
 }
 
-.hero-section .hero-shape {
+.hero-floating-card .fc-icon {
+  font-size: 1.5rem;
+  margin-bottom: 0.25rem;
+}
+
+.hero-floating-card .fc-value {
+  font-size: 1.5rem;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.hero-floating-card .fc-label {
+  font-size: 0.75rem;
+  opacity: 0.8;
+}
+
+.hero-floating-card.card-1 {
+  top: 5%;
+  right: -10px;
+  animation-delay: 0s;
+}
+
+.hero-floating-card.card-2 {
+  bottom: 10%;
+  left: -20px;
+  animation-delay: 2s;
+}
+
+.hero-floating-card.card-3 {
+  top: 35%;
+  right: -15%;
+  animation-delay: 4s;
+  padding: 0.75rem 1rem;
+  min-width: auto;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-12px); }
+}
+
+/* Floating decorative shapes on hero */
+.hero-shape {
   position: absolute;
   border-radius: var(--radius-lg);
-  background: rgba(255, 255, 255, 0.08);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.hero-shape.shape-circle {
+  border-radius: 50%;
+}
+
+.hero-shape.shape-diamond {
+  transform: rotate(45deg);
+}
+
+.hero-shape.s1 {
+  top: 15%;
+  right: 20%;
+  width: 80px;
+  height: 80px;
+  background: rgba(0, 180, 216, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.hero-shape.s2 {
+  bottom: 25%;
+  right: 5%;
+  width: 50px;
+  height: 50px;
+  background: rgba(255, 193, 7, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.hero-shape.s3 {
+  top: 45%;
+  left: 0;
+  width: 120px;
+  height: 120px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* Hero pagination */
+.hero-slider .swiper-pagination {
+  bottom: 30px !important;
+}
+
+.hero-slider .swiper-pagination-bullet {
+  width: 14px;
+  height: 14px;
+  background: rgba(255, 255, 255, 0.4);
+  opacity: 1;
+  margin: 0 6px !important;
+  transition: all var(--transition-base);
+}
+
+.hero-slider .swiper-pagination-bullet-active {
+  background: var(--color-accent);
+  width: 36px;
+  border-radius: 7px;
+}
+
+/* Hero navigation arrows */
+.hero-slider .swiper-button-next,
+.hero-slider .swiper-button-prev {
+  width: 56px;
+  height: 56px;
+  background: rgba(255, 255, 255, 0.12);
   backdrop-filter: blur(8px);
   border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 50%;
+  color: var(--color-white);
+  transition: all var(--transition-base);
 }
 
-.hero-section .hero-shape-1 {
-  top: 10%;
-  right: 5%;
-  width: 150px;
-  height: 150px;
-  border-radius: var(--radius-full);
-  background: rgba(0, 180, 216, 0.2);
+.hero-slider .swiper-button-next:hover,
+.hero-slider .swiper-button-prev:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: scale(1.1);
 }
 
-.hero-section .hero-shape-2 {
-  bottom: 15%;
-  left: -5%;
-  width: 100px;
-  height: 100px;
+.hero-slider .swiper-button-next::after,
+.hero-slider .swiper-button-prev::after {
+  font-size: 1.25rem;
+  font-weight: 700;
 }
 
-.hero-section .hero-shape-3 {
-  top: 50%;
-  right: 0;
-  width: 60px;
-  height: 60px;
-  background: rgba(255, 193, 7, 0.2);
+/* Responsive hero */
+@media (max-width: 1199.98px) {
+  .hero-slider { height: auto; min-height: auto; }
+  .hero-slider .swiper-slide { padding: 120px 0 80px; min-height: 90vh; }
+  .hero-slide-content .hero-title { font-size: 2.75rem; }
+  .hero-floating-card.card-3 { right: 0; }
+}
+
+@media (max-width: 991.98px) {
+  .hero-slider .swiper-slide { padding: 100px 0 80px; min-height: auto; text-align: center; }
+  .hero-slide-content .hero-title { font-size: 2.25rem; }
+  .hero-slide-content .hero-text { margin-left: auto; margin-right: auto; }
+  .hero-slide-content .hero-buttons { justify-content: center; }
+  .hero-image-wrapper { margin-top: 2.5rem; }
+  .hero-floating-card.card-1 { right: 10px; }
+  .hero-floating-card.card-3 { display: none; }
+  .hero-slider .swiper-button-next,
+  .hero-slider .swiper-button-prev { display: none; }
+}
+
+@media (max-width: 767.98px) {
+  .hero-slider .swiper-slide { padding: 80px 0 60px; }
+  .hero-slide-content .hero-title { font-size: 1.875rem; }
+  .hero-floating-card { padding: 0.75rem 1rem; min-width: 130px; }
+  .hero-floating-card .fc-value { font-size: 1.125rem; }
+  .hero-floating-card.card-2 { bottom: 5%; left: 0; }
+}
+
+@media (max-width: 575.98px) {
+  .hero-slide-content .hero-title { font-size: 1.625rem; }
+  .hero-slide-content .hero-buttons .btn { width: 100%; justify-content: center; }
+  .hero-floating-card.card-2 { display: none; }
 }
 
 /* ----- Trust Strip (Features strip) ----- */
@@ -926,7 +1638,7 @@ ul {
   margin: 0;
 }
 
-/* ----- Statistics Section ----- */
+/* ----- Statistics Section (Animated Counters) ----- */
 .statistics-section {
   background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
   padding: 80px 0;
@@ -945,16 +1657,58 @@ ul {
   border-radius: 50%;
 }
 
+.statistics-section::after {
+  content: '';
+  position: absolute;
+  bottom: -30%;
+  right: -10%;
+  width: 400px;
+  height: 400px;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 50%;
+}
+
+.statistics-section .section-title {
+  color: #fff;
+}
+
+.statistics-section .section-subtitle {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.statistics-section .section-tag {
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+}
+
 .stat-card {
   text-align: center;
   position: relative;
   z-index: 1;
+  padding: 2rem 1rem;
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(4px);
+  transition: all var(--transition-base);
+}
+
+.stat-card:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-5px);
 }
 
 .stat-card .stat-icon {
   font-size: 2.5rem;
-  color: rgba(255, 255, 255, 0.8);
-  margin-bottom: 1rem;
+  color: rgba(255, 255, 255, 0.85);
+  margin-bottom: 0.75rem;
+  display: inline-block;
+  transition: transform var(--transition-base);
+}
+
+.stat-card:hover .stat-icon {
+  transform: scale(1.15);
 }
 
 .stat-card .stat-number {
@@ -963,6 +1717,7 @@ ul {
   color: var(--color-white);
   line-height: 1;
   margin-bottom: 0.5rem;
+  font-variant-numeric: tabular-nums;
 }
 
 .stat-card .stat-label {
@@ -971,6 +1726,28 @@ ul {
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.05em;
+}
+
+/* Entrance animation for stat cards when counters start */
+.stat-card.counter-active .stat-icon {
+  animation: icon-pulse 0.6s ease-out;
+}
+
+@keyframes icon-pulse {
+  0% { transform: scale(0.5); opacity: 0; }
+  60% { transform: scale(1.2); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* Number highlight pulse when animation finishes */
+@keyframes count-complete {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+.stat-card.counter-done .stat-number {
+  animation: count-complete 0.4s ease-out;
 }
 
 /* ----- Trainers Section ----- */
@@ -1032,15 +1809,77 @@ ul {
   color: var(--color-white);
 }
 
-/* ----- Testimonials ----- */
+/* ----- Testimonials Section ----- */
+.testimonials-section {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Decorative background blobs */
+.testimonials-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.t-bg-blob {
+  position: absolute;
+  border-radius: 50%;
+}
+
+.t-bg-blob-1 {
+  top: -20%;
+  right: -10%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(0, 87, 217, 0.04), transparent 70%);
+}
+
+.t-bg-blob-2 {
+  bottom: -15%;
+  left: -10%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(0, 180, 216, 0.04), transparent 70%);
+}
+
+/* Testimonial Card - Enhanced */
 .testimonial-card {
   background: var(--color-white);
   border-radius: var(--radius-lg);
   padding: 2rem;
   box-shadow: var(--shadow-sm);
   position: relative;
+  transition: all var(--transition-base);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
+.testimonial-card:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-6px);
+}
+
+/* Glow accent line at top */
+.tc-glow-line {
+  position: absolute;
+  top: 0;
+  left: 2rem;
+  right: 2rem;
+  height: 4px;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-secondary), var(--color-accent));
+  border-radius: 0 0 4px 4px;
+  opacity: 0.6;
+  transition: opacity var(--transition-base);
+}
+
+.testimonial-card:hover .tc-glow-line {
+  opacity: 1;
+}
+
+/* Quote icon via ::before */
 .testimonial-card::before {
   content: '\f10d';
   font-family: 'Font Awesome 6 Free';
@@ -1051,6 +1890,19 @@ ul {
   font-size: 2.5rem;
   color: var(--color-primary-light);
   line-height: 1;
+  transition: all var(--transition-base);
+}
+
+.testimonial-card:hover::before {
+  color: var(--color-primary);
+  transform: scale(1.1) rotate(-5deg);
+}
+
+.testimonial-card .testimonial-rating {
+  color: var(--color-accent);
+  margin-bottom: 0.75rem;
+  font-size: var(--font-size-sm);
+  letter-spacing: 2px;
 }
 
 .testimonial-card .testimonial-text {
@@ -1058,34 +1910,179 @@ ul {
   color: var(--color-text-light);
   line-height: 1.8;
   margin-bottom: 1.5rem;
+  flex: 1;
+  font-size: var(--font-size-sm);
 }
 
+/* Author section */
 .testimonial-card .testimonial-author {
   display: flex;
   align-items: center;
   gap: var(--gap-md);
+  padding-top: 1rem;
+  border-top: 1px solid var(--color-border);
 }
 
-.testimonial-card .testimonial-author img {
+.ta-avatar {
+  position: relative;
   width: 55px;
   height: 55px;
+  flex-shrink: 0;
+}
+
+.ta-avatar img {
+  width: 100%;
+  height: 100%;
   border-radius: var(--radius-full);
   object-fit: cover;
+}
+
+.ta-initial {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-full);
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  color: var(--color-white);
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+  opacity: 0;
+  transition: opacity var(--transition-base);
+  pointer-events: none;
+}
+
+.ta-avatar img[style*="display:none"] ~ .ta-initial {
+  opacity: 1;
 }
 
 .testimonial-card .testimonial-author h6 {
   font-weight: 700;
   margin-bottom: 0.125rem;
+  font-size: var(--font-size-base);
 }
 
 .testimonial-card .testimonial-author span {
-  font-size: var(--font-size-sm);
+  font-size: var(--font-size-xs);
   color: var(--color-text-muted);
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
 }
 
-.testimonial-card .testimonial-rating {
-  color: var(--color-accent);
-  margin-bottom: 1rem;
+.testimonial-card .testimonial-author span i {
+  color: var(--color-primary);
+  font-size: 0.625rem;
+}
+
+/* Testimonials Swiper - Navigation */
+.testimonial-slider {
+  position: relative;
+  z-index: 1;
+  padding: 0.5rem 0;
+}
+
+.testimonial-slider .testimonial-next,
+.testimonial-slider .testimonial-prev {
+  width: 44px;
+  height: 44px;
+  background: var(--color-white);
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-md);
+  color: var(--color-primary);
+  transition: all var(--transition-base);
+  margin-top: -22px;
+}
+
+.testimonial-slider .testimonial-next::after,
+.testimonial-slider .testimonial-prev::after {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.testimonial-slider .testimonial-next:hover,
+.testimonial-slider .testimonial-prev:hover {
+  background: var(--color-primary);
+  color: var(--color-white);
+  box-shadow: 0 6px 20px rgba(0, 87, 217, 0.3);
+  transform: scale(1.1);
+}
+
+/* Testimonials Swiper - Pagination */
+.testimonial-slider .swiper-pagination {
+  position: relative;
+  margin-top: 2rem;
+  bottom: auto !important;
+}
+
+.testimonial-slider .swiper-pagination-bullet {
+  width: 10px;
+  height: 10px;
+  background: var(--color-border);
+  opacity: 1;
+  margin: 0 5px !important;
+  transition: all var(--transition-base);
+}
+
+.testimonial-slider .swiper-pagination-bullet-active {
+  background: var(--color-primary);
+  width: 28px;
+  border-radius: 5px;
+}
+
+/* Autoplay Progress Bar */
+.swiper-progress-bar {
+  position: relative;
+  height: 3px;
+  background: var(--color-border);
+  border-radius: 2px;
+  margin: 0.75rem auto 0;
+  max-width: 200px;
+  overflow: hidden;
+}
+
+.swiper-progress-bar .spb-fill {
+  display: block;
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+  border-radius: 2px;
+  animation: progress-fill 4s linear forwards;
+}
+
+.testimonial-slider.swiper-initialized .swiper-progress-bar .spb-fill {
+  animation: progress-fill 4s linear infinite;
+}
+
+@keyframes progress-fill {
+  0% { width: 0%; }
+  100% { width: 100%; }
+}
+
+/* Pause animation on hover */
+.testimonial-slider:hover .swiper-progress-bar .spb-fill {
+  animation-play-state: paused;
+}
+
+/* Responsive testimonials */
+@media (max-width: 991.98px) {
+  .testimonial-slider .testimonial-next,
+  .testimonial-slider .testimonial-prev {
+    display: none;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .testimonial-card {
+    padding: 1.5rem;
+  }
+  .testimonial-card .testimonial-text {
+    font-size: var(--font-size-sm);
+  }
+  .swiper-progress-bar {
+    max-width: 150px;
+  }
 }
 
 /* ----- Gallery Grid ----- */
@@ -1296,6 +2293,72 @@ textarea.form-control {
   transform: translateY(-3px);
 }
 
+/* ============================================================
+   COURSE FILTERS
+   ============================================================ */
+.course-filters .filter-btn {
+  position: relative;
+  transition: all var(--transition-base);
+}
+
+.course-filters .filter-btn .filter-count {
+  font-size: 0.625rem;
+  padding: 0.125rem 0.4rem;
+  transition: all var(--transition-base);
+}
+
+.course-filters .filter-btn.active .filter-count {
+  background: var(--color-primary) !important;
+  color: #fff !important;
+}
+
+.course-filters .filter-btn:not(.active):hover .filter-count {
+  background: var(--color-primary-light) !important;
+}
+
+/* Course category tag on cards */
+.course-category-tag {
+  display: inline-block;
+  font-size: 0.625rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-primary);
+  background: var(--color-primary-light);
+  padding: 0.125rem 0.625rem;
+  border-radius: 50px;
+  margin-bottom: 0.5rem;
+}
+
+/* Filter animation */
+.course-item {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.course-item.filter-visible {
+  animation: card-appear 0.45s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes card-appear {
+  0% {
+    opacity: 0;
+    transform: translateY(24px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Filter status text animation */
+#filterStatus {
+  transition: opacity var(--transition-base);
+}
+
+#filterStatus strong {
+  color: var(--color-primary);
+}
+
 /* ----- Breadcrumb ----- */
 .breadcrumb-nav {
   background: var(--color-background);
@@ -1483,6 +2546,12 @@ textarea.form-control {
 
   .trust-strip .trust-number {
     font-size: var(--font-size-2xl);
+  }
+}
+
+@media (max-width: 991.98px) {
+  .dark-mode-toggle {
+    margin: 0.5rem 0 0 0;
   }
 }
 

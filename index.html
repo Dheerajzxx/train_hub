@@ -12,7 +12,7 @@
   <meta property="og:description" content="Industry-ready computer courses with practical training.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://traininginstitute.com">
-  <meta property="og:image" content="assets/images/og-image.jpg">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=1200&amp;h=630&amp;fit=crop">
 
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
@@ -93,6 +93,11 @@
           <li class="nav-item"><a class="nav-link" href="gallery.html">Gallery</a></li>
           <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
           <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+          <li class="nav-item d-flex align-items-center me-2">
+            <button class="dark-mode-toggle" id="darkModeToggle" aria-label="Toggle dark mode" title="Toggle dark mode">
+              <i class="fa-solid fa-moon"></i>
+            </button>
+          </li>
           <li class="nav-item nav-cta">
             <a href="contact.html" class="btn btn-accent btn-sm">Apply Now</a>
           </li>
@@ -102,37 +107,155 @@
   </nav>
 
   <!-- ============================================================
-       SECTION 1: HERO
+       SECTION 1: HERO SLIDER (Swiper)
        ============================================================ -->
   <section class="hero-section" id="home">
-    <div class="container">
-      <div class="row align-items-center">
-        <div class="col-lg-6">
-          <div class="hero-content" data-aos="fade-up">
-            <h1 class="hero-title">Learn Today. <span>Build Tomorrow.</span></h1>
-            <p class="hero-text">
-              Industry-ready computer courses with practical training. 
-              Start your journey towards a successful tech career with expert mentors.
-            </p>
-            <div class="hero-buttons">
-              <a href="courses.html" class="btn btn-accent btn-lg">
-                <i class="fa-solid fa-book-open"></i> Explore Courses
-              </a>
-              <a href="contact.html" class="btn btn-secondary btn-lg">
-                <i class="fa-solid fa-arrow-right"></i> Apply Now
-              </a>
+    <div class="hero-slider swiper">
+      <div class="swiper-wrapper">
+
+        <!-- Slide 1: Main headline -->
+        <div class="swiper-slide hero-slide-1">
+          <div class="hero-slide-bg">
+            <div class="bg-gradient-layer"></div>
+            <div class="bg-blob bg-blob-1"></div>
+            <div class="bg-blob bg-blob-2"></div>
+            <div class="bg-blob bg-blob-3"></div>
+          </div>
+          <div class="container">
+            <div class="row align-items-center">
+              <div class="col-lg-6">
+                <div class="hero-slide-content">
+                  <h1 class="hero-title">Learn Today. <span class="highlight">Build Tomorrow.</span></h1>
+                  <p class="hero-text">
+                    Industry-ready computer courses with practical training.
+                    Start your journey towards a successful tech career with expert mentors.
+                  </p>
+                  <div class="hero-buttons">
+                    <a href="courses.html" class="btn btn-accent btn-lg">
+                      <i class="fa-solid fa-book-open"></i> Explore Courses
+                    </a>
+                    <a href="contact.html" class="btn btn-secondary btn-lg">
+                      <i class="fa-solid fa-arrow-right"></i> Apply Now
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="hero-image-wrapper">
+                  <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=1000&amp;h=800&amp;fit=crop" alt="Students learning" class="hero-main-img">
+                  <div class="hero-floating-card card-1">
+                    <div class="fc-icon">⭐</div>
+                    <div class="fc-value">4.9</div>
+                    <div class="fc-label">Student Rating</div>
+                  </div>
+                  <div class="hero-floating-card card-2">
+                    <div class="fc-icon">🏆</div>
+                    <div class="fc-value">98%</div>
+                    <div class="fc-label">Placement Rate</div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-        <div class="col-lg-6">
-          <div class="hero-image" data-aos="fade-left" data-aos-delay="200">
-            <img src="assets/images/hero-student.jpg" alt="Students learning" onerror="this.style.display='none'">
-            <div class="hero-shape hero-shape-1"></div>
-            <div class="hero-shape hero-shape-2"></div>
-            <div class="hero-shape hero-shape-3"></div>
+
+        <!-- Slide 2: Career Focus -->
+        <div class="swiper-slide hero-slide-2">
+          <div class="hero-slide-bg">
+            <div class="bg-gradient-layer"></div>
+            <div class="bg-blob bg-blob-1"></div>
+            <div class="bg-blob bg-blob-2"></div>
+            <div class="bg-blob bg-blob-3"></div>
+          </div>
+          <div class="container">
+            <div class="row align-items-center">
+              <div class="col-lg-6 order-lg-2">
+                <div class="hero-slide-content">
+                  <h1 class="hero-title">Kickstart Your <span class="highlight-cyan">Tech Career</span></h1>
+                  <p class="hero-text">
+                    Get job-ready with our industry-aligned curriculum. Learn from certified
+                    professionals and work on real-world projects that make your resume stand out.
+                  </p>
+                  <div class="hero-buttons">
+                    <a href="courses.html" class="btn btn-accent btn-lg">
+                      <i class="fa-solid fa-graduation-cap"></i> View Courses
+                    </a>
+                    <a href="about.html" class="btn btn-secondary btn-lg">
+                      <i class="fa-solid fa-circle-info"></i> Learn More
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6 order-lg-1">
+                <div class="hero-image-wrapper">
+                  <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=1000&amp;h=800&amp;fit=crop" alt="Campus" class="hero-main-img">
+                  <div class="hero-floating-card card-1">
+                    <div class="fc-icon">👨‍🏫</div>
+                    <div class="fc-value">20+</div>
+                    <div class="fc-label">Expert Trainers</div>
+                  </div>
+                  <div class="hero-floating-card card-2">
+                    <div class="fc-icon">📚</div>
+                    <div class="fc-value">25+</div>
+                    <div class="fc-label">Courses</div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
+
+        <!-- Slide 3: Enrollment CTA -->
+        <div class="swiper-slide hero-slide-3">
+          <div class="hero-slide-bg">
+            <div class="bg-gradient-layer"></div>
+            <div class="bg-blob bg-blob-1"></div>
+            <div class="bg-blob bg-blob-2"></div>
+            <div class="bg-blob bg-blob-3"></div>
+          </div>
+          <div class="container">
+            <div class="row align-items-center">
+              <div class="col-lg-6">
+                <div class="hero-slide-content">
+                  <h1 class="hero-title">Enroll Now &amp; <span class="highlight">Save 30%</span></h1>
+                  <p class="hero-text">
+                    Limited-time early bird discount on all courses. Join thousands of successful
+                    alumni who transformed their careers with our industry-focused training.
+                  </p>
+                  <div class="hero-buttons">
+                    <a href="contact.html" class="btn btn-accent btn-lg">
+                      <i class="fa-solid fa-pen-to-square"></i> Enroll Today
+                    </a>
+                    <a href="courses.html" class="btn btn-secondary btn-lg">
+                      <i class="fa-solid fa-dollar-sign"></i> See Pricing
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="hero-image-wrapper">
+                  <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&amp;h=600&amp;fit=crop" alt="Students celebrating" class="hero-main-img">
+                  <div class="hero-floating-card card-1">
+                    <div class="fc-icon">🎉</div>
+                    <div class="fc-value">5000+</div>
+                    <div class="fc-label">Students Placed</div>
+                  </div>
+                  <div class="hero-floating-card card-2">
+                    <div class="fc-icon">💼</div>
+                    <div class="fc-value">100%</div>
+                    <div class="fc-label">Job Assistance</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
+      <!-- Hero pagination & navigation -->
+      <div class="swiper-pagination"></div>
+      <div class="swiper-button-next"></div>
+      <div class="swiper-button-prev"></div>
     </div>
   </section>
 
@@ -182,7 +305,7 @@
       <div class="row align-items-center g-5">
         <div class="col-lg-6" data-aos="fade-right">
           <div class="about-image-wrapper">
-            <img src="assets/images/about-institute.jpg" alt="About our institute" onerror="this.style.display='none'">
+            <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=1000&amp;h=800&amp;fit=crop" alt="About our institute" onerror="this.style.display='none'">
             <div class="experience-badge">
               <h3>10+</h3>
               <span>Years of Excellence</span>
@@ -221,7 +344,7 @@
         <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="0">
           <div class="course-card">
             <div class="course-image">
-              <img src="assets/images/course-python.jpg" alt="Python Programming" onerror="this.style.display='none'">
+              <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&amp;h=600&amp;fit=crop" alt="Python Programming" onerror="this.style.display='none'">
               <span class="course-badge">Popular</span>
             </div>
             <div class="course-body">
@@ -239,7 +362,7 @@
         <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
           <div class="course-card">
             <div class="course-image">
-              <img src="assets/images/course-java.jpg" alt="Java Programming" onerror="this.style.display='none'">
+              <img src="https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=800&amp;h=600&amp;fit=crop" alt="Java Programming" onerror="this.style.display='none'">
               <span class="course-badge" style="background:var(--color-secondary);">Trending</span>
             </div>
             <div class="course-body">
@@ -257,7 +380,7 @@
         <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
           <div class="course-card">
             <div class="course-image">
-              <img src="assets/images/course-web.jpg" alt="Web Development" onerror="this.style.display='none'">
+              <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=800&amp;h=600&amp;fit=crop" alt="Web Development" onerror="this.style.display='none'">
             </div>
             <div class="course-body">
               <div class="course-meta">
@@ -274,7 +397,7 @@
         <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="0">
           <div class="course-card">
             <div class="course-image">
-              <img src="assets/images/course-design.jpg" alt="Graphic Design" onerror="this.style.display='none'">
+              <img src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=800&amp;h=600&amp;fit=crop" alt="Graphic Design" onerror="this.style.display='none'">
             </div>
             <div class="course-body">
               <div class="course-meta">
@@ -291,7 +414,7 @@
         <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
           <div class="course-card">
             <div class="course-image">
-              <img src="assets/images/course-marketing.jpg" alt="Digital Marketing" onerror="this.style.display='none'">
+              <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=800&amp;h=600&amp;fit=crop" alt="Digital Marketing" onerror="this.style.display='none'">
             </div>
             <div class="course-body">
               <div class="course-meta">
@@ -308,7 +431,7 @@
         <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
           <div class="course-card">
             <div class="course-image">
-              <img src="assets/images/course-tally.jpg" alt="Tally ERP 9" onerror="this.style.display='none'">
+              <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&amp;h=600&amp;fit=crop" alt="Tally ERP 9" onerror="this.style.display='none'">
             </div>
             <div class="course-body">
               <div class="course-meta">
@@ -383,17 +506,22 @@
           </div>
         </div>
         <div class="col-lg-6" data-aos="fade-left" data-aos-delay="100">
-          <img src="assets/images/why-choose-us.jpg" alt="Why choose us" class="w-100 rounded-4 shadow-lg" onerror="this.style.display='none'">
+          <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=800&amp;h=600&amp;fit=crop" alt="Why choose us" class="w-100 rounded-4 shadow-lg" onerror="this.style.display='none'">
         </div>
       </div>
     </div>
   </section>
 
   <!-- ============================================================
-       SECTION 6: STATISTICS (Counters)
+       SECTION 6: STATISTICS (Animated Counters)
        ============================================================ -->
   <section class="statistics-section" id="statistics">
     <div class="container">
+      <div class="text-center mb-5" data-aos="fade-up">
+        <span class="section-tag">Our Impact</span>
+        <h2 class="section-title">Training Institute by the Numbers</h2>
+        <p class="section-subtitle">Our achievements reflect our commitment to quality education and student success.</p>
+      </div>
       <div class="row g-4">
         <div class="col-6 col-lg-3" data-aos="zoom-in" data-aos-delay="0">
           <div class="stat-card">
@@ -404,7 +532,7 @@
         </div>
         <div class="col-6 col-lg-3" data-aos="zoom-in" data-aos-delay="100">
           <div class="stat-card">
-            <div class="stat-icon"><i class="fa-solid fa-book"></i></div>
+            <div class="stat-icon"><i class="fa-solid fa-book-open"></i></div>
             <div class="stat-number" data-target="25" data-suffix="+">0</div>
             <div class="stat-label">Courses Offered</div>
           </div>
@@ -413,12 +541,12 @@
           <div class="stat-card">
             <div class="stat-icon"><i class="fa-solid fa-briefcase"></i></div>
             <div class="stat-number" data-target="4900" data-suffix="+">0</div>
-            <div class="stat-label">Placements</div>
+            <div class="stat-label">Successful Placements</div>
           </div>
         </div>
         <div class="col-6 col-lg-3" data-aos="zoom-in" data-aos-delay="300">
           <div class="stat-card">
-            <div class="stat-icon"><i class="fa-solid fa-calendar"></i></div>
+            <div class="stat-icon"><i class="fa-solid fa-calendar-check"></i></div>
             <div class="stat-number" data-target="10" data-suffix="+">0</div>
             <div class="stat-label">Years of Excellence</div>
           </div>
@@ -440,7 +568,7 @@
       <div class="row g-4">
         <div class="col-sm-6 col-lg-3" data-aos="fade-up" data-aos-delay="0">
           <div class="trainer-card">
-            <img src="assets/images/trainer-1.jpg" alt="Trainer" class="trainer-image" onerror="this.style.display='none'">
+            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&amp;h=400&amp;fit=crop" alt="Trainer" class="trainer-image" onerror="this.style.display='none'">
             <h5>Dr. Sarah Johnson</h5>
             <p class="trainer-designation">Python & Data Science</p>
             <div class="trainer-social">
@@ -452,7 +580,7 @@
         </div>
         <div class="col-sm-6 col-lg-3" data-aos="fade-up" data-aos-delay="100">
           <div class="trainer-card">
-            <img src="assets/images/trainer-2.jpg" alt="Trainer" class="trainer-image" onerror="this.style.display='none'">
+            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&amp;h=400&amp;fit=crop" alt="Trainer" class="trainer-image" onerror="this.style.display='none'">
             <h5>Prof. Michael Chen</h5>
             <p class="trainer-designation">Java & Spring Boot</p>
             <div class="trainer-social">
@@ -464,7 +592,7 @@
         </div>
         <div class="col-sm-6 col-lg-3" data-aos="fade-up" data-aos-delay="200">
           <div class="trainer-card">
-            <img src="assets/images/trainer-3.jpg" alt="Trainer" class="trainer-image" onerror="this.style.display='none'">
+            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&amp;h=400&amp;fit=crop" alt="Trainer" class="trainer-image" onerror="this.style.display='none'">
             <h5>Ms. Emily Rodriguez</h5>
             <p class="trainer-designation">Web Development</p>
             <div class="trainer-social">
@@ -476,7 +604,7 @@
         </div>
         <div class="col-sm-6 col-lg-3" data-aos="fade-up" data-aos-delay="300">
           <div class="trainer-card">
-            <img src="assets/images/trainer-4.jpg" alt="Trainer" class="trainer-image" onerror="this.style.display='none'">
+            <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=400&amp;h=400&amp;fit=crop" alt="Trainer" class="trainer-image" onerror="this.style.display='none'">
             <h5>Mr. David Kim</h5>
             <p class="trainer-designation">Digital Marketing</p>
             <div class="trainer-social">
@@ -491,19 +619,28 @@
   </section>
 
   <!-- ============================================================
-       SECTION 8: TESTIMONIALS (Carousel)
+       SECTION 8: TESTIMONIALS (Swiper Carousel)
        ============================================================ -->
-  <section class="section section-bg-gray" id="testimonials">
+  <section class="section section-bg-gray testimonials-section" id="testimonials">
     <div class="container">
       <div class="text-center" data-aos="fade-up">
         <span class="section-tag">Testimonials</span>
         <h2 class="section-title">What Our Students Say</h2>
         <p class="section-subtitle">Hear from our alumni who transformed their careers with us.</p>
       </div>
+
+      <!-- Decorative background blobs -->
+      <div class="testimonials-bg">
+        <div class="t-bg-blob t-bg-blob-1"></div>
+        <div class="t-bg-blob t-bg-blob-2"></div>
+      </div>
+
       <div class="testimonial-slider swiper" data-aos="fade-up">
         <div class="swiper-wrapper">
+          <!-- Testimonial 1 -->
           <div class="swiper-slide">
             <div class="testimonial-card">
+              <div class="tc-glow-line"></div>
               <div class="testimonial-rating">
                 <i class="fa-solid fa-star"></i>
                 <i class="fa-solid fa-star"></i>
@@ -511,18 +648,23 @@
                 <i class="fa-solid fa-star"></i>
                 <i class="fa-solid fa-star"></i>
               </div>
-              <p class="testimonial-text">"The Python course completely transformed my career. The hands-on projects and mentor support were exceptional. I landed a job within 2 months of completing the course."</p>
+              <p class="testimonial-text">“The Python course completely transformed my career. The hands-on projects and mentor support were exceptional. I landed a job within 2 months of completing the course.”</p>
               <div class="testimonial-author">
-                <img src="assets/images/student-1.jpg" alt="Student" onerror="this.style.display='none'">
+                <div class="ta-avatar">
+                  <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&amp;h=100&amp;fit=crop" alt="Priya Sharma" onerror="this.style.display='none'">
+                  <div class="ta-initial">PS</div>
+                </div>
                 <div>
                   <h6>Priya Sharma</h6>
-                  <span>Python Developer at TechCorp</span>
+                  <span><i class="fa-solid fa-briefcase me-1"></i> Python Developer at TechCorp</span>
                 </div>
               </div>
             </div>
           </div>
+          <!-- Testimonial 2 -->
           <div class="swiper-slide">
             <div class="testimonial-card">
+              <div class="tc-glow-line"></div>
               <div class="testimonial-rating">
                 <i class="fa-solid fa-star"></i>
                 <i class="fa-solid fa-star"></i>
@@ -530,18 +672,23 @@
                 <i class="fa-solid fa-star"></i>
                 <i class="fa-solid fa-star"></i>
               </div>
-              <p class="testimonial-text">"Excellent faculty and well-structured curriculum. The placement support was incredible — they helped me prepare for interviews and connected me with top companies."</p>
+              <p class="testimonial-text">“Excellent faculty and well-structured curriculum. The placement support was incredible — they helped me prepare for interviews and connected me with top companies.”</p>
               <div class="testimonial-author">
-                <img src="assets/images/student-2.jpg" alt="Student" onerror="this.style.display='none'">
+                <div class="ta-avatar">
+                  <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=100&amp;h=100&amp;fit=crop" alt="Rahul Verma" onerror="this.style.display='none'">
+                  <div class="ta-initial">RV</div>
+                </div>
                 <div>
                   <h6>Rahul Verma</h6>
-                  <span>Full-Stack Developer at WebStudio</span>
+                  <span><i class="fa-solid fa-briefcase me-1"></i> Full-Stack Developer at WebStudio</span>
                 </div>
               </div>
             </div>
           </div>
+          <!-- Testimonial 3 -->
           <div class="swiper-slide">
             <div class="testimonial-card">
+              <div class="tc-glow-line"></div>
               <div class="testimonial-rating">
                 <i class="fa-solid fa-star"></i>
                 <i class="fa-solid fa-star"></i>
@@ -549,18 +696,108 @@
                 <i class="fa-solid fa-star"></i>
                 <i class="fa-solid fa-star"></i>
               </div>
-              <p class="testimonial-text">"I joined the Digital Marketing course with zero experience. The practical approach and live projects gave me the confidence to start my own agency. Highly recommended!"</p>
+              <p class="testimonial-text">“I joined the Digital Marketing course with zero experience. The practical approach and live projects gave me the confidence to start my own agency. Highly recommended!”</p>
               <div class="testimonial-author">
-                <img src="assets/images/student-3.jpg" alt="Student" onerror="this.style.display='none'">
+                <div class="ta-avatar">
+                  <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&amp;h=100&amp;fit=crop" alt="Ananya Patel" onerror="this.style.display='none'">
+                  <div class="ta-initial">AP</div>
+                </div>
                 <div>
                   <h6>Ananya Patel</h6>
-                  <span>Founder at MarketPro</span>
+                  <span><i class="fa-solid fa-briefcase me-1"></i> Founder at MarketPro</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Testimonial 4 -->
+          <div class="swiper-slide">
+            <div class="testimonial-card">
+              <div class="tc-glow-line"></div>
+              <div class="testimonial-rating">
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+              </div>
+              <p class="testimonial-text">“The Web Development bootcamp was intense but incredibly rewarding. I built a portfolio of 5 live projects during the course, which helped me land my dream job.”</p>
+              <div class="testimonial-author">
+                <div class="ta-avatar">
+                  <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=100&amp;h=100&amp;fit=crop" alt="Arjun Mehta" onerror="this.style.display='none'">
+                  <div class="ta-initial">AM</div>
+                </div>
+                <div>
+                  <h6>Arjun Mehta</h6>
+                  <span><i class="fa-solid fa-briefcase me-1"></i> Frontend Engineer at CloudBase</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Testimonial 5 -->
+          <div class="swiper-slide">
+            <div class="testimonial-card">
+              <div class="tc-glow-line"></div>
+              <div class="testimonial-rating">
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+              </div>
+              <p class="testimonial-text">“I was a complete beginner in Java, but the instructors made everything so easy to understand. The live projects and mock interviews gave me the confidence to crack the interview.”</p>
+              <div class="testimonial-author">
+                <div class="ta-avatar">
+                  <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&amp;h=100&amp;fit=crop" alt="Neha Gupta" onerror="this.style.display='none'">
+                  <div class="ta-initial">NG</div>
+                </div>
+                <div>
+                  <h6>Neha Gupta</h6>
+                  <span><i class="fa-solid fa-briefcase me-1"></i> Java Developer at InnovateTech</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Testimonial 6 -->
+          <div class="swiper-slide">
+            <div class="testimonial-card">
+              <div class="tc-glow-line"></div>
+              <div class="testimonial-rating">
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+              </div>
+              <p class="testimonial-text">“The Tally course covered everything from basics to advanced GST compliance. The practical approach and real-world case studies made learning seamless. Highly recommended!”</p>
+              <div class="testimonial-author">
+                <div class="ta-avatar">
+                  <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=100&amp;h=100&amp;fit=crop" alt="Vikram Singh" onerror="this.style.display='none'">
+                  <div class="ta-initial">VS</div>
+                </div>
+                <div>
+                  <h6>Vikram Singh</h6>
+                  <span><i class="fa-solid fa-briefcase me-1"></i> Accountant at DataFlow Corp</span>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="swiper-pagination mt-4"></div>
+
+        <!-- Pagination -->
+        <div class="swiper-pagination"></div>
+        <!-- Navigation Arrows -->
+        <div class="swiper-button-next testimonial-next"></div>
+        <div class="swiper-button-prev testimonial-prev"></div>
+        <!-- Autoplay Progress Bar -->
+        <div class="swiper-progress-bar">
+          <span class="spb-fill"></span>
+        </div>
+      </div>
+
+      <div class="text-center mt-5" data-aos="fade-up">
+        <a href="testimonials.html" class="btn btn-outline-primary">
+          <i class="fa-solid fa-message-quote"></i> View All Testimonials
+        </a>
       </div>
     </div>
   </section>
@@ -578,37 +815,37 @@
       <div class="row g-3">
         <div class="col-sm-6 col-lg-4" data-aos="zoom-in" data-aos-delay="0">
           <div class="gallery-item">
-            <img src="assets/images/gallery-1.jpg" alt="Gallery Image" onerror="this.style.display='none'">
+            <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=800&amp;h=600&amp;fit=crop" alt="Gallery Image" onerror="this.style.display='none'">
             <div class="gallery-overlay"><i class="fa-solid fa-expand"></i></div>
           </div>
         </div>
         <div class="col-sm-6 col-lg-4" data-aos="zoom-in" data-aos-delay="100">
           <div class="gallery-item">
-            <img src="assets/images/gallery-2.jpg" alt="Gallery Image" onerror="this.style.display='none'">
+            <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=800&amp;h=600&amp;fit=crop" alt="Gallery Image" onerror="this.style.display='none'">
             <div class="gallery-overlay"><i class="fa-solid fa-expand"></i></div>
           </div>
         </div>
         <div class="col-sm-6 col-lg-4" data-aos="zoom-in" data-aos-delay="200">
           <div class="gallery-item">
-            <img src="assets/images/gallery-3.jpg" alt="Gallery Image" onerror="this.style.display='none'">
+            <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=800&amp;h=600&amp;fit=crop" alt="Gallery Image" onerror="this.style.display='none'">
             <div class="gallery-overlay"><i class="fa-solid fa-expand"></i></div>
           </div>
         </div>
         <div class="col-sm-6 col-lg-4" data-aos="zoom-in" data-aos-delay="0">
           <div class="gallery-item">
-            <img src="assets/images/gallery-4.jpg" alt="Gallery Image" onerror="this.style.display='none'">
+            <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=800&amp;h=600&amp;fit=crop" alt="Gallery Image" onerror="this.style.display='none'">
             <div class="gallery-overlay"><i class="fa-solid fa-expand"></i></div>
           </div>
         </div>
         <div class="col-sm-6 col-lg-4" data-aos="zoom-in" data-aos-delay="100">
           <div class="gallery-item">
-            <img src="assets/images/gallery-5.jpg" alt="Gallery Image" onerror="this.style.display='none'">
+            <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&amp;h=600&amp;fit=crop" alt="Gallery Image" onerror="this.style.display='none'">
             <div class="gallery-overlay"><i class="fa-solid fa-expand"></i></div>
           </div>
         </div>
         <div class="col-sm-6 col-lg-4" data-aos="zoom-in" data-aos-delay="200">
           <div class="gallery-item">
-            <img src="assets/images/gallery-6.jpg" alt="Gallery Image" onerror="this.style.display='none'">
+            <img src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=800&amp;h=600&amp;fit=crop" alt="Gallery Image" onerror="this.style.display='none'">
             <div class="gallery-overlay"><i class="fa-solid fa-expand"></i></div>
           </div>
         </div>
@@ -632,22 +869,22 @@
       <div class="partner-slider swiper" data-aos="fade-up">
         <div class="swiper-wrapper">
           <div class="swiper-slide text-center py-3">
-            <img src="assets/images/partner-1.png" alt="Partner" style="height:50px;filter:grayscale(1);opacity:0.5;" onerror="this.style.display='none'">
+            <img src="https://images.unsplash.com/photo-1486406144323-381c516c1a1e?w=200&amp;h=100&amp;fit=crop" alt="Partner" style="height:50px;filter:grayscale(1);opacity:0.5;" onerror="this.style.display='none'">
           </div>
           <div class="swiper-slide text-center py-3">
-            <img src="assets/images/partner-2.png" alt="Partner" style="height:50px;filter:grayscale(1);opacity:0.5;" onerror="this.style.display='none'">
+            <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=200&amp;h=100&amp;fit=crop" alt="Partner" style="height:50px;filter:grayscale(1);opacity:0.5;" onerror="this.style.display='none'">
           </div>
           <div class="swiper-slide text-center py-3">
-            <img src="assets/images/partner-3.png" alt="Partner" style="height:50px;filter:grayscale(1);opacity:0.5;" onerror="this.style.display='none'">
+            <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=200&amp;h=100&amp;fit=crop" alt="Partner" style="height:50px;filter:grayscale(1);opacity:0.5;" onerror="this.style.display='none'">
           </div>
           <div class="swiper-slide text-center py-3">
-            <img src="assets/images/partner-4.png" alt="Partner" style="height:50px;filter:grayscale(1);opacity:0.5;" onerror="this.style.display='none'">
+            <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=200&amp;h=100&amp;fit=crop" alt="Partner" style="height:50px;filter:grayscale(1);opacity:0.5;" onerror="this.style.display='none'">
           </div>
           <div class="swiper-slide text-center py-3">
-            <img src="assets/images/partner-5.png" alt="Partner" style="height:50px;filter:grayscale(1);opacity:0.5;" onerror="this.style.display='none'">
+            <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=200&amp;h=100&amp;fit=crop" alt="Partner" style="height:50px;filter:grayscale(1);opacity:0.5;" onerror="this.style.display='none'">
           </div>
           <div class="swiper-slide text-center py-3">
-            <img src="assets/images/partner-6.png" alt="Partner" style="height:50px;filter:grayscale(1);opacity:0.5;" onerror="this.style.display='none'">
+            <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=200&amp;h=100&amp;fit=crop" alt="Partner" style="height:50px;filter:grayscale(1);opacity:0.5;" onerror="this.style.display='none'">
           </div>
         </div>
       </div>

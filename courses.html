@@ -55,6 +55,7 @@
           <li class="nav-item"><a class="nav-link" href="gallery.html">Gallery</a></li>
           <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
           <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+          <li class="nav-item d-flex align-items-center me-2"><button class="dark-mode-toggle" id="darkModeToggle" aria-label="Toggle dark mode" title="Toggle dark mode"><i class="fa-solid fa-moon"></i></button></li>
           <li class="nav-item nav-cta"><a href="contact.html" class="btn btn-accent btn-sm">Apply Now</a></li>
         </ul>
       </div>
@@ -75,27 +76,29 @@
   </section>
 
   <!-- Course Grid -->
-  <section class="section">
+  <section class="section" id="courseGrid">
     <div class="container">
       <!-- Filters -->
       <div class="text-center mb-5" data-aos="fade-up">
-        <div class="btn-group flex-wrap gap-2" role="group" aria-label="Course filters">
-          <button class="btn btn-primary btn-sm">All</button>
-          <button class="btn btn-outline-primary btn-sm">Programming</button>
-          <button class="btn btn-outline-primary btn-sm">Design</button>
-          <button class="btn btn-outline-primary btn-sm">Accounting</button>
-          <button class="btn btn-outline-primary btn-sm">Marketing</button>
+        <div class="course-filters d-flex flex-wrap gap-2 justify-content-center" role="group" aria-label="Course filters">
+          <button class="btn btn-primary btn-sm filter-btn active" data-filter="all">All <span class="filter-count badge bg-light text-primary ms-1">6</span></button>
+          <button class="btn btn-outline-primary btn-sm filter-btn" data-filter="programming">Programming <span class="filter-count badge bg-light text-primary ms-1">3</span></button>
+          <button class="btn btn-outline-primary btn-sm filter-btn" data-filter="design">Design <span class="filter-count badge bg-light text-primary ms-1">1</span></button>
+          <button class="btn btn-outline-primary btn-sm filter-btn" data-filter="accounting">Accounting <span class="filter-count badge bg-light text-primary ms-1">1</span></button>
+          <button class="btn btn-outline-primary btn-sm filter-btn" data-filter="marketing">Marketing <span class="filter-count badge bg-light text-primary ms-1">1</span></button>
         </div>
+        <p class="text-muted small mt-3 mb-0" id="filterStatus">Showing <strong>6</strong> courses</p>
       </div>
-      <div class="row g-4">
-        <!-- Courses reused from index pattern -->
-        <div class="col-md-6 col-lg-4" data-aos="fade-up">
+      <div class="row g-4" id="courseContainer">
+        <!-- Python - Programming -->
+        <div class="col-md-6 col-lg-4 course-item" data-category="programming" data-aos="fade-up">
           <div class="course-card">
             <div class="course-image">
-              <img src="assets/images/course-python.jpg" alt="Python" onerror="this.style.display='none'">
+              <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&amp;h=600&amp;fit=crop" alt="Python">
               <span class="course-badge">Popular</span>
             </div>
             <div class="course-body">
+              <span class="course-category-tag">Programming</span>
               <div class="course-meta">
                 <span><i class="fa-regular fa-clock"></i> 6 Months</span>
                 <span><i class="fa-regular fa-star"></i> All Levels</span>
@@ -106,13 +109,15 @@
             </div>
           </div>
         </div>
-        <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
+        <!-- Java - Programming -->
+        <div class="col-md-6 col-lg-4 course-item" data-category="programming" data-aos="fade-up" data-aos-delay="100">
           <div class="course-card">
             <div class="course-image">
-              <img src="assets/images/course-java.jpg" alt="Java" onerror="this.style.display='none'">
+              <img src="https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=800&amp;h=600&amp;fit=crop" alt="Java">
               <span class="course-badge" style="background:var(--color-secondary);">Trending</span>
             </div>
             <div class="course-body">
+              <span class="course-category-tag">Programming</span>
               <div class="course-meta">
                 <span><i class="fa-regular fa-clock"></i> 6 Months</span>
                 <span><i class="fa-regular fa-star"></i> Intermediate</span>
@@ -123,12 +128,14 @@
             </div>
           </div>
         </div>
-        <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
+        <!-- Web - Programming -->
+        <div class="col-md-6 col-lg-4 course-item" data-category="programming" data-aos="fade-up" data-aos-delay="200">
           <div class="course-card">
             <div class="course-image">
-              <img src="assets/images/course-web.jpg" alt="Web Development" onerror="this.style.display='none'">
+              <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=800&amp;h=600&amp;fit=crop" alt="Web Development">
             </div>
             <div class="course-body">
+              <span class="course-category-tag">Programming</span>
               <div class="course-meta">
                 <span><i class="fa-regular fa-clock"></i> 8 Months</span>
                 <span><i class="fa-regular fa-star"></i> All Levels</span>
@@ -139,12 +146,14 @@
             </div>
           </div>
         </div>
-        <div class="col-md-6 col-lg-4" data-aos="fade-up">
+        <!-- Design -->
+        <div class="col-md-6 col-lg-4 course-item" data-category="design" data-aos="fade-up">
           <div class="course-card">
             <div class="course-image">
-              <img src="assets/images/course-design.jpg" alt="Graphic Design" onerror="this.style.display='none'">
+              <img src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=800&amp;h=600&amp;fit=crop" alt="Graphic Design">
             </div>
             <div class="course-body">
+              <span class="course-category-tag">Design</span>
               <div class="course-meta">
                 <span><i class="fa-regular fa-clock"></i> 4 Months</span>
                 <span><i class="fa-regular fa-star"></i> Beginner</span>
@@ -155,12 +164,14 @@
             </div>
           </div>
         </div>
-        <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
+        <!-- Marketing -->
+        <div class="col-md-6 col-lg-4 course-item" data-category="marketing" data-aos="fade-up" data-aos-delay="100">
           <div class="course-card">
             <div class="course-image">
-              <img src="assets/images/course-marketing.jpg" alt="Digital Marketing" onerror="this.style.display='none'">
+              <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=800&amp;h=600&amp;fit=crop" alt="Digital Marketing">
             </div>
             <div class="course-body">
+              <span class="course-category-tag">Marketing</span>
               <div class="course-meta">
                 <span><i class="fa-regular fa-clock"></i> 3 Months</span>
                 <span><i class="fa-regular fa-star"></i> Beginner</span>
@@ -171,12 +182,14 @@
             </div>
           </div>
         </div>
-        <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
+        <!-- Accounting -->
+        <div class="col-md-6 col-lg-4 course-item" data-category="accounting" data-aos="fade-up" data-aos-delay="200">
           <div class="course-card">
             <div class="course-image">
-              <img src="assets/images/course-tally.jpg" alt="Tally" onerror="this.style.display='none'">
+              <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&amp;h=600&amp;fit=crop" alt="Tally">
             </div>
             <div class="course-body">
+              <span class="course-category-tag">Accounting</span>
               <div class="course-meta">
                 <span><i class="fa-regular fa-clock"></i> 3 Months</span>
                 <span><i class="fa-regular fa-star"></i> Beginner</span>
@@ -187,6 +200,13 @@
             </div>
           </div>
         </div>
+      </div>
+      <!-- No results message (hidden by default) -->
+      <div class="text-center py-5 d-none" id="noResults">
+        <div class="fs-1 text-muted mb-3">🔍</div>
+        <h5 class="text-muted">No courses found</h5>
+        <p class="text-muted small">Try selecting a different category.</p>
+        <button class="btn btn-outline-primary btn-sm reset-filter-btn">Show All Courses</button>
       </div>
     </div>
   </section>
