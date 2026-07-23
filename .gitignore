@@ -1,0 +1,15 @@
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Assets - only ignore generated/machine-made files if any
+# Placeholder images are tracked
+
+# Logs
+*.log

@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Industry-ready computer courses with practical training. Join the leading training institute for Python, Java, Web Development and more.">
+  <meta name="keywords" content="training institute, computer courses, python, java, web development, graphic design, digital marketing">
+  <meta name="author" content="Training Institute">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Training Institute - Learn Today. Build Tomorrow.">
+  <meta property="og:description" content="Industry-ready computer courses with practical training.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://traininginstitute.com">
+  <meta property="og:image" content="assets/images/og-image.jpg">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+
+  <!-- Google Fonts: Poppins -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap 5.3 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Swiper CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+
+  <!-- AOS CSS -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="assets/css/style.css">
+
+  <title>Training Institute - Learn Today. Build Tomorrow.</title>
+</head>
+<body>
+
+  <!-- ============================================================
+       LOADING SPINNER (Preloader)
+       ============================================================ -->
+  <div class="loading-spinner">
+    <div class="spinner"></div>
+  </div>
+
+  <!-- ============================================================
+       TOP BAR
+       ============================================================ -->
+  <div class="top-bar d-none d-md-block">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-md-8">
+          <div class="contact-info">
+            <span><i class="fa-solid fa-phone"></i> +1 (555) 123-4567</span>
+            <span><i class="fa-solid fa-envelope"></i> info@traininginstitute.com</span>
+            <span><i class="fa-solid fa-location-dot"></i> 123 Education Lane, New York, NY</span>
+          </div>
+        </div>
+        <div class="col-md-4 text-end">
+          <div class="social-links">
+            <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="#" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+            <a href="#" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       NAVBAR (Sticky, Glassmorphism)
+       ============================================================ -->
+  <nav class="navbar navbar-expand-lg main-navbar" aria-label="Main navigation">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">
+        <i class="fa-solid fa-graduation-cap"></i> Train<span>Hub</span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="mainNav">
+        <ul class="navbar-nav ms-auto align-items-lg-center">
+          <li class="nav-item"><a class="nav-link active" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="courses.html">Courses</a></li>
+          <li class="nav-item"><a class="nav-link" href="gallery.html">Gallery</a></li>
+          <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
+          <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+          <li class="nav-item nav-cta">
+            <a href="contact.html" class="btn btn-accent btn-sm">Apply Now</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ============================================================
+       SECTION 1: HERO
+       ============================================================ -->
+  <section class="hero-section" id="home">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-6">
+          <div class="hero-content" data-aos="fade-up">
+            <h1 class="hero-title">Learn Today. <span>Build Tomorrow.</span></h1>
+            <p class="hero-text">
+              Industry-ready computer courses with practical training. 
+              Start your journey towards a successful tech career with expert mentors.
+            </p>
+            <div class="hero-buttons">
+              <a href="courses.html" class="btn btn-accent btn-lg">
+                <i class="fa-solid fa-book-open"></i> Explore Courses
+              </a>
+              <a href="contact.html" class="btn btn-secondary btn-lg">
+                <i class="fa-solid fa-arrow-right"></i> Apply Now
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="hero-image" data-aos="fade-left" data-aos-delay="200">
+            <img src="assets/images/hero-student.jpg" alt="Students learning" onerror="this.style.display='none'">
+            <div class="hero-shape hero-shape-1"></div>
+            <div class="hero-shape hero-shape-2"></div>
+            <div class="hero-shape hero-shape-3"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 2: TRUST STRIP (Features/Stats)
+       ============================================================ -->
+  <section class="trust-strip">
+    <div class="container">
+      <div class="row g-3">
+        <div class="col-6 col-md-3" data-aos="fade-up" data-aos-delay="0">
+          <div class="trust-card">
+            <div class="trust-icon blue"><i class="fa-solid fa-users"></i></div>
+            <div class="trust-number">5000+</div>
+            <div class="trust-label">Students Trained</div>
+          </div>
+        </div>
+        <div class="col-6 col-md-3" data-aos="fade-up" data-aos-delay="100">
+          <div class="trust-card">
+            <div class="trust-icon cyan"><i class="fa-solid fa-chalkboard-user"></i></div>
+            <div class="trust-number">20+</div>
+            <div class="trust-label">Expert Trainers</div>
+          </div>
+        </div>
+        <div class="col-6 col-md-3" data-aos="fade-up" data-aos-delay="200">
+          <div class="trust-card">
+            <div class="trust-icon amber"><i class="fa-solid fa-briefcase"></i></div>
+            <div class="trust-number">98%</div>
+            <div class="trust-label">Placement Rate</div>
+          </div>
+        </div>
+        <div class="col-6 col-md-3" data-aos="fade-up" data-aos-delay="300">
+          <div class="trust-card">
+            <div class="trust-icon green"><i class="fa-solid fa-certificate"></i></div>
+            <div class="trust-number">100%</div>
+            <div class="trust-label">Govt Certified</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 3: ABOUT
+       ============================================================ -->
+  <section class="section" id="about">
+    <div class="container">
+      <div class="row align-items-center g-5">
+        <div class="col-lg-6" data-aos="fade-right">
+          <div class="about-image-wrapper">
+            <img src="assets/images/about-institute.jpg" alt="About our institute" onerror="this.style.display='none'">
+            <div class="experience-badge">
+              <h3>10+</h3>
+              <span>Years of Excellence</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6" data-aos="fade-left" data-aos-delay="100">
+          <span class="section-tag">About Us</span>
+          <h2 class="section-title">Empowering Careers Through Quality Education</h2>
+          <p>At Training Institute, we believe in bridging the gap between academic knowledge and industry requirements. Our comprehensive courses are designed by industry experts to ensure you gain practical, job-ready skills.</p>
+          <p>With over a decade of experience in training and placement, we have helped thousands of students launch their careers in the ever-evolving tech industry.</p>
+          <ul class="mb-4">
+            <li><i class="fa-solid fa-check-circle text-primary me-2"></i> Industry-aligned curriculum</li>
+            <li><i class="fa-solid fa-check-circle text-primary me-2"></i> Hands-on live projects</li>
+            <li><i class="fa-solid fa-check-circle text-primary me-2"></i> 100% placement assistance</li>
+            <li><i class="fa-solid fa-check-circle text-primary me-2"></i> Flexible learning schedules</li>
+          </ul>
+          <a href="about.html" class="btn btn-primary">Read More <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 4: POPULAR COURSES
+       ============================================================ -->
+  <section class="section section-bg-gray" id="courses">
+    <div class="container">
+      <div class="text-center" data-aos="fade-up">
+        <span class="section-tag">Our Courses</span>
+        <h2 class="section-title">Popular Programs</h2>
+        <p class="section-subtitle">Choose from our industry-focused courses designed to kickstart your career.</p>
+      </div>
+      <div class="row g-4">
+        <!-- Course 1 -->
+        <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="0">
+          <div class="course-card">
+            <div class="course-image">
+              <img src="assets/images/course-python.jpg" alt="Python Programming" onerror="this.style.display='none'">
+              <span class="course-badge">Popular</span>
+            </div>
+            <div class="course-body">
+              <div class="course-meta">
+                <span><i class="fa-regular fa-clock"></i> 6 Months</span>
+                <span><i class="fa-regular fa-star"></i> Beginner to Advanced</span>
+              </div>
+              <h5 class="course-title">Python Programming</h5>
+              <p class="course-description">Master Python from basics to advanced. Build real-world applications and learn data structures, OOP, and more.</p>
+              <a href="course-details.html" class="btn btn-outline-primary btn-sm">Learn More <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+          </div>
+        </div>
+        <!-- Course 2 -->
+        <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
+          <div class="course-card">
+            <div class="course-image">
+              <img src="assets/images/course-java.jpg" alt="Java Programming" onerror="this.style.display='none'">
+              <span class="course-badge" style="background:var(--color-secondary);">Trending</span>
+            </div>
+            <div class="course-body">
+              <div class="course-meta">
+                <span><i class="fa-regular fa-clock"></i> 6 Months</span>
+                <span><i class="fa-regular fa-star"></i> Intermediate</span>
+              </div>
+              <h5 class="course-title">Java Development</h5>
+              <p class="course-description">Learn core Java, Spring Boot, Hibernate, and build enterprise-grade applications with hands-on projects.</p>
+              <a href="course-details.html" class="btn btn-outline-primary btn-sm">Learn More <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+          </div>
+        </div>
+        <!-- Course 3 -->
+        <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
+          <div class="course-card">
+            <div class="course-image">
+              <img src="assets/images/course-web.jpg" alt="Web Development" onerror="this.style.display='none'">
+            </div>
+            <div class="course-body">
+              <div class="course-meta">
+                <span><i class="fa-regular fa-clock"></i> 8 Months</span>
+                <span><i class="fa-regular fa-star"></i> Beginner to Advanced</span>
+              </div>
+              <h5 class="course-title">Full-Stack Web Development</h5>
+              <p class="course-description">HTML, CSS, JavaScript, React, Node.js, MongoDB — become a complete full-stack developer.</p>
+              <a href="course-details.html" class="btn btn-outline-primary btn-sm">Learn More <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+          </div>
+        </div>
+        <!-- Course 4 -->
+        <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="0">
+          <div class="course-card">
+            <div class="course-image">
+              <img src="assets/images/course-design.jpg" alt="Graphic Design" onerror="this.style.display='none'">
+            </div>
+            <div class="course-body">
+              <div class="course-meta">
+                <span><i class="fa-regular fa-clock"></i> 4 Months</span>
+                <span><i class="fa-regular fa-star"></i> Beginner</span>
+              </div>
+              <h5 class="course-title">Graphic Design</h5>
+              <p class="course-description">Learn Photoshop, Illustrator, UI/UX principles, and create stunning designs for print and web.</p>
+              <a href="course-details.html" class="btn btn-outline-primary btn-sm">Learn More <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+          </div>
+        </div>
+        <!-- Course 5 -->
+        <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
+          <div class="course-card">
+            <div class="course-image">
+              <img src="assets/images/course-marketing.jpg" alt="Digital Marketing" onerror="this.style.display='none'">
+            </div>
+            <div class="course-body">
+              <div class="course-meta">
+                <span><i class="fa-regular fa-clock"></i> 3 Months</span>
+                <span><i class="fa-regular fa-star"></i> Beginner</span>
+              </div>
+              <h5 class="course-title">Digital Marketing</h5>
+              <p class="course-description">SEO, SEM, Social Media Marketing, Email Marketing, Google Ads — master the digital landscape.</p>
+              <a href="course-details.html" class="btn btn-outline-primary btn-sm">Learn More <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+          </div>
+        </div>
+        <!-- Course 6 -->
+        <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
+          <div class="course-card">
+            <div class="course-image">
+              <img src="assets/images/course-tally.jpg" alt="Tally ERP 9" onerror="this.style.display='none'">
+            </div>
+            <div class="course-body">
+              <div class="course-meta">
+                <span><i class="fa-regular fa-clock"></i> 3 Months</span>
+                <span><i class="fa-regular fa-star"></i> Beginner</span>
+              </div>
+              <h5 class="course-title">Tally ERP 9</h5>
+              <p class="course-description">Complete accounting and inventory management with Tally. GST compliance, payroll, and taxation included.</p>
+              <a href="course-details.html" class="btn btn-outline-primary btn-sm">Learn More <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="text-center mt-4" data-aos="fade-up">
+        <a href="courses.html" class="btn btn-primary btn-lg">View All Courses <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 5: WHY CHOOSE US
+       ============================================================ -->
+  <section class="section" id="why-choose-us">
+    <div class="container">
+      <div class="row align-items-center g-5">
+        <div class="col-lg-6" data-aos="fade-right">
+          <span class="section-tag">Why Choose Us</span>
+          <h2 class="section-title">We Make Learning Different</h2>
+          <p class="section-subtitle section-subtitle--left">Our commitment to quality education sets us apart.</p>
+
+          <div class="why-item">
+            <div class="why-icon blue"><i class="fa-solid fa-laptop-code"></i></div>
+            <div>
+              <h6>Live Projects</h6>
+              <p>Work on real-world projects that build your portfolio and confidence.</p>
+            </div>
+          </div>
+          <div class="why-item">
+            <div class="why-icon cyan"><i class="fa-solid fa-chalkboard-user"></i></div>
+            <div>
+              <h6>Certified Faculty</h6>
+              <p>Learn from industry veterans with years of practical experience.</p>
+            </div>
+          </div>
+          <div class="why-item">
+            <div class="why-icon green"><i class="fa-solid fa-handshake"></i></div>
+            <div>
+              <h6>Placement Support</h6>
+              <p>Dedicated placement cell with resume building, mock interviews & job referrals.</p>
+            </div>
+          </div>
+          <div class="why-item">
+            <div class="why-icon amber"><i class="fa-solid fa-clock"></i></div>
+            <div>
+              <h6>Flexible Timings</h6>
+              <p>Weekday, weekend, and evening batches to fit your schedule.</p>
+            </div>
+          </div>
+          <div class="why-item">
+            <div class="why-icon purple"><i class="fa-solid fa-wallet"></i></div>
+            <div>
+              <h6>Affordable Fees</h6>
+              <p>Quality education at competitive prices with easy EMI options.</p>
+            </div>
+          </div>
+          <div class="why-item">
+            <div class="why-icon pink"><i class="fa-solid fa-microchip"></i></div>
+            <div>
+              <h6>Modern Labs</h6>
+              <p>State-of-the-art computer labs with the latest software and tools.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6" data-aos="fade-left" data-aos-delay="100">
+          <img src="assets/images/why-choose-us.jpg" alt="Why choose us" class="w-100 rounded-4 shadow-lg" onerror="this.style.display='none'">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 6: STATISTICS (Counters)
+       ============================================================ -->
+  <section class="statistics-section" id="statistics">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-6 col-lg-3" data-aos="zoom-in" data-aos-delay="0">
+          <div class="stat-card">
+            <div class="stat-icon"><i class="fa-solid fa-users"></i></div>
+            <div class="stat-number" data-target="5000" data-suffix="+">0</div>
+            <div class="stat-label">Students Trained</div>
+          </div>
+        </div>
+        <div class="col-6 col-lg-3" data-aos="zoom-in" data-aos-delay="100">
+          <div class="stat-card">
+            <div class="stat-icon"><i class="fa-solid fa-book"></i></div>
+            <div class="stat-number" data-target="25" data-suffix="+">0</div>
+            <div class="stat-label">Courses Offered</div>
+          </div>
+        </div>
+        <div class="col-6 col-lg-3" data-aos="zoom-in" data-aos-delay="200">
+          <div class="stat-card">
+            <div class="stat-icon"><i class="fa-solid fa-briefcase"></i></div>
+            <div class="stat-number" data-target="4900" data-suffix="+">0</div>
+            <div class="stat-label">Placements</div>
+          </div>
+        </div>
+        <div class="col-6 col-lg-3" data-aos="zoom-in" data-aos-delay="300">
+          <div class="stat-card">
+            <div class="stat-icon"><i class="fa-solid fa-calendar"></i></div>
+            <div class="stat-number" data-target="10" data-suffix="+">0</div>
+            <div class="stat-label">Years of Excellence</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 7: TRAINERS
+       ============================================================ -->
+  <section class="section" id="trainers">
+    <div class="container">
+      <div class="text-center" data-aos="fade-up">
+        <span class="section-tag">Our Team</span>
+        <h2 class="section-title">Meet Our Expert Trainers</h2>
+        <p class="section-subtitle">Learn from the best in the industry with years of professional experience.</p>
+      </div>
+      <div class="row g-4">
+        <div class="col-sm-6 col-lg-3" data-aos="fade-up" data-aos-delay="0">
+          <div class="trainer-card">
+            <img src="assets/images/trainer-1.jpg" alt="Trainer" class="trainer-image" onerror="this.style.display='none'">
+            <h5>Dr. Sarah Johnson</h5>
+            <p class="trainer-designation">Python & Data Science</p>
+            <div class="trainer-social">
+              <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+              <a href="#" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+              <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-lg-3" data-aos="fade-up" data-aos-delay="100">
+          <div class="trainer-card">
+            <img src="assets/images/trainer-2.jpg" alt="Trainer" class="trainer-image" onerror="this.style.display='none'">
+            <h5>Prof. Michael Chen</h5>
+            <p class="trainer-designation">Java & Spring Boot</p>
+            <div class="trainer-social">
+              <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+              <a href="#" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+              <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-lg-3" data-aos="fade-up" data-aos-delay="200">
+          <div class="trainer-card">
+            <img src="assets/images/trainer-3.jpg" alt="Trainer" class="trainer-image" onerror="this.style.display='none'">
+            <h5>Ms. Emily Rodriguez</h5>
+            <p class="trainer-designation">Web Development</p>
+            <div class="trainer-social">
+              <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+              <a href="#" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+              <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-lg-3" data-aos="fade-up" data-aos-delay="300">
+          <div class="trainer-card">
+            <img src="assets/images/trainer-4.jpg" alt="Trainer" class="trainer-image" onerror="this.style.display='none'">
+            <h5>Mr. David Kim</h5>
+            <p class="trainer-designation">Digital Marketing</p>
+            <div class="trainer-social">
+              <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+              <a href="#" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+              <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 8: TESTIMONIALS (Carousel)
+       ============================================================ -->
+  <section class="section section-bg-gray" id="testimonials">
+    <div class="container">
+      <div class="text-center" data-aos="fade-up">
+        <span class="section-tag">Testimonials</span>
+        <h2 class="section-title">What Our Students Say</h2>
+        <p class="section-subtitle">Hear from our alumni who transformed their careers with us.</p>
+      </div>
+      <div class="testimonial-slider swiper" data-aos="fade-up">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <div class="testimonial-card">
+              <div class="testimonial-rating">
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+              </div>
+              <p class="testimonial-text">"The Python course completely transformed my career. The hands-on projects and mentor support were exceptional. I landed a job within 2 months of completing the course."</p>
+              <div class="testimonial-author">
+                <img src="assets/images/student-1.jpg" alt="Student" onerror="this.style.display='none'">
+                <div>
+                  <h6>Priya Sharma</h6>
+                  <span>Python Developer at TechCorp</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="testimonial-card">
+              <div class="testimonial-rating">
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+              </div>
+              <p class="testimonial-text">"Excellent faculty and well-structured curriculum. The placement support was incredible — they helped me prepare for interviews and connected me with top companies."</p>
+              <div class="testimonial-author">
+                <img src="assets/images/student-2.jpg" alt="Student" onerror="this.style.display='none'">
+                <div>
+                  <h6>Rahul Verma</h6>
+                  <span>Full-Stack Developer at WebStudio</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="testimonial-card">
+              <div class="testimonial-rating">
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+              </div>
+              <p class="testimonial-text">"I joined the Digital Marketing course with zero experience. The practical approach and live projects gave me the confidence to start my own agency. Highly recommended!"</p>
+              <div class="testimonial-author">
+                <img src="assets/images/student-3.jpg" alt="Student" onerror="this.style.display='none'">
+                <div>
+                  <h6>Ananya Patel</h6>
+                  <span>Founder at MarketPro</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="swiper-pagination mt-4"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 9: GALLERY
+       ============================================================ -->
+  <section class="section" id="gallery">
+    <div class="container">
+      <div class="text-center" data-aos="fade-up">
+        <span class="section-tag">Gallery</span>
+        <h2 class="section-title">Campus & Events</h2>
+        <p class="section-subtitle">Take a peek into our vibrant campus life and learning environment.</p>
+      </div>
+      <div class="row g-3">
+        <div class="col-sm-6 col-lg-4" data-aos="zoom-in" data-aos-delay="0">
+          <div class="gallery-item">
+            <img src="assets/images/gallery-1.jpg" alt="Gallery Image" onerror="this.style.display='none'">
+            <div class="gallery-overlay"><i class="fa-solid fa-expand"></i></div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-lg-4" data-aos="zoom-in" data-aos-delay="100">
+          <div class="gallery-item">
+            <img src="assets/images/gallery-2.jpg" alt="Gallery Image" onerror="this.style.display='none'">
+            <div class="gallery-overlay"><i class="fa-solid fa-expand"></i></div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-lg-4" data-aos="zoom-in" data-aos-delay="200">
+          <div class="gallery-item">
+            <img src="assets/images/gallery-3.jpg" alt="Gallery Image" onerror="this.style.display='none'">
+            <div class="gallery-overlay"><i class="fa-solid fa-expand"></i></div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-lg-4" data-aos="zoom-in" data-aos-delay="0">
+          <div class="gallery-item">
+            <img src="assets/images/gallery-4.jpg" alt="Gallery Image" onerror="this.style.display='none'">
+            <div class="gallery-overlay"><i class="fa-solid fa-expand"></i></div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-lg-4" data-aos="zoom-in" data-aos-delay="100">
+          <div class="gallery-item">
+            <img src="assets/images/gallery-5.jpg" alt="Gallery Image" onerror="this.style.display='none'">
+            <div class="gallery-overlay"><i class="fa-solid fa-expand"></i></div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-lg-4" data-aos="zoom-in" data-aos-delay="200">
+          <div class="gallery-item">
+            <img src="assets/images/gallery-6.jpg" alt="Gallery Image" onerror="this.style.display='none'">
+            <div class="gallery-overlay"><i class="fa-solid fa-expand"></i></div>
+          </div>
+        </div>
+      </div>
+      <div class="text-center mt-4" data-aos="fade-up">
+        <a href="gallery.html" class="btn btn-primary">View Full Gallery <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 10: PLACEMENT PARTNERS
+       ============================================================ -->
+  <section class="section section-bg-gray" id="partners">
+    <div class="container">
+      <div class="text-center" data-aos="fade-up">
+        <span class="section-tag">Our Partners</span>
+        <h2 class="section-title">Placement Partners</h2>
+        <p class="section-subtitle">We are proud to be associated with leading companies.</p>
+      </div>
+      <div class="partner-slider swiper" data-aos="fade-up">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide text-center py-3">
+            <img src="assets/images/partner-1.png" alt="Partner" style="height:50px;filter:grayscale(1);opacity:0.5;" onerror="this.style.display='none'">
+          </div>
+          <div class="swiper-slide text-center py-3">
+            <img src="assets/images/partner-2.png" alt="Partner" style="height:50px;filter:grayscale(1);opacity:0.5;" onerror="this.style.display='none'">
+          </div>
+          <div class="swiper-slide text-center py-3">
+            <img src="assets/images/partner-3.png" alt="Partner" style="height:50px;filter:grayscale(1);opacity:0.5;" onerror="this.style.display='none'">
+          </div>
+          <div class="swiper-slide text-center py-3">
+            <img src="assets/images/partner-4.png" alt="Partner" style="height:50px;filter:grayscale(1);opacity:0.5;" onerror="this.style.display='none'">
+          </div>
+          <div class="swiper-slide text-center py-3">
+            <img src="assets/images/partner-5.png" alt="Partner" style="height:50px;filter:grayscale(1);opacity:0.5;" onerror="this.style.display='none'">
+          </div>
+          <div class="swiper-slide text-center py-3">
+            <img src="assets/images/partner-6.png" alt="Partner" style="height:50px;filter:grayscale(1);opacity:0.5;" onerror="this.style.display='none'">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 11: ADMISSION CTA
+       ============================================================ -->
+  <section class="cta-section" id="admission-cta">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-8" data-aos="fade-up">
+          <h2>Ready to Start Your Journey?</h2>
+          <p>Join thousands of successful students who have transformed their careers with our training programs. Enroll now and take the first step toward a brighter future.</p>
+          <a href="contact.html" class="btn btn-accent btn-lg">
+            <i class="fa-solid fa-pen-to-square"></i> Apply for Admission
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 12: CONTACT / ENQUIRY FORM
+       ============================================================ -->
+  <section class="section" id="contact">
+    <div class="container">
+      <div class="row g-5">
+        <div class="col-lg-6" data-aos="fade-right">
+          <span class="section-tag">Get in Touch</span>
+          <h2 class="section-title">Have Questions? Write to Us</h2>
+          <p class="section-subtitle section-subtitle--left">We'd love to hear from you. Send us a message and we'll respond as soon as possible.</p>
+
+          <form class="needs-validation" novalidate>
+            <div class="row g-3">
+              <div class="col-md-6">
+                <input type="text" class="form-control" placeholder="Your Name" required>
+                <div class="invalid-feedback">Please enter your name.</div>
+              </div>
+              <div class="col-md-6">
+                <input type="email" class="form-control" placeholder="Your Email" required>
+                <div class="invalid-feedback">Please enter a valid email.</div>
+              </div>
+              <div class="col-md-6">
+                <input type="tel" class="form-control" placeholder="Your Phone" required>
+                <div class="invalid-feedback">Please enter your phone number.</div>
+              </div>
+              <div class="col-md-6">
+                <select class="form-select" required>
+                  <option value="" disabled selected>Select Course</option>
+                  <option value="python">Python Programming</option>
+                  <option value="java">Java Development</option>
+                  <option value="web">Web Development</option>
+                  <option value="design">Graphic Design</option>
+                  <option value="marketing">Digital Marketing</option>
+                  <option value="tally">Tally ERP 9</option>
+                </select>
+                <div class="invalid-feedback">Please select a course.</div>
+              </div>
+              <div class="col-12">
+                <textarea class="form-control" placeholder="Your Message" rows="4" required></textarea>
+                <div class="invalid-feedback">Please enter your message.</div>
+              </div>
+              <div class="col-12">
+                <button type="submit" class="btn btn-primary btn-lg">
+                  <i class="fa-solid fa-paper-plane"></i> Send Message
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="col-lg-6" data-aos="fade-left" data-aos-delay="100">
+          <div class="contact-info-card">
+            <div class="contact-icon"><i class="fa-solid fa-location-dot"></i></div>
+            <div>
+              <h6>Our Address</h6>
+              <p>123 Education Lane, Suite 200<br>New York, NY 10001</p>
+            </div>
+          </div>
+          <div class="contact-info-card">
+            <div class="contact-icon"><i class="fa-solid fa-phone"></i></div>
+            <div>
+              <h6>Phone</h6>
+              <p>+1 (555) 123-4567<br>+1 (555) 987-6543</p>
+            </div>
+          </div>
+          <div class="contact-info-card">
+            <div class="contact-icon"><i class="fa-solid fa-envelope"></i></div>
+            <div>
+              <h6>Email</h6>
+              <p>info@traininginstitute.com<br>admissions@traininginstitute.com</p>
+            </div>
+          </div>
+          <div class="contact-info-card">
+            <div class="contact-icon"><i class="fa-solid fa-clock"></i></div>
+            <div>
+              <h6>Office Hours</h6>
+              <p>Mon – Fri: 9:00 AM – 7:00 PM<br>Sat: 10:00 AM – 4:00 PM</p>
+            </div>
+          </div>
+          <!-- Google Map Placeholder -->
+          <div class="mt-3">
+            <iframe 
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.1422937950147!2d-73.98731968459376!3d40.75889497932781!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25855c6480299%3A0x55194ec5a1ae072e!2sTimes%20Square!5e0!3m2!1sen!2sus!4v1690000000000!5m2!1sen!2sus" 
+              width="100%" height="220" style="border:0; border-radius: 12px;" allowfullscreen="" loading="lazy">
+            </iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FOOTER
+       ============================================================ -->
+  <footer class="footer">
+    <div class="container">
+      <div class="row g-4">
+        <!-- Column 1: Logo + About -->
+        <div class="col-lg-3 col-md-6">
+          <h5><i class="fa-solid fa-graduation-cap text-primary me-2"></i> Train<span class="text-secondary">Hub</span></h5>
+          <p>Industry-ready computer courses with practical training. Join us to build a successful tech career.</p>
+          <div class="d-flex gap-2 mt-3">
+            <a href="#" class="btn btn-sm" style="background:rgba(255,255,255,0.1);color:#fff;border-radius:50%;width:38px;height:38px;display:flex;align-items:center;justify-content:center;" aria-label="Facebook">
+              <i class="fa-brands fa-facebook-f"></i>
+            </a>
+            <a href="#" class="btn btn-sm" style="background:rgba(255,255,255,0.1);color:#fff;border-radius:50%;width:38px;height:38px;display:flex;align-items:center;justify-content:center;" aria-label="Twitter">
+              <i class="fa-brands fa-twitter"></i>
+            </a>
+            <a href="#" class="btn btn-sm" style="background:rgba(255,255,255,0.1);color:#fff;border-radius:50%;width:38px;height:38px;display:flex;align-items:center;justify-content:center;" aria-label="Instagram">
+              <i class="fa-brands fa-instagram"></i>
+            </a>
+            <a href="#" class="btn btn-sm" style="background:rgba(255,255,255,0.1);color:#fff;border-radius:50%;width:38px;height:38px;display:flex;align-items:center;justify-content:center;" aria-label="LinkedIn">
+              <i class="fa-brands fa-linkedin-in"></i>
+            </a>
+          </div>
+        </div>
+        <!-- Column 2: Quick Links -->
+        <div class="col-lg-3 col-md-6">
+          <h5>Quick Links</h5>
+          <ul class="footer-links">
+            <li><a href="index.html"><i class="fa-solid fa-chevron-right"></i> Home</a></li>
+            <li><a href="about.html"><i class="fa-solid fa-chevron-right"></i> About Us</a></li>
+            <li><a href="courses.html"><i class="fa-solid fa-chevron-right"></i> Courses</a></li>
+            <li><a href="gallery.html"><i class="fa-solid fa-chevron-right"></i> Gallery</a></li>
+            <li><a href="blog.html"><i class="fa-solid fa-chevron-right"></i> Blog</a></li>
+            <li><a href="contact.html"><i class="fa-solid fa-chevron-right"></i> Contact</a></li>
+          </ul>
+        </div>
+        <!-- Column 3: Courses -->
+        <div class="col-lg-3 col-md-6">
+          <h5>Popular Courses</h5>
+          <ul class="footer-links">
+            <li><a href="course-details.html"><i class="fa-solid fa-chevron-right"></i> Python Programming</a></li>
+            <li><a href="course-details.html"><i class="fa-solid fa-chevron-right"></i> Java Development</a></li>
+            <li><a href="course-details.html"><i class="fa-solid fa-chevron-right"></i> Web Development</a></li>
+            <li><a href="course-details.html"><i class="fa-solid fa-chevron-right"></i> Graphic Design</a></li>
+            <li><a href="course-details.html"><i class="fa-solid fa-chevron-right"></i> Digital Marketing</a></li>
+            <li><a href="course-details.html"><i class="fa-solid fa-chevron-right"></i> Tally ERP 9</a></li>
+          </ul>
+        </div>
+        <!-- Column 4: Contact + Newsletter -->
+        <div class="col-lg-3 col-md-6">
+          <h5>Contact Us</h5>
+          <div class="contact-item">
+            <i class="fa-solid fa-location-dot"></i>
+            <span>123 Education Lane, New York, NY 10001</span>
+          </div>
+          <div class="contact-item">
+            <i class="fa-solid fa-phone"></i>
+            <span>+1 (555) 123-4567</span>
+          </div>
+          <div class="contact-item">
+            <i class="fa-solid fa-envelope"></i>
+            <span>info@traininginstitute.com</span>
+          </div>
+          <div class="mt-3">
+            <h6 style="color:#fff;font-size:0.875rem;">Subscribe to Newsletter</h6>
+            <form class="newsletter-form">
+              <div class="input-group">
+                <input type="email" class="form-control" placeholder="Your Email" required>
+                <button class="btn btn-primary" type="submit"><i class="fa-solid fa-paper-plane"></i></button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-md-6">
+            <p>&copy; 2024 Training Institute. All rights reserved.</p>
+          </div>
+          <div class="col-md-6 text-md-end">
+            <p>
+              <a href="#" class="text-muted me-3">Privacy Policy</a>
+              <a href="#" class="text-muted">Terms of Service</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============================================================
+       WHATSAPP FLOATING BUTTON
+       ============================================================ -->
+  <a href="https://wa.me/15551234567" class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp">
+    <i class="fa-brands fa-whatsapp"></i>
+  </a>
+
+  <!-- ============================================================
+       SCROLL TO TOP BUTTON
+       ============================================================ -->
+  <button class="scroll-top" aria-label="Scroll to top">
+    <i class="fa-solid fa-arrow-up"></i>
+  </button>
+
+  <!-- ============================================================
+       SCRIPTS
+       ============================================================ -->
+  <!-- Bootstrap 5.3 JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Swiper JS -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+  <!-- AOS JS -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+  <!-- Main JavaScript -->
+  <script src="assets/js/main.js"></script>
+
+</body>
+</html>
