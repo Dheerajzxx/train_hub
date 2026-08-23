@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Detailed information about our Python Programming course including full curriculum, learning outcomes, trainer, projects, certification, and FAQ.">
-  <title>Python Programming - Course Details | Training Institute</title>
+  <meta name="description" content="Course details at Sahara Computers & Education Institute — duration, total fees, admission fees, monthly fees, about the course and what you learn. ISO Certified 9001:2015, G B Palya, Bangalore.">
+  <title>Course Details | Sahara Computers & Education Institute</title>
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,20 +16,6 @@
   <link rel="stylesheet" href="assets/css/style.css">
   <style>
     /* Course detail page specific styles */
-    .outcome-item { display: flex; gap: 1rem; margin-bottom: 0.875rem; align-items: flex-start; }
-    .outcome-item .outcome-icon { width: 28px; height: 28px; min-width: 28px; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: var(--color-primary-light); color: var(--color-primary); font-size: 0.75rem; margin-top: 3px; }
-
-    .project-card { background: var(--color-background); border-radius: var(--radius-md); padding: 1.5rem; height: 100%; transition: all var(--transition-base); }
-    .project-card:hover { background: var(--color-primary-light); transform: translateY(-3px); }
-
-    .certificate-badge { width: 120px; height: 120px; background: linear-gradient(135deg, var(--color-primary), var(--color-secondary)); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; color: var(--color-white); margin: 0 auto 1.5rem; }
-
-    .trainer-bio-card { display: flex; gap: 1.5rem; align-items: center; padding: 1.5rem; background: var(--color-background); border-radius: var(--radius-lg); }
-    .trainer-bio-card img { max-width: 100%; }
-    .bg-primary-light-custom { background: var(--color-primary-light); }
-
-    .breadcrumb-nav-inner { background: var(--color-background); padding: 0.75rem 0; border-bottom: 1px solid var(--color-border); }
-
     .course-info-badge { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.375rem 1rem; border-radius: 50px; font-size: var(--font-size-sm); font-weight: 500; }
     .course-info-badge.badge-outline { background: transparent; border: 1px solid var(--color-border); color: var(--color-text-light); }
     .course-info-badge.badge-highlight { background: var(--color-primary-light); color: var(--color-primary); }
@@ -38,47 +24,29 @@
     .sidebar-card .price-tag { font-size: 2.5rem; font-weight: 800; color: var(--color-primary); line-height: 1; }
     .sidebar-card .price-tag small { font-size: 1rem; font-weight: 400; color: var(--color-text-light); }
 
-    .faq-section .accordion-item { margin-bottom: 0.75rem; }
+    .topic-chip {
+      display: inline-flex; align-items: center; gap: 0.45rem;
+      background: var(--color-primary-light); color: var(--color-primary);
+      border-radius: 50px; padding: 0.4rem 0.95rem; margin: 0 0.4rem 0.6rem 0;
+      font-size: var(--font-size-sm); font-weight: 500;
+    }
 
-    /* Course features icon circles */
-    .feature-icon-circle { width:40px; height:40px; background:var(--color-primary-light); border-radius:10px; display:flex; align-items:center; justify-content:center; color:var(--color-primary); flex-shrink:0; }
+    .fee-row { display: flex; justify-content: space-between; align-items: center; padding: 0.5rem 0; border-bottom: 1px dashed var(--color-border); }
+    .fee-row:last-child { border-bottom: none; }
+    .fee-row strong { font-weight: 600; }
 
-    /* Dark mode overrides for course-details page */
-    :root.dark-mode .outcome-item .outcome-icon { background: #1E3A8A; color: #93C5FD; }
-    :root.dark-mode .project-card:hover { background: #1E3A8A; }
-    :root.dark-mode .bg-primary-light-custom { background: #1E3A8A; }
+    .bg-primary-light-custom { background: var(--color-primary-light); }
+
+    /* Dark mode overrides */
     :root.dark-mode .course-info-badge.badge-highlight { background: #1E3A8A; color: #93C5FD; }
     :root.dark-mode .course-info-badge.badge-outline { border-color: var(--color-border); color: var(--color-text-light); }
-    :root.dark-mode .feature-icon-circle { background: #1E3A8A; color: #93C5FD; }
     :root.dark-mode .sidebar-card .price-tag { color: #60A5FA; }
-    :root.dark-mode .certificate-badge { background: linear-gradient(135deg, #1E3A8A, #0F172A); color: #fff; }
-    :root.dark-mode .trainer-bio-card { background: #1A2332; }
-
-    /* Big stat boxes in accordion - dark mode */
-    :root.dark-mode .accordion-body .bg-light { background: #1A2332 !important; }
-    :root.dark-mode .accordion-body .text-dark { color: var(--color-dark) !important; }
-    :root.dark-mode .accordion-body .text-muted { color: var(--color-text-muted) !important; }
-
-    /* Trainer badge fallbacks */
-    :root.dark-mode .badge.bg-light { background: #1A2332 !important; }
-    :root.dark-mode .badge .text-dark { color: var(--color-dark) !important; }
-
-    /* Bottom CTA section text */
+    :root.dark-mode .topic-chip { background: #1E3A8A; color: #93C5FD; }
+    :root.dark-mode .sidebar-card .card ul li { color: var(--color-dark); }
     :root.dark-mode .bg-primary-light-custom h5 { color: var(--color-dark); }
     :root.dark-mode .bg-primary-light-custom .text-muted { color: var(--color-text-light) !important; }
 
-    /* Sidebar pricing card list text */
-    :root.dark-mode .sidebar-card .card ul li {
-      color: var(--color-dark);
-    }
-
-    /* Collapsed accordion button text in dark mode — make it black */
-    :root.dark-mode .accordion-button.collapsed {
-      color: #000 !important;
-    }
-
     @media (max-width: 991.98px) {
-      .trainer-bio-card { flex-direction: column; text-align: center; }
       .sidebar-card { position: static; }
     }
   </style>
@@ -92,19 +60,21 @@
       <div class="row align-items-center">
         <div class="col-md-8">
           <div class="contact-info">
-            <span><i class="fa-solid fa-phone"></i> +1 (555) 123-4567</span>
-            <span><i class="fa-solid fa-envelope"></i> info@traininginstitute.com</span>
-            <span><i class="fa-solid fa-location-dot"></i> 123 Education Lane, New York, NY</span>
+            <span><i class="fa-solid fa-phone"></i> 9845668603 / 7019570143</span>
+            <span><i class="fa-solid fa-location-dot"></i> G B Palya, Bangalore – 560 068</span>
           </div>
         </div>
         <div class="col-md-4 text-end">
           <div class="social-links">
-            <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
-            <a href="#" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
-            <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
-            <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
-            <a href="#" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+            <span><i class="fa-solid fa-certificate"></i> ISO Certified 9001:2015</span>
           </div>
+          <!-- Social links hidden until client provides real social pages
+          <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+          <a href="#" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+          -->
         </div>
       </div>
     </div>
@@ -113,18 +83,20 @@
   <!-- Navbar -->
   <nav class="navbar navbar-expand-lg main-navbar" aria-label="Main navigation">
     <div class="container">
-      <a class="navbar-brand" href="index.html"><i class="fa-solid fa-graduation-cap"></i> Train<span>Hub</span></a>
+      <a class="navbar-brand" href="index.html"><i class="fa-solid fa-graduation-cap"></i> Sahara <span>Computers</span></a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-label="Toggle navigation"><i class="fa-solid fa-bars"></i></button>
       <div class="collapse navbar-collapse" id="mainNav">
         <ul class="navbar-nav ms-auto align-items-lg-center">
           <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
           <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
           <li class="nav-item"><a class="nav-link active" href="courses.html">Courses</a></li>
+          <!-- Gallery & Blog hidden until real photos/articles are available
           <li class="nav-item"><a class="nav-link" href="gallery.html">Gallery</a></li>
           <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
+          -->
           <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
           <li class="nav-item d-flex align-items-center me-2"><button class="dark-mode-toggle" id="darkModeToggle" aria-label="Toggle dark mode" title="Toggle dark mode"><i class="fa-solid fa-moon"></i></button></li>
-          <li class="nav-item nav-cta"><a href="contact.html" class="btn btn-accent btn-sm">Apply Now</a></li>
+          <li class="nav-item nav-cta"><a href="contact.html" class="btn btn-accent btn-sm">Enquire Now</a></li>
         </ul>
       </div>
     </div>
@@ -137,14 +109,15 @@
         <ol class="breadcrumb mb-0">
           <li class="breadcrumb-item"><a href="index.html">Home</a></li>
           <li class="breadcrumb-item"><a href="courses.html">Courses</a></li>
-          <li class="breadcrumb-item active" aria-current="page">Python Programming</li>
+          <li class="breadcrumb-item active" aria-current="page" id="bcCourse">Course Details</li>
         </ol>
       </nav>
     </div>
   </div>
 
   <!-- ============================================================
-       MAIN CONTENT
+       MAIN CONTENT (rendered by JS from the COURSES data below,
+       based on the ?course= URL parameter)
        ============================================================ -->
   <section class="section">
     <div class="container">
@@ -154,455 +127,46 @@
         <div class="col-lg-8">
 
           <!-- Course Header Image -->
-          <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&amp;h=600&amp;fit=crop" alt="Python Programming" class="w-100 rounded-4 mb-4 shadow-sm" data-aos="fade-up">
+          <img id="courseImage" src="" alt="" class="w-100 rounded-4 mb-4 shadow-sm" data-aos="fade-up">
 
           <!-- Course Title & Meta -->
           <div data-aos="fade-up">
-            <span class="section-tag">Programming</span>
-            <h1 class="section-title mt-2">Python Programming</h1>
+            <span class="section-tag" id="courseCategory">Course</span>
+            <h1 class="section-title mt-2" id="courseName">Course Details</h1>
             <div class="d-flex flex-wrap gap-3 mb-3">
-              <span class="course-info-badge badge-highlight"><i class="fa-regular fa-clock"></i> Duration: 6 Months</span>
-              <span class="course-info-badge badge-outline"><i class="fa-regular fa-star"></i> Beginner to Advanced</span>
-              <span class="course-info-badge badge-outline"><i class="fa-solid fa-video"></i> 120+ Hours</span>
-              <span class="course-info-badge badge-outline"><i class="fa-solid fa-users"></i> Batch Size: 25</span>
+              <span class="course-info-badge badge-highlight"><i class="fa-regular fa-clock"></i> <span id="badgeDuration">Duration</span></span>
+              <span class="course-info-badge badge-outline"><i class="fa-solid fa-indian-rupee-sign"></i> <span id="badgeFee">Total Fee</span> total (10% off)</span>
+              <span class="course-info-badge badge-outline"><i class="fa-solid fa-certificate"></i> Certificate on completion</span>
             </div>
           </div>
 
-          <!-- Course Overview -->
+          <!-- About the Course -->
           <div data-aos="fade-up" data-aos-delay="50">
-            <h5 class="fw-bold mb-3">Course Overview</h5>
-            <p>This comprehensive Python programming course takes you from a complete beginner to a confident developer ready for the real world. You'll master Python fundamentals, object-oriented programming, data structures, database integration, and API development — all through hands-on projects that simulate real industry scenarios.</p>
-            <p>Our curriculum is designed in collaboration with industry experts from top tech companies to ensure you learn exactly what employers are looking for. By the end of this course, you'll have a strong portfolio of projects and the confidence to ace technical interviews.</p>
+            <h5 class="fw-bold mb-3"><i class="fa-solid fa-circle-info text-primary me-2"></i> About the Course</h5>
+            <p id="courseAbout">Select a course to see details.</p>
+            <p class="text-muted small mb-0">Every course is taught step by step with practical training. Visit or call us to know about admission, class timings and the next batch.</p>
           </div>
 
-          <!-- Learning Outcomes -->
+          <!-- What You Learn -->
           <div class="mt-4" data-aos="fade-up">
-            <h5 class="fw-bold mb-3"><i class="fa-solid fa-bullseye text-primary me-2"></i> What You'll Learn</h5>
-            <div class="row">
-              <div class="col-md-6">
-                <div class="outcome-item"><div class="outcome-icon"><i class="fa-solid fa-check"></i></div><div><strong>Python Fundamentals</strong><p class="small text-muted mb-0">Variables, data types, operators, control flow</p></div></div>
-                <div class="outcome-item"><div class="outcome-icon"><i class="fa-solid fa-check"></i></div><div><strong>Functions &amp; Modules</strong><p class="small text-muted mb-0">Write reusable, modular code with functions</p></div></div>
-                <div class="outcome-item"><div class="outcome-icon"><i class="fa-solid fa-check"></i></div><div><strong>OOP Concepts</strong><p class="small text-muted mb-0">Classes, inheritance, polymorphism, encapsulation</p></div></div>
-                <div class="outcome-item"><div class="outcome-icon"><i class="fa-solid fa-check"></i></div><div><strong>Data Structures</strong><p class="small text-muted mb-0">Lists, tuples, dicts, sets, comprehensions</p></div></div>
-              </div>
-              <div class="col-md-6">
-                <div class="outcome-item"><div class="outcome-icon"><i class="fa-solid fa-check"></i></div><div><strong>File I/O &amp; Exception Handling</strong><p class="small text-muted mb-0">Read/write files, error handling best practices</p></div></div>
-                <div class="outcome-item"><div class="outcome-icon"><i class="fa-solid fa-check"></i></div><div><strong>Database Integration</strong><p class="small text-muted mb-0">SQLite, PostgreSQL, SQLAlchemy ORM</p></div></div>
-                <div class="outcome-item"><div class="outcome-icon"><i class="fa-solid fa-check"></i></div><div><strong>API Development</strong><p class="small text-muted mb-0">REST APIs with FastAPI / Flask</p></div></div>
-                <div class="outcome-item"><div class="outcome-icon"><i class="fa-solid fa-check"></i></div><div><strong>Testing &amp; Deployment</strong><p class="small text-muted mb-0">Unit testing, debugging, deployment basics</p></div></div>
-              </div>
-            </div>
+            <h5 class="fw-bold mb-3"><i class="fa-solid fa-bullseye text-primary me-2"></i> What You Learn</h5>
+            <div id="courseTopics"><!-- topic chips rendered by JS --></div>
           </div>
 
-          <!-- Full Curriculum Accordion -->
+          <!-- Explore Other Courses -->
           <div class="mt-4" data-aos="fade-up">
-            <h5 class="fw-bold mb-3"><i class="fa-solid fa-book-open text-primary me-2"></i> Full Curriculum</h5>
-            <p class="text-muted small mb-3">8 comprehensive modules designed to take you from zero to job-ready.</p>
-            <div class="accordion" id="curriculumAccordion">
-
-              <!-- Module 1 -->
-              <div class="accordion-item">
-                <h2 class="accordion-header">
-                  <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#mod1">
-                    <span class="d-flex align-items-center gap-2"><span class="badge bg-primary rounded-pill">01</span> Python Fundamentals</span>
-                  </button>
-                </h2>
-                <div id="mod1" class="accordion-collapse collapse show" data-bs-parent="#curriculumAccordion">
-                  <div class="accordion-body">
-                    <div class="row">
-                      <div class="col-md-8">
-                        <p>Get started with Python from scratch. Learn the syntax, write your first programs, and understand the core building blocks of the language.</p>
-                        <ul class="small mb-0">
-                          <li>Setting up the development environment (VS Code, PyCharm)</li>
-                          <li>Variables, data types, and type conversion</li>
-                          <li>Strings, numbers, booleans, and None</li>
-                          <li>Basic input/output and string formatting</li>
-                          <li>Operators and expressions</li>
-                        </ul>
-                      </div>
-                      <div class="col-md-4">
-                        <div class="bg-light rounded-3 p-3 text-center h-100 d-flex flex-column justify-content-center">
-                          <span class="text-primary fw-bold small">WEEK 1-2</span>
-                          <span class="display-6 fw-bold text-dark">14</span>
-                          <span class="text-muted small">Hours</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Module 2 -->
-              <div class="accordion-item">
-                <h2 class="accordion-header">
-                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#mod2">
-                    <span class="d-flex align-items-center gap-2"><span class="badge bg-primary rounded-pill">02</span> Control Flow &amp; Functions</span>
-                  </button>
-                </h2>
-                <div id="mod2" class="accordion-collapse collapse" data-bs-parent="#curriculumAccordion">
-                  <div class="accordion-body">
-                    <div class="row">
-                      <div class="col-md-8">
-                        <p>Master decision-making and loops. Learn to write clean, reusable functions that form the backbone of any Python application.</p>
-                        <ul class="small mb-0">
-                          <li>Conditional statements (if, elif, else)</li>
-                          <li>Loops (for, while) and loop control</li>
-                          <li>List and dictionary comprehensions</li>
-                          <li>Defining functions, parameters, return values</li>
-                          <li>Lambda, map, filter, reduce</li>
-                          <li>Scope, namespaces, and global/local variables</li>
-                        </ul>
-                      </div>
-                      <div class="col-md-4">
-                        <div class="bg-light rounded-3 p-3 text-center h-100 d-flex flex-column justify-content-center">
-                          <span class="text-primary fw-bold small">WEEK 3-4</span>
-                          <span class="display-6 fw-bold text-dark">16</span>
-                          <span class="text-muted small">Hours</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Module 3 -->
-              <div class="accordion-item">
-                <h2 class="accordion-header">
-                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#mod3">
-                    <span class="d-flex align-items-center gap-2"><span class="badge bg-primary rounded-pill">03</span> Data Structures</span>
-                  </button>
-                </h2>
-                <div id="mod3" class="accordion-collapse collapse" data-bs-parent="#curriculumAccordion">
-                  <div class="accordion-body">
-                    <div class="row">
-                      <div class="col-md-8">
-                        <p>Dive deep into Python's built-in data structures and learn when and how to use each one effectively for optimal performance.</p>
-                        <ul class="small mb-0">
-                          <li>Lists: methods, slicing, and nesting</li>
-                          <li>Tuples: immutable sequences and unpacking</li>
-                          <li>Dictionaries: key-value pairs, defaultdict, Counter</li>
-                          <li>Sets: union, intersection, difference operations</li>
-                          <li>Stack, queue, and deque implementations</li>
-                          <li>Time complexity analysis for each structure</li>
-                        </ul>
-                      </div>
-                      <div class="col-md-4">
-                        <div class="bg-light rounded-3 p-3 text-center h-100 d-flex flex-column justify-content-center">
-                          <span class="text-primary fw-bold small">WEEK 5-6</span>
-                          <span class="display-6 fw-bold text-dark">16</span>
-                          <span class="text-muted small">Hours</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Module 4 -->
-              <div class="accordion-item">
-                <h2 class="accordion-header">
-                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#mod4">
-                    <span class="d-flex align-items-center gap-2"><span class="badge bg-primary rounded-pill">04</span> Object-Oriented Programming</span>
-                  </button>
-                </h2>
-                <div id="mod4" class="accordion-collapse collapse" data-bs-parent="#curriculumAccordion">
-                  <div class="accordion-body">
-                    <div class="row">
-                      <div class="col-md-8">
-                        <p>Learn OOP principles that are essential for building scalable, maintainable applications. Understand how to model real-world entities in code.</p>
-                        <ul class="small mb-0">
-                          <li>Classes, objects, and the __init__ method</li>
-                          <li>Instance methods, class methods, static methods</li>
-                          <li>Inheritance, method overriding, super()</li>
-                          <li>Polymorphism and duck typing</li>
-                          <li>Encapsulation and property decorators</li>
-                          <li>Abstract base classes and interfaces</li>
-                        </ul>
-                      </div>
-                      <div class="col-md-4">
-                        <div class="bg-light rounded-3 p-3 text-center h-100 d-flex flex-column justify-content-center">
-                          <span class="text-primary fw-bold small">WEEK 7-8</span>
-                          <span class="display-6 fw-bold text-dark">16</span>
-                          <span class="text-muted small">Hours</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Module 5 -->
-              <div class="accordion-item">
-                <h2 class="accordion-header">
-                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#mod5">
-                    <span class="d-flex align-items-center gap-2"><span class="badge bg-primary rounded-pill">05</span> File Handling &amp; Error Management</span>
-                  </button>
-                </h2>
-                <div id="mod5" class="accordion-collapse collapse" data-bs-parent="#curriculumAccordion">
-                  <div class="accordion-body">
-                    <div class="row">
-                      <div class="col-md-8">
-                        <p>Handle files, exceptions, and logging like a professional. Build robust applications that handle errors gracefully.</p>
-                        <ul class="small mb-0">
-                          <li>Reading/writing text and binary files</li>
-                          <li>CSV, JSON, and XML file parsing</li>
-                          <li>Context managers and the 'with' statement</li>
-                          <li>Exception handling: try, except, finally, raise</li>
-                          <li>Creating custom exceptions</li>
-                          <li>Logging best practices with the logging module</li>
-                        </ul>
-                      </div>
-                      <div class="col-md-4">
-                        <div class="bg-light rounded-3 p-3 text-center h-100 d-flex flex-column justify-content-center">
-                          <span class="text-primary fw-bold small">WEEK 9-10</span>
-                          <span class="display-6 fw-bold text-dark">14</span>
-                          <span class="text-muted small">Hours</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Module 6 -->
-              <div class="accordion-item">
-                <h2 class="accordion-header">
-                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#mod6">
-                    <span class="d-flex align-items-center gap-2"><span class="badge bg-primary rounded-pill">06</span> Database Integration</span>
-                  </button>
-                </h2>
-                <div id="mod6" class="accordion-collapse collapse" data-bs-parent="#curriculumAccordion">
-                  <div class="accordion-body">
-                    <div class="row">
-                      <div class="col-md-8">
-                        <p>Connect Python to databases, execute SQL queries, and use ORMs to work with data efficiently in your applications.</p>
-                        <ul class="small mb-0">
-                          <li>Introduction to relational databases</li>
-                          <li>SQLite for local development</li>
-                          <li>PostgreSQL for production databases</li>
-                          <li>SQLAlchemy ORM: models, queries, relationships</li>
-                          <li>Database migrations with Alembic</li>
-                          <li>Connection pooling and best practices</li>
-                        </ul>
-                      </div>
-                      <div class="col-md-4">
-                        <div class="bg-light rounded-3 p-3 text-center h-100 d-flex flex-column justify-content-center">
-                          <span class="text-primary fw-bold small">WEEK 11-12</span>
-                          <span class="display-6 fw-bold text-dark">14</span>
-                          <span class="text-muted small">Hours</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Module 7 -->
-              <div class="accordion-item">
-                <h2 class="accordion-header">
-                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#mod7">
-                    <span class="d-flex align-items-center gap-2"><span class="badge bg-primary rounded-pill">07</span> API Development with FastAPI</span>
-                  </button>
-                </h2>
-                <div id="mod7" class="accordion-collapse collapse" data-bs-parent="#curriculumAccordion">
-                  <div class="accordion-body">
-                    <div class="row">
-                      <div class="col-md-8">
-                        <p>Build modern, high-performance REST APIs using FastAPI. Learn routing, validation, authentication, and documentation generation.</p>
-                        <ul class="small mb-0">
-                          <li>Setting up FastAPI and understanding ASGI</li>
-                          <li>Path operations, routing, and parameters</li>
-                          <li>Request validation with Pydantic models</li>
-                          <li>Dependency injection for clean code</li>
-                          <li>Authentication and authorization (JWT)</li>
-                          <li>Auto-generated OpenAPI documentation</li>
-                        </ul>
-                      </div>
-                      <div class="col-md-4">
-                        <div class="bg-light rounded-3 p-3 text-center h-100 d-flex flex-column justify-content-center">
-                          <span class="text-primary fw-bold small">WEEK 13-14</span>
-                          <span class="display-6 fw-bold text-dark">16</span>
-                          <span class="text-muted small">Hours</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Module 8 -->
-              <div class="accordion-item">
-                <h2 class="accordion-header">
-                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#mod8">
-                    <span class="d-flex align-items-center gap-2"><span class="badge bg-primary rounded-pill">08</span> Testing, Debugging &amp; Deployment</span>
-                  </button>
-                </h2>
-                <div id="mod8" class="accordion-collapse collapse" data-bs-parent="#curriculumAccordion">
-                  <div class="accordion-body">
-                    <div class="row">
-                      <div class="col-md-8">
-                        <p>Learn professional testing practices, debugging techniques, and how to deploy Python applications to production environments.</p>
-                        <ul class="small mb-0">
-                          <li>Unit testing with pytest</li>
-                          <li>Mocking and test fixtures</li>
-                          <li>Test-driven development (TDD) workflow</li>
-                          <li>Debugging with pdb and IDE tools</li>
-                          <li>Environment management with Docker</li>
-                          <li>Deployment to cloud platforms (Render, Railway)</li>
-                        </ul>
-                      </div>
-                      <div class="col-md-4">
-                        <div class="bg-light rounded-3 p-3 text-center h-100 d-flex flex-column justify-content-center">
-                          <span class="text-primary fw-bold small">WEEK 15-16</span>
-                          <span class="display-6 fw-bold text-dark">14</span>
-                          <span class="text-muted small">Hours</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-            </div>
-          </div>
-
-          <!-- Trainer Section -->
-          <div class="mt-5" data-aos="fade-up">
-            <h5 class="fw-bold mb-3"><i class="fa-solid fa-chalkboard-user text-primary me-2"></i> Your Instructor</h5>
-            <div class="trainer-bio-card">
-              <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&amp;h=400&amp;fit=crop" alt="Dr. Sarah Johnson" class="rounded-circle" width="120" height="120" style="object-fit:cover;border:4px solid var(--color-primary-light);" onerror="this.style.display='none'">
-              <div>
-                <h5 class="fw-bold mb-1">Dr. Sarah Johnson</h5>
-                <p class="text-primary fw-medium small mb-2">Senior Python Developer &amp; Data Scientist — 12+ years experience</p>
-                <p class="small text-muted mb-2">Dr. Johnson has worked at Google and Amazon as a senior engineer. She specializes in Python, machine learning pipelines, and distributed systems. She holds a Ph.D. in Computer Science from MIT and has taught over 2,000 students in her career.</p>
-                <div class="d-flex gap-2">
-                  <span class="badge" style="background:var(--color-background);color:var(--color-text);"><i class="fa-brands fa-linkedin" style="color:var(--color-primary);"></i> LinkedIn</span>
-                  <span class="badge" style="background:var(--color-background);color:var(--color-text);"><i class="fa-brands fa-github" style="color:var(--color-text);"></i> GitHub</span>
-                  <span class="badge" style="background:var(--color-background);color:var(--color-text);"><i class="fa-solid fa-star" style="color:var(--color-accent);"></i> 4.9 Rating</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Projects Section -->
-          <div class="mt-5" data-aos="fade-up">
-            <h5 class="fw-bold mb-3"><i class="fa-solid fa-laptop-code text-primary me-2"></i> Hands-On Projects</h5>
-            <p class="text-muted small mb-3">Build your portfolio with real-world projects that demonstrate your skills to employers.</p>
-            <div class="row g-3">
-              <div class="col-md-6">
-                <div class="project-card">
-                  <div class="fs-2 mb-2">📊</div>
-                  <h6 class="fw-bold">Data Analysis Dashboard</h6>
-                  <p class="small text-muted mb-0">Build an interactive dashboard that processes CSV data, generates visualizations, and exports PDF reports using Pandas and Matplotlib.</p>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="project-card">
-                  <div class="fs-2 mb-2">🛒</div>
-                  <h6 class="fw-bold">E-Commerce API</h6>
-                  <p class="small text-muted mb-0">Create a fully functional REST API for an e-commerce platform with user authentication, product management, cart, and order processing.</p>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="project-card">
-                  <div class="fs-2 mb-2">📝</div>
-                  <h6 class="fw-bold">Task Management App</h6>
-                  <p class="small text-muted mb-0">Develop a CLI-based task manager with database persistence, categories, due dates, and priority tracking using SQLite and Click.</p>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="project-card">
-                  <div class="fs-2 mb-2">🤖</div>
-                  <h6 class="fw-bold">Automation Bot</h6>
-                  <p class="small text-muted mb-0">Build an automation script that scrapes websites, sends scheduled email reports, and integrates with Slack/Telegram APIs.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Certificate Section -->
-          <div class="mt-5" data-aos="fade-up">
-            <div class="row align-items-center g-4">
-              <div class="col-md-4 text-center">
-                <div class="certificate-badge shadow-lg">
-                  <i class="fa-solid fa-certificate"></i>
-                </div>
-              </div>
-              <div class="col-md-8">
-                <h5 class="fw-bold mb-3"><i class="fa-solid fa-award text-primary me-2"></i> Get Certified</h5>
-                <p>Upon successful completion of the course and projects, you'll receive a <strong>Training Institute Certificate of Completion</strong> that is recognized by industry partners. The certificate verifies your proficiency in Python programming and is a valuable addition to your resume and LinkedIn profile.</p>
-                <ul class="small">
-                  <li><i class="fa-solid fa-check-circle text-success me-1"></i> Industry-recognized certification</li>
-                  <li><i class="fa-solid fa-check-circle text-success me-1"></i> Shareable on LinkedIn</li>
-                  <li><i class="fa-solid fa-check-circle text-success me-1"></i> Verified digital badge</li>
-                  <li><i class="fa-solid fa-check-circle text-success me-1"></i> Lifetime access to course materials</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          <!-- FAQ Section -->
-          <div class="mt-5 faq-section" data-aos="fade-up">
-            <h5 class="fw-bold mb-3"><i class="fa-solid fa-circle-question text-primary me-2"></i> Frequently Asked Questions</h5>
-            <div class="accordion" id="faqAccordion">
-              <div class="accordion-item">
-                <h2 class="accordion-header">
-                  <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
-                    Do I need prior programming experience?
-                  </button>
-                </h2>
-                <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
-                  <div class="accordion-body">No, this course is designed for absolute beginners. We start from the very basics and gradually build up to advanced topics. Our curriculum includes extra support sessions for students who need additional help.</div>
-                </div>
-              </div>
-              <div class="accordion-item">
-                <h2 class="accordion-header">
-                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
-                    What if I miss a class?
-                  </button>
-                </h2>
-                <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-                  <div class="accordion-body">All classes are recorded and uploaded to your student portal within 24 hours. You'll have lifetime access to all recordings, so you can catch up at your own pace. Additionally, you can schedule one-on-one doubt-clearing sessions with the instructor.</div>
-                </div>
-              </div>
-              <div class="accordion-item">
-                <h2 class="accordion-header">
-                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
-                    Is there placement assistance after the course?
-                  </button>
-                </h2>
-                <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-                  <div class="accordion-body">Yes! Our dedicated placement cell provides resume building, mock interviews, and connects you with our network of 500+ hiring partner companies. Our placement rate is 98%, and students typically receive offers within 2 months of completion.</div>
-                </div>
-              </div>
-              <div class="accordion-item">
-                <h2 class="accordion-header">
-                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">
-                    Are there any payment plans available?
-                  </button>
-                </h2>
-                <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-                  <div class="accordion-body">Absolutely. We offer flexible EMI options starting at $99/month with 0% interest. We also have early bird discounts and group enrollment offers. Contact our admissions team for a personalized payment plan.</div>
-                </div>
-              </div>
-              <div class="accordion-item">
-                <h2 class="accordion-header">
-                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq5">
-                    Will I get hands-on experience?
-                  </button>
-                </h2>
-                <div id="faq5" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-                  <div class="accordion-body">Yes, the course is 60% hands-on. You'll build 4 major projects, complete 20+ assignments, and participate in weekly coding challenges. Every concept you learn is immediately applied in practical exercises.</div>
-                </div>
-              </div>
-            </div>
+            <h5 class="fw-bold mb-3"><i class="fa-solid fa-book-open text-primary me-2"></i> Explore Other Courses</h5>
+            <div id="otherCourses"><!-- rendered by JS --></div>
           </div>
 
           <!-- Bottom CTA -->
           <div class="mt-5 text-center p-4 rounded-4 bg-primary-light-custom" data-aos="fade-up">
-            <h5 class="fw-bold mb-2">Ready to Start Your Python Journey?</h5>
-            <p class="small mb-3" style="color:var(--color-text-light);">Join thousands of successful students who transformed their careers with us.</p>
-            <a href="contact.html" class="btn btn-primary btn-lg"><i class="fa-solid fa-pen-to-square"></i> Enroll Now</a>
+            <h5 class="fw-bold mb-2">Interested in this course?</h5>
+            <p class="small mb-3" style="color:var(--color-text-light);">Come to our institute in G B Palya, Bangalore, or call us to know about admission.</p>
+            <div class="d-flex gap-3 justify-content-center flex-wrap">
+              <a href="contact.html" class="btn btn-primary btn-lg"><i class="fa-solid fa-pen-to-square"></i> Enquire Now</a>
+              <a href="tel:+919845668603" class="btn btn-outline-primary btn-lg"><i class="fa-solid fa-phone"></i> Call 9845668603</a>
+            </div>
           </div>
 
         </div>
@@ -612,53 +176,22 @@
 
           <div class="sidebar-card">
 
-            <!-- Pricing Card -->
+            <!-- Fees Card -->
             <div class="card p-4 mb-4" data-aos="fade-left">
-              <div class="text-center mb-3">
-                <div class="price-tag">$999 <small>USD</small></div>
-                <p class="small text-muted mb-0">or from <strong>$99/month</strong> with 0% EMI</p>
+              <div class="text-center mb-2">
+                <div class="price-tag" id="feeTotal">—</div>
+                <p class="small text-muted mb-0">Total Fees <strong>(10% discount included)</strong></p>
               </div>
               <hr>
-              <ul class="list-unstyled small">
-                <li class="mb-2"><i class="fa-solid fa-check-circle text-success me-2"></i> 6 Months access</li>
-                <li class="mb-2"><i class="fa-solid fa-check-circle text-success me-2"></i> 120+ hours of content</li>
-                <li class="mb-2"><i class="fa-solid fa-check-circle text-success me-2"></i> 4 real-world projects</li>
-                <li class="mb-2"><i class="fa-solid fa-check-circle text-success me-2"></i> Certificate on completion</li>
-                <li class="mb-2"><i class="fa-solid fa-check-circle text-success me-2"></i> Lifetime access to materials</li>
-              </ul>
-              <a href="contact.html" class="btn btn-primary w-100">Enroll Now</a>
-              <p class="text-center text-muted small mt-2 mb-0">🔒 Secure payment — 7-day money-back guarantee</p>
+              <div class="fee-row"><span class="small text-muted">Duration</span><strong id="feeDuration">—</strong></div>
+              <div class="fee-row"><span class="small text-muted">Admission Fees</span><strong id="feeAdmission">—</strong></div>
+              <div class="fee-row"><span class="small text-muted">Monthly Fees</span><strong id="feeMonthly">—</strong></div>
+              <a href="contact.html" class="btn btn-primary w-100 mt-3">Enquire Now</a>
+              <p class="text-center text-muted small mt-2 mb-0">Admission &amp; monthly fees are as per the institute fee structure.</p>
             </div>
 
-            <!-- Course Features Card -->
-            <div class="card p-4 mb-4" data-aos="fade-left" data-aos-delay="100">
-              <h5 class="fw-bold mb-3"><i class="fa-solid fa-star text-primary me-2"></i> Course Features</h5>
-              <ul class="list-unstyled">
-                <li class="mb-3 d-flex align-items-center gap-3">
-                  <div class="feature-icon-circle"><i class="fa-solid fa-chalkboard-user"></i></div>
-                  <div><strong class="small">Expert Mentors</strong><p class="small mb-0" style="color:var(--color-text-light);">Learn from industry veterans</p></div>
-                </li>
-                <li class="mb-3 d-flex align-items-center gap-3">
-                  <div class="feature-icon-circle"><i class="fa-solid fa-laptop-code"></i></div>
-                  <div><strong class="small">Live Projects</strong><p class="small mb-0" style="color:var(--color-text-light);">4 real-world portfolio projects</p></div>
-                </li>
-                <li class="mb-3 d-flex align-items-center gap-3">
-                  <div class="feature-icon-circle"><i class="fa-solid fa-certificate"></i></div>
-                  <div><strong class="small">Certification</strong><p class="small mb-0" style="color:var(--color-text-light);">Industry-recognized certificate</p></div>
-                </li>
-                <li class="mb-3 d-flex align-items-center gap-3">
-                  <div class="feature-icon-circle"><i class="fa-solid fa-handshake"></i></div>
-                  <div><strong class="small">Placement Support</strong><p class="small mb-0" style="color:var(--color-text-light);">98% placement rate</p></div>
-                </li>
-                <li class="d-flex align-items-center gap-3">
-                  <div class="feature-icon-circle"><i class="fa-solid fa-infinity"></i></div>
-                  <div><strong class="small">Lifetime Access</strong><p class="small mb-0" style="color:var(--color-text-light);">Revisit anytime</p></div>
-                </li>
-              </ul>
-            </div>
-
-            <!-- Download Brochure -->
-            <div class="card p-4 mb-4" data-aos="fade-left" data-aos-delay="200" style="background:linear-gradient(135deg, var(--color-primary), var(--color-secondary));color:#fff;border:none;">
+            <!-- Download Brochure — HIDDEN until a real brochure PDF is available
+            <div class="card p-4 mb-4" style="background:linear-gradient(135deg, var(--color-primary), var(--color-secondary));color:#fff;border:none;">
               <div class="text-center">
                 <i class="fa-solid fa-file-pdf fs-1 mb-2" style="opacity:0.8;"></i>
                 <h6 class="fw-bold" style="color:#fff;">Download Course Brochure</h6>
@@ -666,19 +199,20 @@
                 <a href="#" class="btn btn-accent w-100"><i class="fa-solid fa-download"></i> Download PDF</a>
               </div>
             </div>
+            -->
 
             <!-- Enquiry Form -->
-            <div class="card p-4" data-aos="fade-left" data-aos-delay="300">
+            <div class="card p-4" data-aos="fade-left" data-aos-delay="100">
               <h5 class="fw-bold mb-3"><i class="fa-regular fa-paper-plane text-primary me-2"></i> Quick Enquiry</h5>
               <form>
                 <div class="mb-2">
                   <input type="text" class="form-control form-control-sm" placeholder="Your Name" required>
                 </div>
                 <div class="mb-2">
-                  <input type="email" class="form-control form-control-sm" placeholder="Your Email" required>
+                  <input type="tel" class="form-control form-control-sm" placeholder="Phone Number" required>
                 </div>
                 <div class="mb-2">
-                  <input type="tel" class="form-control form-control-sm" placeholder="Phone Number" required>
+                  <input type="email" class="form-control form-control-sm" placeholder="Your Email (optional)">
                 </div>
                 <div class="mb-2">
                   <textarea class="form-control form-control-sm" rows="3" placeholder="Your Message"></textarea>
@@ -700,14 +234,16 @@
     <div class="container">
       <div class="row g-4">
         <div class="col-lg-3 col-md-6">
-          <h5><i class="fa-solid fa-graduation-cap text-primary me-2"></i> Train<span class="text-secondary">Hub</span></h5>
-          <p>Industry-ready computer courses with practical training.</p>
+          <h5><i class="fa-solid fa-graduation-cap text-primary me-2"></i> Sahara <span class="text-secondary">Computers</span></h5>
+          <p>Sahara Computers &amp; Education Institute offers computer and professional training courses in Bangalore. ISO Certified 9001:2015.</p>
+          <!-- Social links hidden until client provides real social pages
           <div class="d-flex gap-2 mt-3">
             <a href="#" class="btn btn-sm" style="background:rgba(255,255,255,0.1);color:#fff;border-radius:50%;width:38px;height:38px;display:flex;align-items:center;justify-content:center;" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
             <a href="#" class="btn btn-sm" style="background:rgba(255,255,255,0.1);color:#fff;border-radius:50%;width:38px;height:38px;display:flex;align-items:center;justify-content:center;" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
             <a href="#" class="btn btn-sm" style="background:rgba(255,255,255,0.1);color:#fff;border-radius:50%;width:38px;height:38px;display:flex;align-items:center;justify-content:center;" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
             <a href="#" class="btn btn-sm" style="background:rgba(255,255,255,0.1);color:#fff;border-radius:50%;width:38px;height:38px;display:flex;align-items:center;justify-content:center;" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
           </div>
+          -->
         </div>
         <div class="col-lg-3 col-md-6">
           <h5>Quick Links</h5>
@@ -715,27 +251,31 @@
             <li><a href="index.html"><i class="fa-solid fa-chevron-right"></i> Home</a></li>
             <li><a href="about.html"><i class="fa-solid fa-chevron-right"></i> About Us</a></li>
             <li><a href="courses.html"><i class="fa-solid fa-chevron-right"></i> Courses</a></li>
+            <li><a href="courses.html#individual"><i class="fa-solid fa-chevron-right"></i> Individual Courses</a></li>
+            <!-- Gallery & Blog hidden until real content exists
             <li><a href="gallery.html"><i class="fa-solid fa-chevron-right"></i> Gallery</a></li>
             <li><a href="blog.html"><i class="fa-solid fa-chevron-right"></i> Blog</a></li>
+            -->
             <li><a href="contact.html"><i class="fa-solid fa-chevron-right"></i> Contact</a></li>
           </ul>
         </div>
         <div class="col-lg-3 col-md-6">
           <h5>Popular Courses</h5>
           <ul class="footer-links">
-            <li><a href="course-details.html"><i class="fa-solid fa-chevron-right"></i> Python Programming</a></li>
-            <li><a href="course-details.html"><i class="fa-solid fa-chevron-right"></i> Java Development</a></li>
-            <li><a href="course-details.html"><i class="fa-solid fa-chevron-right"></i> Web Development</a></li>
-            <li><a href="course-details.html"><i class="fa-solid fa-chevron-right"></i> Graphic Design</a></li>
-            <li><a href="course-details.html"><i class="fa-solid fa-chevron-right"></i> Digital Marketing</a></li>
-            <li><a href="course-details.html"><i class="fa-solid fa-chevron-right"></i> Tally ERP 9</a></li>
+            <li><a href="course-details.html?course=bci"><i class="fa-solid fa-chevron-right"></i> BCI</a></li>
+            <li><a href="course-details.html?course=pgdca"><i class="fa-solid fa-chevron-right"></i> PGDCA</a></li>
+            <li><a href="course-details.html?course=tally-erp-9"><i class="fa-solid fa-chevron-right"></i> Tally ERP 9</a></li>
+            <li><a href="course-details.html?course=graphic-designing"><i class="fa-solid fa-chevron-right"></i> Graphic Designing</a></li>
+            <li><a href="course-details.html?course=autocad"><i class="fa-solid fa-chevron-right"></i> AutoCAD</a></li>
+            <li><a href="course-details.html?course=achnp"><i class="fa-solid fa-chevron-right"></i> ACHNP</a></li>
           </ul>
         </div>
         <div class="col-lg-3 col-md-6">
           <h5>Contact Us</h5>
-          <div class="contact-item"><i class="fa-solid fa-location-dot"></i><span>123 Education Lane, New York, NY 10001</span></div>
-          <div class="contact-item"><i class="fa-solid fa-phone"></i><span>+1 (555) 123-4567</span></div>
-          <div class="contact-item"><i class="fa-solid fa-envelope"></i><span>info@traininginstitute.com</span></div>
+          <div class="contact-item"><i class="fa-solid fa-location-dot"></i><span>#20, Manikanta Complex,<br>G B Palya, Bangalore – 560 068</span></div>
+          <div class="contact-item"><i class="fa-solid fa-phone"></i><span>9845668603 / 7019570143</span></div>
+          <div class="contact-item"><i class="fa-solid fa-certificate"></i><span>ISO Certified 9001:2015</span></div>
+          <!-- Newsletter hidden — not needed
           <div class="mt-3">
             <h6 style="color:#fff;font-size:0.875rem;">Subscribe to Newsletter</h6>
             <form class="newsletter-form">
@@ -745,27 +285,187 @@
               </div>
             </form>
           </div>
+          -->
         </div>
       </div>
     </div>
     <div class="footer-bottom">
       <div class="container">
         <div class="row align-items-center">
-          <div class="col-md-6"><p>&copy; 2024 Training Institute. All rights reserved.</p></div>
+          <div class="col-md-6"><p>&copy; 2026 Sahara Computers &amp; Education Institute. All rights reserved.</p></div>
           <div class="col-md-6 text-md-end">
+            <!-- Privacy/Terms pages do not exist yet
             <p><a href="#" class="text-muted me-3">Privacy Policy</a><a href="#" class="text-muted">Terms of Service</a></p>
+            -->
           </div>
         </div>
       </div>
     </div>
   </footer>
 
-  <a href="https://wa.me/15551234567" class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+  <a href="https://wa.me/919845668603" class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
   <button class="scroll-top" aria-label="Scroll to top"><i class="fa-solid fa-arrow-up"></i></button>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script src="assets/js/main.js"></script>
+
+  <!-- ============================================================
+       COURSE DATA + RENDERER
+       All 13 main courses from the institute brochure. Total Fees
+       include the 10% discount; Admission and Monthly fees are as
+       printed in the brochure.
+       ============================================================ -->
+  <script>
+    const CATEGORY_LABELS = {
+      basics: 'Computer Basics',
+      programming: 'Software & Programming',
+      design: 'Graphic Design',
+      hardware: 'Hardware & Networking',
+      cad: 'CAD'
+    };
+
+    const IMG = function (id) {
+      return 'https://images.unsplash.com/' + id + '?w=800&h=600&fit=crop';
+    };
+
+    const COURSES = [
+      {
+        slug: 'bci', name: 'BCI', category: 'basics', duration: '3 Months',
+        total: 'Rs. 7,200', admission: 'Rs. 2,000', monthly: 'Rs. 1,500 x 3',
+        image: IMG('photo-1504384308090-c894fdcc538d'),
+        about: 'A basic computer course for beginners. Students learn how to use a computer, the internet and MS Word, with typing practice.',
+        topics: ['Computer Fundamentals', 'DOS', 'Windows', 'Internet', 'MS Word', 'Typing']
+      },
+      {
+        slug: 'dom', name: 'DOM', category: 'basics', duration: '5 Months',
+        total: 'Rs. 13,500', admission: 'Rs. 4,000', monthly: 'Rs. 2,000 x 5',
+        image: IMG('photo-1524178232363-1fb2b075b655'),
+        about: 'Covers computer basics and full MS Office. Students also complete a project and practice typing.',
+        topics: ['Computer Fundamentals', 'DOS', 'Windows', 'Internet', 'MS Office', 'Project', 'Typing']
+      },
+      {
+        slug: 'daa', name: 'DAA', category: 'basics', duration: '8 Months',
+        total: 'Rs. 19,800', admission: 'Rs. 4,000', monthly: 'Rs. 2,000 x 8',
+        image: IMG('photo-1497366216548-37526070297c'),
+        about: 'Computer basics with MS Office and Tally ERP9 accounting. Includes a project and typing.',
+        topics: ['Computer Fundamentals', 'DOS', 'Windows', 'Internet', 'MS Office', 'Tally ERP9', 'Project', 'Typing']
+      },
+      {
+        slug: 'pgdca', name: 'PGDCA', category: 'basics', duration: '12 Months',
+        total: 'Rs. 42,300', admission: 'Rs. 7,000', monthly: 'Rs. 3,000 x 12',
+        image: IMG('photo-1517245386807-bb43f82c33c4'),
+        about: 'A one-year course covering office work, accounting and basic programming. Good for students who want many skills together.',
+        topics: ['Computer Fundamentals', 'DOS', 'Windows', 'Internet', 'MS Office', 'Tally ERP9', 'HTML', 'C', 'C++', 'Project', 'Typing']
+      },
+      {
+        slug: 'dse', name: 'DSE — Diploma in Software Engineer', category: 'programming', duration: '1 Year 4 Months',
+        total: 'Rs. 64,800', admission: 'Rs. 8,000', monthly: 'Rs. 3,500 x 15',
+        image: IMG('photo-1517694712202-14dd9538aa97'),
+        about: 'A long course for students who want to learn programming. Covers office basics, Tally and languages like C, C++ and Java.',
+        topics: ['Computer Fundamentals', 'DOS', 'Windows', 'Internet', 'MS Office', 'Tally ERP9', 'HTML', 'C', 'C++', 'Java', 'Typing']
+      },
+      {
+        slug: 'attc', name: 'ATTC', category: 'programming', duration: '1 Year 4 Months',
+        total: 'Rs. 73,800', admission: 'Rs. 8,000', monthly: 'Rs. 4,500 x 16',
+        image: IMG('photo-1523240795612-9a054b0db644'),
+        about: 'A mixed course with both programming and design. Students learn C, C++ and design tools like Photoshop, CorelDraw and PageMaker.',
+        topics: ['Computer Fundamentals', 'DOS', 'Windows', 'Internet', 'MS Office', 'Tally ERP9', 'HTML', 'C', 'C++', 'Photoshop', 'CorelDraw', 'PageMaker', 'Baraha', 'Nudi', 'Typing']
+      },
+      {
+        slug: 'dtp', name: 'DTP — Desktop Publishing', category: 'design', duration: '8 Months',
+        total: 'Rs. 58,500', admission: 'Rs. 15,000', monthly: 'Rs. 5,500 x 8',
+        image: IMG('photo-1497366811353-6870744d04b2'),
+        about: 'A design and publishing course. Students learn CorelDraw, Photoshop, PageMaker and Kannada tools, with a project.',
+        topics: ['CorelDraw', 'Photoshop', 'PageMaker', 'Baraha', 'Nudi', 'Cute PDF', 'Project', 'Typing']
+      },
+      {
+        slug: 'graphic-designing', name: 'Graphic Designing', category: 'design', duration: '10 Months',
+        total: 'Rs. 1,35,000', admission: 'Rs. 25,000', monthly: 'Rs. 8,500 x 10',
+        image: IMG('photo-1519389950473-47ba0277781c'),
+        about: 'A full design course. Students learn all main design software and work on real projects like magazines, logos, brochures and calendars.',
+        topics: ['CorelDraw', 'Photoshop', 'Illustrator', 'InDesign', 'Baraha', 'Adobe PDF', 'Nudi', 'Projects (Magazine, Logo, Brochures, Calendars)', 'Typing']
+      },
+      {
+        slug: 'dan', name: 'DAN — Desk Area Network', category: 'hardware', duration: '8 Months',
+        total: 'Rs. 44,100', admission: 'Rs. 5,000', monthly: 'Rs. 3,000 x 12',
+        image: IMG('photo-1486406144323-381c516c1a1e'),
+        about: 'A hardware and networking course. Students learn Windows installation, drivers, servers and how to set up and fix networks.',
+        topics: ['Computer Fundamentals', 'DOS', 'Windows Installation', 'Drivers Installation', 'Windows Troubleshooting', 'Internet', 'Network', 'Types of Network', 'Network Topology', 'Server Installation', 'Network Troubleshooting']
+      },
+      {
+        slug: 'achnp', name: 'ACHNP — Advanced Certified Hardware and Networking Professional', category: 'hardware', duration: '1 Year',
+        total: 'Rs. 67,500', admission: 'Rs. 9,000', monthly: 'Rs. 5,400 x 12',
+        image: IMG('photo-1522071820081-009f0129c71c'),
+        about: 'An advanced hardware and networking course. Covers PC and laptop repair, printers, servers, and full network setup and troubleshooting.',
+        topics: ['DOS', 'Windows', 'PC Maintenance', 'PC Troubleshooting', 'Laptop Maintenance', 'Laptop Components', 'Laptop Troubleshooting', 'Internet', 'Network Working', 'Power Supply', 'Printer Installation and Configuration', 'Operating System Features', 'BIOS Settings', 'Installing and Configuring OS', 'Network Types', 'Network Layers', 'Topologies', 'LAN Configuration', 'Server Installation', 'ADS Configuration', 'DNS Configuration', 'DHCP Configuration', 'Remote Desktop Connections', 'TCP/IP', 'Network Troubleshooting']
+      },
+      {
+        slug: 'tally-erp-9', name: 'Tally ERP 9', category: 'programming', duration: '3 Months',
+        total: 'Rs. 11,700', admission: 'Rs. 3,000', monthly: 'Rs. 3,000 x 3',
+        image: IMG('photo-1507003211169-0a1dd7228f2d'),
+        about: 'Learn computer accounting with Tally. Covers company creation, ledgers, GST, balance sheet, payroll and a project.',
+        topics: ['Manual Accounting', 'Company Creation', 'Feature Settings', 'Groups', 'Ledgers', 'Accounting & Inventory Vouchers', 'VAT/GST', 'Balance Sheet', 'P&L A/C', 'Payroll', 'Project']
+      },
+      {
+        slug: 'tally-erp-9-advance', name: 'Tally ERP 9 Advance', category: 'programming', duration: '4 Months',
+        total: 'Rs. 15,300', admission: 'Rs. 5,000', monthly: 'Rs. 2,000 x 4',
+        image: IMG('photo-1504639725590-34d0984388bd'),
+        about: 'An advanced Tally course. Covers TDS, cost centers, reports, import and export, and business types like trading and manufacturing.',
+        topics: ['Tally Basic', 'TDS', 'Cost Centers', 'Balance Sheet', 'P&L A/C', 'Reports', 'Import & Export', 'Email', 'Print Invoice', 'Servicing', 'Trading', 'Manufacturing Organization']
+      },
+      {
+        slug: 'autocad', name: 'AutoCAD', category: 'cad', duration: '6 Months',
+        total: 'Rs. 52,200', admission: 'Rs. 9,000', monthly: 'Rs. 8,500 x 6',
+        image: IMG('photo-1555066931-4365d14bab8c'),
+        about: 'Learn 2D and 3D drawing with AutoCAD. Covers drawing and modify tools, dimensions, and orthographic, isometric and 3D drawings.',
+        topics: ['Drawing Tools', 'Modify Tools', 'Dimension Tools', 'Format Tools', '2D Drawings', 'Orthographic', 'Isometric', '3D Drawings', 'Solid Modeling']
+      }
+    ];
+
+    (function () {
+      const params = new URLSearchParams(window.location.search);
+      const slug = params.get('course') || 'bci';
+      const course = COURSES.find(function (c) { return c.slug === slug; }) || COURSES[0];
+
+      document.title = course.name + ' - Course Details | Sahara Computers & Education Institute';
+      document.getElementById('bcCourse').textContent = course.name;
+      document.getElementById('courseCategory').textContent = CATEGORY_LABELS[course.category] || 'Course';
+      document.getElementById('courseName').textContent = course.name;
+      document.getElementById('badgeDuration').textContent = 'Duration: ' + course.duration;
+      document.getElementById('badgeFee').textContent = course.total;
+      document.getElementById('courseAbout').textContent = course.about;
+      document.getElementById('feeTotal').textContent = course.total;
+      document.getElementById('feeDuration').textContent = course.duration;
+      document.getElementById('feeAdmission').textContent = course.admission;
+      document.getElementById('feeMonthly').textContent = course.monthly;
+
+      const img = document.getElementById('courseImage');
+      img.src = course.image;
+      img.alt = course.name;
+
+      const topicsEl = document.getElementById('courseTopics');
+      topicsEl.innerHTML = '';
+      course.topics.forEach(function (t) {
+        const span = document.createElement('span');
+        span.className = 'topic-chip';
+        span.innerHTML = '<i class="fa-solid fa-check"></i>';
+        span.appendChild(document.createTextNode(t));
+        topicsEl.appendChild(span);
+      });
+
+      const othersEl = document.getElementById('otherCourses');
+      COURSES.forEach(function (c) {
+        if (c.slug === course.slug) return;
+        const a = document.createElement('a');
+        a.href = 'course-details.html?course=' + c.slug;
+        a.className = 'topic-chip';
+        a.style.textDecoration = 'none';
+        a.appendChild(document.createTextNode(c.name));
+        othersEl.appendChild(a);
+      });
+    })();
+  </script>
 </body>
 </html>
