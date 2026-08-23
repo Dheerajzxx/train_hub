@@ -1500,6 +1500,12 @@ ul {
   box-shadow: var(--shadow-lg);
 }
 
+@media (max-width: 575.98px) {
+  .about-image-wrapper .experience-badge {
+    right: 0px;
+  }
+}
+
 .about-image-wrapper .experience-badge h3 {
   font-size: var(--font-size-2xl);
   font-weight: 800;
