@@ -116,6 +116,10 @@
   background: #020617;
 }
 
+:root.dark-mode .footer h5 {
+  color: #fff;
+}
+
 :root.dark-mode .section-bg-white {
   background: var(--color-white);
 }
@@ -528,6 +532,69 @@ p,
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
+/* ============================================================
+   LIGHT MODE - Lighter Sections
+   Applies only when dark mode is OFF so the pages feel brighter.
+   ============================================================ */
+:root:not(.dark-mode) .top-bar {
+  background: #0E57D4;
+  color: rgba(255, 255, 255, 0.92);
+}
+:root:not(.dark-mode) .top-bar a,
+:root:not(.dark-mode) .top-bar .contact-info,
+:root:not(.dark-mode) .top-bar .social-links {
+  color: rgba(255, 255, 255, 0.92);
+}
+:root:not(.dark-mode) .top-bar a:hover {
+  color: #fff;
+}
+
+:root:not(.dark-mode) .footer {
+  background: linear-gradient(135deg, #0045B0 0%, #0E57D4 60%, #0057D9 100%);
+  color: #fff;
+}
+:root:not(.dark-mode) .footer h5,
+:root:not(.dark-mode) .footer .footer-brand span,
+:root:not(.dark-mode) .footer h5 .text-secondary,
+:root:not(.dark-mode) .footer p,
+:root:not(.dark-mode) .footer .footer-links a,
+:root:not(.dark-mode) .footer .contact-item,
+:root:not(.dark-mode) .footer .contact-item i,
+:root:not(.dark-mode) .footer .footer-links a i,
+:root:not(.dark-mode) .footer .footer-bottom p {
+  color: #fff;
+}
+:root:not(.dark-mode) .footer .footer-links a:hover {
+  color: #fff;
+}
+:root:not(.dark-mode) .footer .newsletter-form .form-control {
+  color: #fff;
+}
+:root:not(.dark-mode) .footer .newsletter-form .form-control::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+:root:not(.dark-mode) .footer-bottom {
+  border-top-color: rgba(255, 255, 255, 0.12);
+}
+
+:root:not(.dark-mode) .page-hero {
+  background: linear-gradient(135deg, #2F7BF0 0%, #00B4D8 100%);
+}
+
+:root:not(.dark-mode) .cta-section {
+  background: linear-gradient(135deg, #2F7BF0 0%, #00B4D8 100%);
+}
+
+:root:not(.dark-mode) .hero-slide-1 .bg-gradient-layer {
+  background: linear-gradient(135deg, #2F7BF0 0%, #1E5FD9 50%, #0B4C9F 100%);
+}
+:root:not(.dark-mode) .hero-slide-2 .bg-gradient-layer {
+  background: linear-gradient(135deg, #1E5FD9 0%, #2F86E6 30%, #00B4D8 100%);
+}
+:root:not(.dark-mode) .hero-slide-3 .bg-gradient-layer {
+  background: linear-gradient(135deg, #1E5FD9 0%, #2F7BF0 40%, #0B4C9F 100%);
+}
+
 /* Border transitions on form controls */
 .form-control,
 .form-select {
@@ -807,6 +874,7 @@ ul {
   display: flex;
   align-items: center;
   gap: var(--gap-md);
+  justify-content: end;
 }
 
 .top-bar .social-links a {
@@ -852,6 +920,9 @@ ul {
 .main-navbar .navbar-brand img {
   height: 45px;
   margin-right: 0.5rem;
+  background: white;
+  border-radius: 6px;
+  padding: 3px;
 }
 
 .main-navbar .nav-link {
@@ -924,6 +995,9 @@ ul {
   height: 32px;
   width: auto;
   vertical-align: middle;
+  background: white;
+  border-radius: 6px;
+  padding: 3px;
 }
 
 .footer p {
