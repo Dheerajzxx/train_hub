@@ -308,6 +308,17 @@
   color: #fff;
 }
 
+/* Fix: Hero slide title text always white in dark mode */
+:root.dark-mode .hero-slide-content .hero-title {
+  color: #fff;
+}
+
+/* Fix: Secondary (outline) hero button text always white in dark mode */
+:root.dark-mode .btn-secondary {
+  color: #fff;
+  border-color: #fff;
+}
+
 /* ============================================================
    INNER PAGES - Dark Mode Overrides
    (Bootstrap utility classes + page-specific fixes)
