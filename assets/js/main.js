@@ -232,94 +232,14 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // ============================================================
-  // Navbar Background on Hero Transparency Toggle
+  // Navbar Background (consistent glass look on all pages)
   // ============================================================
-  // Handled by the scroll listener above.
-  // Add transparent class if nav is over hero
-
-  // Helper: return the appropriate transparent background based on dark mode
-  // Using dark semi-transparent overlay ensures white nav text is always readable
-  // regardless of what content is behind the navbar
-  function navbarTransparentBg() {
-    var isDark = document.documentElement.classList.contains('dark-mode');
-    return isDark ? 'rgba(15, 23, 42, 0.55)' : 'rgba(15, 23, 42, 0.35)';
-  }
+  // The navbar keeps its default glass styling at all times so the
+  // header looks identical whether the user is at the top of the
+  // page or has scrolled down (matching about/courses/contact pages).
 
   const heroSection = document.querySelector('.hero-section');
-  if (heroSection && navbar) {
-    // Helper to apply white/nav-over-hero styles
-    function applyHeroNavStyles() {
-      navbar.style.background = navbarTransparentBg();
-      navbar.style.backdropFilter = 'blur(0px)';
-      navbar.style.borderBottom = '1px solid rgba(255,255,255,0.1)';
-
-      var brand = navbar.querySelector('.navbar-brand');
-      var brandSpan = navbar.querySelector('.navbar-brand span');
-      var navLinkEls = navbar.querySelectorAll('.nav-link');
-      var toggler = navbar.querySelector('.navbar-toggler');
-      var dmToggle = navbar.querySelector('.dark-mode-toggle');
-
-      if (brand) brand.style.color = '#fff';
-      if (brandSpan) brandSpan.style.color = '#fff';
-      navLinkEls.forEach(function (l) {
-        if (!l.classList.contains('active')) {
-          l.style.color = 'rgba(255,255,255,0.85)';
-        } else {
-          l.style.color = '#FFC107';
-        }
-      });
-      // Mobile hamburger toggler must also be white on dark overlay
-      if (toggler) toggler.style.color = '#fff';
-      // Dark mode toggle button gets white border/icon on dark overlay
-      if (dmToggle) {
-        dmToggle.style.color = '#fff';
-        dmToggle.style.borderColor = 'rgba(255,255,255,0.4)';
-      }
-    }
-
-    // Helper to clear all hero nav inline styles (let CSS take over)
-    function clearHeroNavStyles() {
-      navbar.style.background = '';
-      navbar.style.backdropFilter = '';
-      navbar.style.borderBottom = '';
-
-      var brand = navbar.querySelector('.navbar-brand');
-      var brandSpan = navbar.querySelector('.navbar-brand span');
-      var navLinkEls = navbar.querySelectorAll('.nav-link');
-      var toggler = navbar.querySelector('.navbar-toggler');
-      var dmToggle = navbar.querySelector('.dark-mode-toggle');
-
-      if (brand) brand.style.color = '';
-      if (brandSpan) brandSpan.style.color = '';
-      navLinkEls.forEach(function (l) {
-        l.style.color = '';
-      });
-      if (toggler) toggler.style.color = '';
-      if (dmToggle) {
-        dmToggle.style.color = '';
-        dmToggle.style.borderColor = '';
-      }
-    }
-
-    // Initial check - if we're at the top of the page
-    if (window.scrollY < 50) {
-      applyHeroNavStyles();
-    }
-
-    // Override on scroll to restore
-    window.addEventListener('scroll', function () {
-      if (window.scrollY > 50) {
-        clearHeroNavStyles();
-      } else {
-        applyHeroNavStyles();
-      }
-    });
-  }
-
-  // If there's no hero section, ensure navbar has solid background
   if (!heroSection && navbar) {
-    navbar.style.background = '';
-    navbar.style.backdropFilter = '';
     navbar.classList.add('scrolled');
   }
 
