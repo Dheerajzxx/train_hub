@@ -917,6 +917,12 @@ ul {
   font-size: var(--font-size-lg);
 }
 
+.footer .footer-logo {
+  height: 32px;
+  width: auto;
+  vertical-align: middle;
+}
+
 .footer p {
   color: var(--color-text-muted);
   font-size: var(--font-size-sm);
