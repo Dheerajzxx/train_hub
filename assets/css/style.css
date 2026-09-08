@@ -201,6 +201,14 @@
 
 :root.dark-mode .main-navbar .navbar-brand span { color: var(--color-primary-dark); }
 
+/* Navbar brand text - keep same colors as light mode in dark mode */
+:root.dark-mode .main-navbar .navbar-brand {
+  color: #0057D9;
+}
+:root.dark-mode .main-navbar .navbar-brand span {
+  color: #00B4D8;
+}
+
 /* Fix: Stat numbers must stay white on dark gradient background */
 :root.dark-mode .stat-card .stat-number {
   color: #fff;
@@ -566,7 +574,6 @@ p,
 }
 :root:not(.dark-mode) .footer h5,
 :root:not(.dark-mode) .footer .footer-brand span,
-:root:not(.dark-mode) .footer h5 .text-secondary,
 :root:not(.dark-mode) .footer p,
 :root:not(.dark-mode) .footer .footer-links a,
 :root:not(.dark-mode) .footer .contact-item,
@@ -586,6 +593,11 @@ p,
 }
 :root:not(.dark-mode) .footer-bottom {
   border-top-color: rgba(255, 255, 255, 0.12);
+}
+
+/* Footer brand "Computers" word - same gray in light and dark mode */
+.footer h5 .text-secondary {
+  color: #b4adad !important;
 }
 
 :root:not(.dark-mode) .page-hero {
