@@ -151,6 +151,7 @@ dialog::backdrop{background:rgba(10,15,20,.5)}
       // menuItem('enquiries'),
       menuItem('courses'),
       menuItem('students'),
+      menuItem('batches'),
       // menuItem('gallery'),
       // menuItem('testimonials'),
       // menuItem('placements'),
@@ -179,6 +180,7 @@ dialog::backdrop{background:rgba(10,15,20,.5)}
     d.addEventListener('close',()=> d.remove(),{once:true});
     $('form',d).onsubmit=(e)=>{ e.preventDefault(); onConfirm(Object.fromEntries(new FormData($('form',d)))); d.close(); };
     d.showModal();
+    return d;
   }
   function statCard({label,value,delta}){ const up=delta>=0; return `<div class="stat"><small>${esc(label)}</small><b>${esc(value)}</b><span class="delta ${up?'up':'down'}">${up?'▲':'▼'} ${Math.abs(delta)}% vs last month</span></div>`; }
   function dataTable({columns,rows,pageSize=6,filters=[],toolbar='',rowActions}){

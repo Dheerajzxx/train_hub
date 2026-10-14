@@ -13,6 +13,10 @@
     { "id": "s_1", "systemId": "STU-100001", "name": "Arjun Verma", "phone": "9800011122", "email": "arjun@example.com" },
     { "id": "s_2", "systemId": "STU-100002", "name": "Divya Menon", "phone": "9800033344", "email": "divya@example.com" }
   ],
+  "batches": [
+    { "id": "b_1", "courseId": "c_1", "name": "PGDCA Morning", "year": "2026", "seatType": "fixed", "seats": 30 },
+    { "id": "b_2", "courseId": "c_2", "name": "Tally Evening", "year": "2026", "seatType": "unlimited", "seats": null }
+  ],
   "gallery": [
     { "id": "g_1", "src": "assets/images/gallery-1.jpg", "alt": "Classroom", "visible": true },
     { "id": "g_2", "src": "assets/images/gallery-2.jpg", "alt": "Lab", "visible": true }

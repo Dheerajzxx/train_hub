@@ -221,11 +221,11 @@ async function bootApp() {
           <label class="field">Active<select name="active"><option value="true" ${item?.active!==false?'selected':''}>Yes</option><option value="false" ${item?.active===false?'selected':''}>No</option></select></label>
         `, onConfirm:cb});
       };
-      $('#addc', t)?.addEventListener('click', ()=> addForm(null, async (v)=>{
-        const c = { id: uid('c'), title:v.title, category:v.category, fee:v.fee, duration:v.duration, short:v.short, active: v.active==='true' };
-        (d.courses||[]).unshift(c); await store.save(); t.refresh(); toast('Course added');
-      }));
       t.addEventListener('click', async (e)=>{
+        if (e.target.id === 'addc') { addForm(null, async (v)=>{
+          const c = { id: uid('c'), title:v.title, category:v.category, fee:v.fee, duration:v.duration, short:v.short, active: v.active==='true' };
+          (d.courses||[]).unshift(c); await store.save(); t.refresh(); toast('Course added');
+        }); return; }
         const ec = e.target.dataset.ec, tc = e.target.dataset.tc, dc = e.target.dataset.dc;
         if (ec) { const it = (d.courses||[]).find(x=>x.id===ec); if (!it) return; addForm(it, async (v)=>{ Object.assign(it,{title:v.title,category:v.category,fee:v.fee,duration:v.duration,short:v.short,active:v.active==='true'}); await store.save(); t.refresh(); toast('Course saved'); }); }
         if (tc) { const it = (d.courses||[]).find(x=>x.id===tc); if (!it) return; it.active = !it.active; await store.save(); t.refresh(); toast(it.active?'Enabled':'Disabled'); }
@@ -256,14 +256,78 @@ async function bootApp() {
         <label class="field">Phone<input name="phone" required value="${esc(item?.phone||'')}"></label>
         <label class="field">Email<input name="email" type="email" value="${esc(item?.email||'')}"></label>
       `, onConfirm:cb});
-      $('#adds', t)?.addEventListener('click', ()=> form({ systemId: makeSystemId(rows) }, async (v)=>{
-        rows.unshift({ id: uid('s'), systemId: v.systemId, name: v.name, phone: v.phone, email: v.email });
-        await store.save(); t.refresh(); toast('Student added');
-      }));
       t.addEventListener('click', async (e)=>{
+        if (e.target.id === 'adds') { form({ systemId: makeSystemId(rows) }, async (v)=>{
+          rows.unshift({ id: uid('s'), systemId: v.systemId, name: v.name, phone: v.phone, email: v.email });
+          await store.save(); t.refresh(); toast('Student added');
+        }); return; }
         const es=e.target.dataset.es, ds=e.target.dataset.ds;
         if (es){ const it=rows.find(x=>x.id===es); if(!it)return; form(it, async (v)=>{ it.name=v.name; it.phone=v.phone; it.email=v.email; await store.save(); t.refresh(); toast('Student saved'); }); }
         if (ds){ const idx=rows.findIndex(x=>x.id===ds); if(idx>=0){ rows.splice(idx,1); await store.save(); t.refresh(); toast('Deleted'); } }
+      });
+    }});
+  }
+
+  // Batches
+  if (!Modules.find(m=>m.id==='batches')) {
+    register({ id:'batches', title:'Batches', icon:'cart', render(el) {
+      const rows = (d.batches = d.batches || []);
+      const courses = d.courses || [];
+      const courseName = x => {
+        const c = courses.find(c=>c.id===x.courseId) || courses.find(c=>c.title===x.course);
+        return c ? c.title : (x.course || x.courseId || '—');
+      };
+      const seatLabel = x => x.seatType === 'unlimited' ? 'Unlimited' : (x.seats || 0);
+      const t = dataTable({
+        columns:[
+          {key:'courseId',label:'Course',render:(v,x)=> esc(courseName(x))},
+          {key:'name',label:'Batch'},
+          {key:'year',label:'Year'},
+          {key:'seats',label:'Seats',render:(v,x)=> seatLabel(x)}
+        ],
+        rows, pageSize:8,
+        toolbar:'<button class="btn primary" id="addb">Add Batch</button>',
+        rowActions:x => `<button class="btn sm" data-eb="${x.id}">Edit</button> <button class="btn sm danger" data-db="${x.id}">Delete</button>`
+      });
+      el.append(t);
+      const form = (item=null, cb)=>{
+        const it = item || {};
+        const selId = it.courseId || ((courses.find(c=>c.title===it.course)||{}).id) || '';
+        const dlg = modal({ title:it.id?'Edit Batch':'Add Batch', confirmLabel:it.id?'Save':'Add', body:`
+          <label class="field">Course<select name="courseId" required>
+            <option value="" disabled ${selId?'':'selected'}>Select course</option>
+            ${courses.map(c=>`<option value="${esc(c.id)}" ${selId===c.id?'selected':''}>${esc(c.title)}</option>`).join('')}
+          </select></label>
+          <label class="field">Batch name<input name="name" required value="${esc(it.name||'')}"></label>
+          <label class="field">Year<input name="year" type="number" min="2000" max="2100" required value="${esc(it.year||new Date().getFullYear())}"></label>
+          <label class="field">Seats<select name="seatType">
+            <option value="fixed" ${it.seatType!=='unlimited'?'selected':''}>Fixed</option>
+            <option value="unlimited" ${it.seatType==='unlimited'?'selected':''}>Unlimited</option>
+          </select></label>
+          <label class="field">Seat count<input name="seats" type="number" min="1" value="${it.seatType==='unlimited'?'':esc(it.seats ?? '')}"></label>
+        `, onConfirm:cb});
+        const typeSel = $('[name=seatType]', dlg);
+        const seatInput = $('[name=seats]', dlg);
+        const syncSeats = ()=>{
+          const unlimited = typeSel.value === 'unlimited';
+          seatInput.disabled = unlimited;
+          seatInput.required = !unlimited;
+          if (unlimited) seatInput.value = '';
+        };
+        typeSel.onchange = syncSeats;
+        syncSeats();
+      };
+      t.addEventListener('click', (e)=>{
+        if (e.target.id !== 'addb') return;
+        form(null, async (v)=>{
+          rows.unshift({ id: uid('b'), courseId:v.courseId, name:v.name, year:v.year, seatType:v.seatType, seats: v.seatType==='unlimited' ? null : Number(v.seats||0) });
+          await store.save(); t.refresh(); toast('Batch added');
+        });
+      });
+      t.addEventListener('click', async (e)=>{
+        const eb=e.target.dataset.eb, db=e.target.dataset.db;
+        if (eb){ const it=rows.find(x=>x.id===eb); if(!it)return; form(it, async (v)=>{ Object.assign(it,{courseId:v.courseId,name:v.name,year:v.year,seatType:v.seatType,seats: v.seatType==='unlimited' ? null : Number(v.seats||0)}); delete it.course; await store.save(); t.refresh(); toast('Batch saved'); }); }
+        if (db){ const idx=rows.findIndex(x=>x.id===db); if(idx>=0){ rows.splice(idx,1); await store.save(); t.refresh(); toast('Deleted'); } }
       });
     }});
   }
@@ -288,8 +352,8 @@ async function bootApp() {
         <label class="field">Alt text<input name="alt" value="${esc(item?.alt||'')}"></label>
         <label class="field">Visible<select name="visible"><option value="true" ${item?.visible!==false?'selected':''}>Yes</option><option value="false" ${item?.visible===false?'selected':''}>No</option></select></label>
       `, onConfirm:cb});
-      $('#addg', t)?.addEventListener('click', ()=> addForm(null, async (v)=>{ (d.gallery||[]).unshift({id:uid('g'), src:v.src, alt:v.alt, visible:v.visible==='true'}); await store.save(); t.refresh(); toast('Added'); }));
       t.addEventListener('click', async (e)=>{
+        if (e.target.id === 'addg') { addForm(null, async (v)=>{ (d.gallery||[]).unshift({id:uid('g'), src:v.src, alt:v.alt, visible:v.visible==='true'}); await store.save(); t.refresh(); toast('Added'); }); return; }
         const eg=e.target.dataset.eg, tg=e.target.dataset.tg, dg=e.target.dataset.dg;
         if (eg){ const it=(d.gallery||[]).find(x=>x.id===eg); if(!it)return; addForm(it, async (v)=>{ Object.assign(it,{src:v.src,alt:v.alt,visible:v.visible==='true'}); await store.save(); t.refresh(); toast('Saved'); }); }
         if (tg){ const it=(d.gallery||[]).find(x=>x.id===tg); if(!it)return; it.visible=!it.visible; await store.save(); t.refresh(); toast(it.visible?'Shown':'Hidden'); }
@@ -316,8 +380,8 @@ async function bootApp() {
         <label class="field">Quote<textarea name="quote" rows="3" required>${esc(item?.quote||'')}</textarea></label>
         <label class="field">Visible<select name="visible"><option value="true" ${item?.visible!==false?'selected':''}>Yes</option><option value="false" ${item?.visible===false?'selected':''}>No</option></select></label>
       `, onConfirm:cb});
-      $('#addt', t)?.addEventListener('click', ()=> addForm(null, async (v)=>{ (d.testimonials||[]).unshift({id:uid('t'), name:v.name, role:v.role, avatar:v.avatar, quote:v.quote, visible:v.visible==='true'}); await store.save(); t.refresh(); toast('Added'); }));
       t.addEventListener('click', async (e)=>{
+        if (e.target.id === 'addt') { addForm(null, async (v)=>{ (d.testimonials||[]).unshift({id:uid('t'), name:v.name, role:v.role, avatar:v.avatar, quote:v.quote, visible:v.visible==='true'}); await store.save(); t.refresh(); toast('Added'); }); return; }
         const et=e.target.dataset.et, tt=e.target.dataset.tt, dt=e.target.dataset.dt;
         if (et){ const it=(d.testimonials||[]).find(x=>x.id===et); if(!it)return; addForm(it, async (v)=>{ Object.assign(it,{name:v.name,role:v.role,avatar:v.avatar,quote:v.quote,visible:v.visible==='true'}); await store.save(); t.refresh(); toast('Saved'); }); }
         if (tt){ const it=(d.testimonials||[]).find(x=>x.id===tt); if(!it)return; it.visible=!it.visible; await store.save(); t.refresh(); toast(it.visible?'Shown':'Hidden'); }
@@ -343,8 +407,8 @@ async function bootApp() {
         <label class="field">Count<input name="count" type="number" value="${esc(item?.count||0)}"></label>
         <label class="field">Logo URL<input name="logo" value="${esc(item?.logo||'')}"></label>
       `, onConfirm:cb});
-      $('#addp', t)?.addEventListener('click', ()=> addForm(null, async (v)=>{ (d.placements||[]).unshift({id:uid('p'), company:v.company, year:v.year, count:Number(v.count||0), logo:v.logo}); await store.save(); t.refresh(); toast('Added'); }));
       t.addEventListener('click', async (e)=>{
+        if (e.target.id === 'addp') { addForm(null, async (v)=>{ (d.placements||[]).unshift({id:uid('p'), company:v.company, year:v.year, count:Number(v.count||0), logo:v.logo}); await store.save(); t.refresh(); toast('Added'); }); return; }
         const ep=e.target.dataset.ep, dp=e.target.dataset.dp;
         if (ep){ const it=(d.placements||[]).find(x=>x.id===ep); if(!it)return; addForm(it, async (v)=>{ Object.assign(it,{company:v.company,year:v.year,count:Number(v.count||0),logo:v.logo}); await store.save(); t.refresh(); toast('Saved'); }); }
         if (dp){ const idx=(d.placements||[]).findIndex(x=>x.id===dp); if(idx>=0){ (d.placements||[]).splice(idx,1); await store.save(); t.refresh(); toast('Deleted'); } }
