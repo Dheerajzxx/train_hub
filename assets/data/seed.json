@@ -1,0 +1,31 @@
+{
+  "enquiries": [
+    { "id": "e_1", "name": "Rahul Kumar", "phone": "9876543210", "email": "rahul@example.com", "course": "PGDCA", "message": "Interested in PGDCA course. Please share fees.", "date": "2026-10-10T10:00:00Z", "status": "new" },
+    { "id": "e_2", "name": "Sneha R", "phone": "9123456780", "email": "sneha@example.com", "course": "Tally ERP 9", "message": "Want to join Tally classes.", "date": "2026-10-12T14:30:00Z", "status": "contacted" }
+  ],
+  "courses": [
+    { "id": "c_1", "title": "PGDCA", "category": "computer", "fee": "₹8,500", "duration": "6 Months", "short": "Post Graduate Diploma in Computer Applications", "active": true },
+    { "id": "c_2", "title": "Tally ERP 9", "category": "accounts", "fee": "₹4,500", "duration": "2 Months", "short": "Tally with GST", "active": true },
+    { "id": "c_3", "title": "AutoCAD", "category": "design", "fee": "₹6,000", "duration": "3 Months", "short": "2D/3D Drafting", "active": true },
+    { "id": "c_4", "title": "Graphic Designing", "category": "design", "fee": "₹7,500", "duration": "4 Months", "short": "Photoshop, CorelDRAW, Canva", "active": true }
+  ],
+  "gallery": [
+    { "id": "g_1", "src": "assets/images/gallery-1.jpg", "alt": "Classroom", "visible": true },
+    { "id": "g_2", "src": "assets/images/gallery-2.jpg", "alt": "Lab", "visible": true }
+  ],
+  "testimonials": [
+    { "id": "t_1", "name": "Anita Sharma", "role": "Student", "quote": "Excellent faculty and practical training. Got placed quickly.", "avatar": "assets/images/avatar-1.png", "visible": true },
+    { "id": "t_2", "name": "Mohammed Arif", "role": "Student", "quote": "Tally course was very helpful for my job.", "avatar": "assets/images/avatar-2.png", "visible": true }
+  ],
+  "placements": [
+    { "id": "p_1", "company": "ABC Solutions", "year": "2025", "count": 12, "logo": "" },
+    { "id": "p_2", "company": "TechMinds", "year": "2025", "count": 8, "logo": "" }
+  ],
+  "settings": {
+    "instituteName": "Sahara Computers & Education Institute",
+    "phone": ["9845668603", "7019570143"],
+    "address": "#20, Manikanta Complex, G B Palya, Bangalore - 560 068",
+    "email": "info@traininginstitute.com",
+    "theme": "auto"
+  }
+}

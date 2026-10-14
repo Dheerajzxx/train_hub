@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Admin Panel</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap">
+<style>
+:root{
+  --bg:#f3f5f7;--surface:#fff;--surface-2:#eef1f4;--line:#dde2e8;
+  --text:#16202b;--muted:#64707d;--accent:#0b7a75;--accent-ink:#fff;--accent-soft:#d9f0ee;
+  --ok:#1a7f45;--warn:#a05a00;--bad:#b3261e;--radius:10px;
+  --font:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#12171d;--surface:#1a2129;--surface-2:#222b35;--line:#2c3743;
+  --text:#e6ebf0;--muted:#92a0ae;--accent:#3cc2ba;--accent-ink:#06201e;--accent-soft:#16413f;
+  --ok:#5fd08a;--warn:#e9b25a;--bad:#ff8a80;color-scheme:dark;}}
+:root[data-theme="dark"]{
+  --bg:#12171d;--surface:#1a2129;--surface-2:#222b35;--line:#2c3743;
+  --text:#e6ebf0;--muted:#92a0ae;--accent:#3cc2ba;--accent-ink:#06201e;--accent-soft:#16413f;
+  --ok:#5fd08a;--warn:#e9b25a;--bad:#ff8a80;color-scheme:dark;}
+*{box-sizing:border-box;margin:0}
+html,body{height:100%}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{background:var(--bg);color:var(--text);font:14px/1.5 var(--font)}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+#loginView{display:flex;align-items:center;justify-content:center;height:100%;padding:16px}
+.login-card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:22px;width:min(360px,92vw);box-shadow:0 10px 30px rgba(0,0,0,.08)}
+.login-card h1{font-size:18px;margin-bottom:12px}
+.field{display:grid;gap:6px;margin-bottom:10px}
+.field input{border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:9px 10px}
+#loginError{color:var(--bad);font-size:12px;margin-top:6px}
+.app{display:none;grid-template-columns:232px 1fr;height:100%}
+.side{background:var(--surface);border-right:1px solid var(--line);padding:16px 12px;display:flex;flex-direction:column;gap:4px;overflow:auto}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:16px;padding:4px 10px 16px}
+.brand i{width:28px;height:28px;border-radius:8px;background:var(--accent);display:grid;place-items:center;color:var(--accent-ink);font-style:normal;font-size:14px}
+.nav{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:8px;color:var(--muted);text-decoration:none;font-weight:500}
+.nav:hover{background:var(--surface-2);color:var(--text)}
+.nav[aria-current="page"]{background:var(--accent-soft);color:var(--accent);font-weight:600}
+.nav svg{width:18px;height:18px;flex:none}
+.main{display:flex;flex-direction:column;min-width:0;overflow:auto}
+.top{display:flex;align-items:center;gap:12px;padding:12px 24px;background:var(--surface);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
+.top h1{font-size:17px;font-weight:700;flex:1}
+.view{padding:24px;display:grid;gap:20px;max-width:1200px;width:100%}
+.btn{border:1px solid var(--line);background:var(--surface);padding:7px 14px;border-radius:8px;cursor:pointer;font-weight:600}
+.btn:hover{background:var(--surface-2)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.btn.primary:hover{filter:brightness(1.08)}
+.btn.danger{color:var(--bad)}
+.btn.sm{padding:4px 10px;font-size:12px}
+#menu{display:none}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px}
+.card h2{font-size:14px;font-weight:700;margin-bottom:12px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:16px}
+.stat small{color:var(--muted)}
+.stat b{display:block;font-size:24px;margin:2px 0;letter-spacing:-.02em}
+.delta{font-size:12px;font-weight:600}.delta.up{color:var(--ok)}.delta.down{color:var(--bad)}
+.split{display:grid;grid-template-columns:2fr 1fr;gap:14px}
+.tools{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.tools input,.tools select,.field input,.field select,.field textarea{border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:7px 10px;min-width:0}
+.tools input{flex:1;min-width:180px}
+.scroll{overflow-x:auto}
+table{width:100%;border-collapse:collapse;min-width:560px}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);white-space:nowrap}
+th{color:var(--muted);font-weight:600;font-size:12px;cursor:pointer;user-select:none}
+th[aria-sort]{color:var(--text)}
+tr:last-child td{border-bottom:0}
+.badge{padding:2px 9px;border-radius:99px;font-size:12px;font-weight:600;background:var(--surface-2)}
+.badge.ok{color:var(--ok)}.badge.warn{color:var(--warn)}.badge.bad{color:var(--bad)}
+.pager{display:flex;justify-content:space-between;align-items:center;margin-top:12px;color:var(--muted)}
+.pager div{display:flex;gap:6px}
+.empty{padding:28px;text-align:center;color:var(--muted)}
+.row{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:12px 0;border-bottom:1px solid var(--line)}
+.row:last-child{border-bottom:0}
+.row p{color:var(--muted);font-size:13px}
+.switch{width:40px;height:22px;border-radius:99px;border:0;background:var(--line);position:relative;cursor:pointer;flex:none}
+.switch::after{content:"";position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:50%;background:#fff;transition:transform .15s}
+.switch[aria-checked="true"]{background:var(--accent)}
+.switch[aria-checked="true"]::after{transform:translateX(18px)}
+dialog{border:1px solid var(--line);border-radius:12px;background:var(--surface);color:var(--text);padding:22px;width:min(520px,92vw);margin:auto}
+dialog::backdrop{background:rgba(10,15,20,.5)}
+.actions{display:flex;justify-content:flex-end;gap:8px;margin-top:16px}
+#toasts{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));display:grid;gap:8px;z-index:20}
+.toast{background:var(--text);color:var(--bg);padding:10px 14px;border-radius:8px;font-weight:600;box-shadow:0 6px 20px rgba(0,0,0,.25)}
+@media (max-width:860px){
+  .app{grid-template-columns:1fr}
+  .side{position:fixed;inset:0 auto 0 0;width:240px;z-index:10;transform:translateX(-100%);transition:transform .2s}
+  .side.open{transform:none}
+  #menu{display:inline-block}
+  .split{grid-template-columns:1fr}
+  .top,.view{padding-left:14px;padding-right:14px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+  <div id="loginView">
+    <form id="loginForm" class="login-card" autocomplete="off">
+      <div class="brand" style="padding:0 0 12px 0"><i>A</i>Admin Login</div>
+      <label class="field">Username<input id="loginUser" name="user" required autocomplete="username"></label>
+      <label class="field">Password<input id="loginPass" name="pass" type="password" required autocomplete="current-password"></label>
+      <button class="btn primary" style="width:100%" type="submit">Sign in</button>
+      <div id="loginError"></div>
+      <p style="color:var(--muted);font-size:12px;margin-top:10px">Demo: admin / admin123</p>
+    </form>
+  </div>
+
+  <div class="app" id="appWrap">
+    <aside class="side" id="side" aria-label="Main navigation">
+      <div class="brand"><i>A</i>Admin</div>
+      <nav id="nav" style="display:grid;gap:4px"></nav>
+    </aside>
+    <div class="main">
+      <header class="top">
+        <button class="btn sm" id="menu" aria-label="Open menu">Menu</button>
+        <h1 id="title"></h1>
+        <button class="btn sm" id="theme">Toggle theme</button>
+        <button class="btn sm" id="adminLogout">Logout</button>
+      </header>
+      <main class="view" id="view"></main>
+    </div>
+  </div>
+  <div id="toasts" role="status" aria-live="polite"></div>
+
+  <script src="assets/js/admin-auth.js"></script>
+  <script>
+  /* Core (reused from theme) */
+  const Modules = [];
+  const register = m => Modules.push(m);
+  const $ = (s,r=document)=>r.querySelector(s);
+  const h = html=>{const t=document.createElement('template');t.innerHTML=html.trim();return t.content.firstElementChild;};
+  const esc = s=>String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const inr = n=> '₹'+Number(n||0).toLocaleString('en-IN');
+  const ICONS = {
+    home:'<path d="M3 11l9-8 9 8M5 10v10h5v-6h4v6h5V10"/>',
+    users:'<circle cx="9" cy="8" r="3.5"/><path d="M2 20c0-3.5 3-6 7-6s7 2.5 7 6M16 4.5a3.5 3.5 0 010 7M19 14c2 .7 3 2.4 3 5"/>',
+    cart:'<path d="M3 4h3l2 11h10l2-8H7"/><circle cx="9" cy="19" r="1.5"/><circle cx="17" cy="19" r="1.5"/>',
+    gear:'<circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2"/>'
+  };
+  const icon = n=> `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[n]||ICONS.gear}</svg>`;
+  function renderNav(){
+    const nav = $('#nav'); if (!nav) return;
+    nav.innerHTML = Modules.map(m=> `<a class="nav" href="#/${m.id}" data-id="${m.id}">${icon(m.icon)}${m.title}</a>`).join('');
+  }
+  function route(){
+    if (typeof requireAuth==='function' && !requireAuth()) return;
+    const id = (location.hash.replace('#/','')) || (Modules[0]?Modules[0].id:'login');
+    if (id==='login') { if (!isAuthed()) return initAuth(); else { location.hash='#/dashboard'; return; } }
+    const m = Modules.find(x=>x.id===id) || Modules[0];
+    if (!m) return;
+    document.querySelectorAll('.nav').forEach(a=>{
+      a.toggleAttribute('aria-current', a.dataset.id===m.id);
+      if (a.dataset.id===m.id) a.setAttribute('aria-current','page'); else a.removeAttribute('aria-current');
+    });
+    $('#title').textContent = m.title; document.title = m.title+' · Admin';
+    const view=$('#view'); view.innerHTML=''; m.render(view);
+    $('#side').classList.remove('open');
+  }
+  function toast(msg){ const t=h(`<div class="toast">${esc(msg)}</div>`); $('#toasts').append(t); setTimeout(()=>t.remove(),2600); }
+  function modal({title,body,confirmLabel='Save',onConfirm}){
+    const d=h(`<dialog><form><h2 style="margin-bottom:14px">${esc(title)}</h2>${body}<div class="actions"><button type="button" class="btn" data-c>Cancel</button><button type="submit" class="btn primary">${esc(confirmLabel)}</button></div></form></dialog>`);
+    document.body.append(d);
+    $('[data-c]',d).onclick=()=> d.close();
+    d.addEventListener('close',()=> d.remove(),{once:true});
+    $('form',d).onsubmit=(e)=>{ e.preventDefault(); onConfirm(Object.fromEntries(new FormData($('form',d)))); d.close(); };
+    d.showModal();
+  }
+  function statCard({label,value,delta}){ const up=delta>=0; return `<div class="stat"><small>${esc(label)}</small><b>${esc(value)}</b><span class="delta ${up?'up':'down'}">${up?'▲':'▼'} ${Math.abs(delta)}% vs last month</span></div>`; }
+  function dataTable({columns,rows,pageSize=6,filters=[],toolbar='',rowActions}){
+    const root=h(`<div class="card"></div>`); const state={q:'',sort:null,dir:1,page:1,filter:{}};
+    function view(){
+      let r = rows.filter(x=>!state.q||Object.values(x).join(' ').toLowerCase().includes(state.q.toLowerCase()));
+      filters.forEach(f=>{const v=state.filter[f.key]; if(v) r=r.filter(x=>x[f.key]===v);});
+      if (state.sort) r=[...r].sort((a,b)=>(a[state.sort]>b[state.sort]?1:-1)*state.dir);
+      const pages=Math.max(1,Math.ceil(r.length/pageSize)); state.page=Math.min(state.page,pages);
+      return {r,pages,slice:r.slice((state.page-1)*pageSize,state.page*pageSize)};
+    }
+    function draw(){
+      const {r,pages,slice}=view();
+      root.innerHTML = `<div class="tools"><input type="search" placeholder="Search" value="${esc(state.q)}">
+        ${filters.map(f=>`<select data-f="${f.key}"><option value="">${f.label}: all</option>${f.options.map(o=>`<option ${state.filter[f.key]===o?'selected':''}>${o}</option>`).join('')}</select>`).join('')}
+        ${toolbar}</div>
+        <div class="scroll"><table><thead><tr>${columns.map(c=>`<th data-k="${c.key}" ${state.sort===c.key?`aria-sort="${state.dir>0?'ascending':'descending'}"`:''}>${c.label}${state.sort===c.key?(state.dir>0?' ↑':' ↓'):''}</th>`).join('')}${rowActions?'<th></th>':''}</tr></thead>
+        <tbody>${slice.map(x=>`<tr>${columns.map(c=>`<td>${c.render?c.render(x[c.key],x):esc(x[c.key])}</td>`).join('')}${rowActions?`<td style="text-align:right">${rowActions(x)}</td>`:''}</tr>`).join('')}</tbody></table>
+        ${slice.length?'':'<div class="empty">No results</div>'}</div>
+        <div class="pager"><span>${r.length} result${r.length===1?'':'s'}</span><div>
+        <button class="btn sm" data-p="-1" ${state.page<=1?'disabled':''}>Previous</button><span style="padding:4px 6px">${state.page}/${pages}</span>
+        <button class="btn sm" data-p="1" ${state.page>=pages?'disabled':''}>Next</button></div></div>`;
+      $('input',root).oninput=e=>{state.q=e.target.value;state.page=1;draw();};
+      root.querySelectorAll('select[data-f]').forEach(s=>s.onchange=e=>{state.filter[s.dataset.f]=e.target.value;state.page=1;draw();});
+      root.querySelectorAll('th[data-k]').forEach(t=>t.onclick=()=>{state.dir=state.sort===t.dataset.k?-state.dir:1;state.sort=t.dataset.k;draw();});
+      root.querySelectorAll('[data-p]').forEach(b=>b.onclick=()=>{state.page+=+b.dataset.p;draw();});
+    }
+    root.refresh=draw; draw(); return root;
+  }
+  document.getElementById('menu').onclick=()=> document.getElementById('side').classList.toggle('open');
+  document.getElementById('theme').onclick=()=>{
+    const r=document.documentElement, dark=r.dataset.theme? r.dataset.theme==='dark': matchMedia('(prefers-color-scheme:dark)').matches;
+    r.dataset.theme = dark?'light':'dark'; try{localStorage.setItem('theme',r.dataset.theme);}catch(e){}
+  };
+  try{ const t=localStorage.getItem('theme'); if(t) document.documentElement.dataset.theme=t;}catch(e){}
+  addEventListener('hashchange', route);
+  </script>
+  <script src="assets/js/admin-app.js"></script>
+</body>
+</html>
