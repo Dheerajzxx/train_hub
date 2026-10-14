@@ -87,12 +87,28 @@ dialog::backdrop{background:rgba(10,15,20,.5)}
 .actions{display:flex;justify-content:flex-end;gap:8px;margin-top:16px}
 #toasts{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));display:grid;gap:8px;z-index:20}
 .toast{background:var(--text);color:var(--bg);padding:10px 14px;border-radius:8px;font-weight:600;box-shadow:0 6px 20px rgba(0,0,0,.25)}
+.aform{display:grid;gap:16px;max-width:1000px}
+.aform .arow{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;align-items:start}
+.aform .arow.full{grid-template-columns:1fr}
+.aform .field{margin:0}
+.aform input[readonly]{background:var(--surface-2);color:var(--muted)}
+.radios{display:flex;gap:18px;align-items:center;padding:7px 0;font-weight:400}
+.radios label{display:flex;gap:7px;align-items:center;font-weight:500;cursor:pointer}
+.radios input{width:auto}
+.combo{position:relative}
+.combo .combo-input{width:100%}
+.combo-list{position:absolute;left:0;right:0;top:calc(100% + 2px);background:var(--surface);border:1px solid var(--line);border-radius:8px;max-height:220px;overflow:auto;z-index:15;box-shadow:0 8px 20px rgba(0,0,0,.14)}
+.combo-list>div{padding:8px 10px;cursor:pointer}
+.combo-list>div:hover,.combo-list>div[aria-selected="true"]{background:var(--surface-2)}
+.form-head{display:flex;justify-content:space-between;align-items:center}
+.form-actions{display:flex;gap:10px;justify-content:flex-end}
 @media (max-width:860px){
   .app{grid-template-columns:1fr}
   .side{position:fixed;inset:0 auto 0 0;width:240px;z-index:10;transform:translateX(-100%);transition:transform .2s}
   .side.open{transform:none}
   #menu{display:inline-block}
   .split{grid-template-columns:1fr}
+  .aform .arow{grid-template-columns:1fr}
   .top,.view{padding-left:14px;padding-right:14px}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
@@ -140,6 +156,7 @@ dialog::backdrop{background:rgba(10,15,20,.5)}
     home:'<path d="M3 11l9-8 9 8M5 10v10h5v-6h4v6h5V10"/>',
     users:'<circle cx="9" cy="8" r="3.5"/><path d="M2 20c0-3.5 3-6 7-6s7 2.5 7 6M16 4.5a3.5 3.5 0 010 7M19 14c2 .7 3 2.4 3 5"/>',
     cart:'<path d="M3 4h3l2 11h10l2-8H7"/><circle cx="9" cy="19" r="1.5"/><circle cx="17" cy="19" r="1.5"/>',
+    doc:'<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/>',
     gear:'<circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2"/>'
   };
   const icon = n=> `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[n]||ICONS.gear}</svg>`;
@@ -152,6 +169,7 @@ dialog::backdrop{background:rgba(10,15,20,.5)}
       menuItem('courses'),
       menuItem('students'),
       menuItem('batches'),
+      menuItem('admissions'),
       // menuItem('gallery'),
       // menuItem('testimonials'),
       // menuItem('placements'),
