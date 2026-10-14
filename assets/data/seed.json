@@ -9,6 +9,10 @@
     { "id": "c_3", "title": "AutoCAD", "category": "design", "fee": "₹6,000", "duration": "3 Months", "short": "2D/3D Drafting", "active": true },
     { "id": "c_4", "title": "Graphic Designing", "category": "design", "fee": "₹7,500", "duration": "4 Months", "short": "Photoshop, CorelDRAW, Canva", "active": true }
   ],
+  "students": [
+    { "id": "s_1", "systemId": "STU-100001", "name": "Arjun Verma", "phone": "9800011122", "email": "arjun@example.com" },
+    { "id": "s_2", "systemId": "STU-100002", "name": "Divya Menon", "phone": "9800033344", "email": "divya@example.com" }
+  ],
   "gallery": [
     { "id": "g_1", "src": "assets/images/gallery-1.jpg", "alt": "Classroom", "visible": true },
     { "id": "g_2", "src": "assets/images/gallery-2.jpg", "alt": "Lab", "visible": true }

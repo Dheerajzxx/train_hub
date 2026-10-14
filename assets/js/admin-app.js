@@ -87,6 +87,14 @@ function uid(prefix='id') {
   try { return prefix + '_' + crypto.randomUUID(); } catch(e) { return prefix + '_' + Date.now() + '_' + Math.random().toString(36).slice(2); }
 }
 
+function makeSystemId(existing = []) {
+  let id;
+  do {
+    id = 'STU-' + Math.floor(100000 + Math.random() * 900000);
+  } while (existing.some(s => s.systemId === id));
+  return id;
+}
+
 function fmtDate(s) {
   if (!s) return '';
   try { return new Date(s).toLocaleString('en-IN'); } catch(e) { return s; }
@@ -222,6 +230,40 @@ async function bootApp() {
         if (ec) { const it = (d.courses||[]).find(x=>x.id===ec); if (!it) return; addForm(it, async (v)=>{ Object.assign(it,{title:v.title,category:v.category,fee:v.fee,duration:v.duration,short:v.short,active:v.active==='true'}); await store.save(); t.refresh(); toast('Course saved'); }); }
         if (tc) { const it = (d.courses||[]).find(x=>x.id===tc); if (!it) return; it.active = !it.active; await store.save(); t.refresh(); toast(it.active?'Enabled':'Disabled'); }
         if (dc) { const idx=(d.courses||[]).findIndex(x=>x.id===dc); if (idx>=0){ (d.courses||[]).splice(idx,1); await store.save(); t.refresh(); toast('Deleted'); } }
+      });
+    }});
+  }
+
+  // Students
+  if (!Modules.find(m=>m.id==='students')) {
+    register({ id:'students', title:'Students', icon:'users', render(el) {
+      const rows = (d.students = d.students || []);
+      const t = dataTable({
+        columns:[
+          {key:'systemId',label:'System ID'},
+          {key:'name',label:'Name'},
+          {key:'phone',label:'Phone'},
+          {key:'email',label:'Email'}
+        ],
+        rows, pageSize:8,
+        toolbar:'<button class="btn primary" id="adds">Add Student</button>',
+        rowActions:x => `<button class="btn sm" data-es="${x.id}">Edit</button> <button class="btn sm danger" data-ds="${x.id}">Delete</button>`
+      });
+      el.append(t);
+      const form = (item=null, cb)=> modal({ title:item?'Edit Student':'Add Student', confirmLabel:item?'Save':'Add', body:`
+        <label class="field">System ID<input name="systemId" value="${esc(item?.systemId||'')}" readonly></label>
+        <label class="field">Name<input name="name" required value="${esc(item?.name||'')}"></label>
+        <label class="field">Phone<input name="phone" required value="${esc(item?.phone||'')}"></label>
+        <label class="field">Email<input name="email" type="email" value="${esc(item?.email||'')}"></label>
+      `, onConfirm:cb});
+      $('#adds', t)?.addEventListener('click', ()=> form({ systemId: makeSystemId(rows) }, async (v)=>{
+        rows.unshift({ id: uid('s'), systemId: v.systemId, name: v.name, phone: v.phone, email: v.email });
+        await store.save(); t.refresh(); toast('Student added');
+      }));
+      t.addEventListener('click', async (e)=>{
+        const es=e.target.dataset.es, ds=e.target.dataset.ds;
+        if (es){ const it=rows.find(x=>x.id===es); if(!it)return; form(it, async (v)=>{ it.name=v.name; it.phone=v.phone; it.email=v.email; await store.save(); t.refresh(); toast('Student saved'); }); }
+        if (ds){ const idx=rows.findIndex(x=>x.id===ds); if(idx>=0){ rows.splice(idx,1); await store.save(); t.refresh(); toast('Deleted'); } }
       });
     }});
   }
