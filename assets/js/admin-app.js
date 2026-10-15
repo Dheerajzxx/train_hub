@@ -166,25 +166,98 @@ async function bootApp() {
   // Dashboard
   if (!Modules.find(m=>m.id==='dashboard')) {
     register({ id:'dashboard', title:'Dashboard', icon:'home', render(el) {
-      const enq = (d.enquiries||[]).length;
-      const newEnq = (d.enquiries||[]).filter(e=>e.status==='new').length;
-      const courses = (d.courses||[]).filter(c=>c.active).length;
-      const gallery = (d.gallery||[]).filter(g=>g.visible).length;
+      const students = d.students||[];
+      const courses = d.courses||[];
+      const batches = d.batches||[];
+      const admissions = d.admissions||[];
+      const exams = d.exams||[];
+      const results = d.examResults||[];
+
+      const now = new Date();
+      const curKey = now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0');
+      const prevD = new Date(now.getFullYear(), now.getMonth()-1, 1);
+      const prevKey = prevD.getFullYear()+'-'+String(prevD.getMonth()+1).padStart(2,'0');
+      const inMonth = (a,k) => (a.admissionDate||'').slice(0,7)===k;
+      const admCur = admissions.filter(a=>inMonth(a,curKey));
+      const admPrev = admissions.filter(a=>inMonth(a,prevKey));
+      const money = n => Number(n||0);
+      const revCur = admCur.reduce((s,a)=>s+money(a.finalAmount),0);
+      const revPrev = admPrev.reduce((s,a)=>s+money(a.finalAmount),0);
+      const revenue = admissions.reduce((s,a)=>s+money(a.finalAmount),0);
+      const pct = (c,p) => p>0 ? Math.round((c-p)/p*100) : (c>0?100:0);
+      const activeCourses = courses.filter(c=>c.active).length;
+      const enrolled = new Set(admissions.map(a=>a.studentId)).size;
+      const seatsUsed = admissions.filter(a=>a.batchId).length;
+      const today = now.toISOString().slice(0,10);
+      const upcoming = exams.filter(e=>(e.date||'')>=today).sort((a,b)=>(a.date||'').localeCompare(b.date||''));
+      const recent = [...admissions].sort((a,b)=>(b.admissionDate||'').localeCompare(a.admissionDate||'')).slice(0,5);
+
       el.append(h(`<div class="stats">${[
-        {label:'Enquiries', value:String(enq), delta: Math.max(0,newEnq)},
-        {label:'New Enquiries', value:String(newEnq), delta:0},
-        {label:'Active Courses', value:String(courses), delta:0},
-        {label:'Gallery Items', value:String(gallery), delta:0}
-      ].map(s=>statCard({label:s.label,value:s.value,delta:s.delta})).join('')}</div>`));
-      const recent = [...(d.enquiries||[])].sort((a,b)=> (b.date||'').localeCompare(a.date||'')).slice(0,5);
-      el.append(h(`<div class="split"><div class="card"><h2>Recent enquiries</h2>${recent.length? recent.map(r=>`<div class="row"><div><b>${esc(r.name)}</b><p>${esc(r.course||'')} • ${fmtDate(r.date)}</p></div>${badge(r.status)}</div>`).join('') : '<div class="empty">No enquiries</div>'}</div>
-        <div class="card"><h2>Quick actions</h2>
-          <div style="display:flex;gap:8px;flex-wrap:wrap">
-            <button class="btn primary" onclick="location.hash='#/enquiries'">View Enquiries</button>
-            <button class="btn" onclick="location.hash='#/courses'">Manage Courses</button>
-            <button class="btn" onclick="location.hash='#/gallery'">Manage Gallery</button>
-          </div>
-        </div></div>`));
+        {label:'Students', value:String(students.length), sub:`${enrolled} enrolled via admissions`},
+        {label:'Admissions', value:String(admissions.length), delta:pct(admCur.length, admPrev.length)},
+        {label:'Active Courses', value:String(activeCourses), sub:`${courses.length} total courses`},
+        {label:'Batches', value:String(batches.length), sub:`${seatsUsed} seat${seatsUsed===1?'':'s'} filled`},
+        {label:'Revenue', value:inr(revenue), delta:pct(revCur, revPrev)}
+      ].map(statCard).join('')}</div>`));
+
+      const months = [];
+      for (let i=5;i>=0;i--) months.push(new Date(now.getFullYear(), now.getMonth()-i, 1));
+      const labels = months.map(mo=>mo.toLocaleString('en-US',{month:'short'}));
+      const values = months.map(mo=>{
+        const k = mo.getFullYear()+'-'+String(mo.getMonth()+1).padStart(2,'0');
+        return admissions.filter(a=>(a.admissionDate||'').slice(0,7)===k).length;
+      });
+
+      el.append(h(`<div class="split">
+        <div class="card"><h2>Admissions trend · last 6 months</h2>${lineChart({labels,values})}</div>
+        <div class="card"><h2>Fee collection by month</h2>${barList(months.map((mo,i)=>{
+          const k = mo.getFullYear()+'-'+String(mo.getMonth()+1).padStart(2,'0');
+          const v = admissions.filter(a=>(a.admissionDate||'').slice(0,7)===k).reduce((s,a)=>s+money(a.finalAmount),0);
+          return {label:labels[i], value:v, sub:inr(v)};
+        }))}</div>
+      </div>`));
+
+      const byCourse = courses
+        .map(c=>({label:c.title, value:admissions.filter(a=>a.courseId===c.id).length}))
+        .filter(x=>x.value>0).sort((a,b)=>b.value-a.value);
+
+      const gradeOrder=['A+','A','B+','B','C','D','F'];
+      const gradeCounts={};
+      results.forEach(r=>{ const g=r.grade||'—'; gradeCounts[g]=(gradeCounts[g]||0)+1; });
+      const grades=gradeOrder.filter(g=>gradeCounts[g]).map(g=>({label:'Grade '+g, value:gradeCounts[g]}));
+
+      el.append(h(`<div class="grid2">
+        <div class="card"><h2>Admissions by course</h2>${barList(byCourse)}</div>
+        <div class="card"><h2>Batch seat utilisation</h2>${barList(batches.map(b=>{
+          const used = admissions.filter(a=>a.batchId===b.id).length;
+          const cap = b.seatType==='unlimited' ? null : Number(b.seats||0);
+          return {label:b.name, value:used, sub: cap ? `${used}/${cap} seats` : `${used} · unlimited`};
+        }))}</div>
+      </div>`));
+
+      el.append(h(`<div class="grid2">
+        <div class="card"><h2>Recent admissions</h2>${recent.length? recent.map(a=>{
+          const st = students.find(s=>s.id===a.studentId)||{};
+          const c = courses.find(x=>x.id===a.courseId)||{};
+          return `<div class="row"><div><b>${esc(st.name||'—')}</b><p>${esc(c.title||'')} • ${esc(a.admissionDate||'')}</p></div><span class="badge ok">${inr(a.finalAmount)}</span></div>`;
+        }).join('') : '<div class="empty">No admissions yet</div>'}</div>
+        <div class="card"><h2>Upcoming exams</h2>${upcoming.length? upcoming.slice(0,5).map(ex=>{
+          const b = batches.find(x=>x.id===ex.batchId)||{};
+          return `<div class="row"><div><b>${esc(ex.examName)}</b><p>${esc(b.name||'')} • ${esc(ex.date||'')}</p></div><span class="badge">${esc(ex.totalMarks)} marks</span></div>`;
+        }).join('') : '<div class="empty">No upcoming exams</div>'}</div>
+      </div>`));
+
+      el.append(h(`<div class="card"><h2>Exam grade distribution</h2>${barList(grades)}</div>`));
+
+      el.append(h(`<div class="card"><h2>Quick actions</h2>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <button class="btn primary" onclick="location.hash='#/admissions'">Add Admission</button>
+          <button class="btn" onclick="location.hash='#/students'">Manage Students</button>
+          <button class="btn" onclick="location.hash='#/courses'">Manage Courses</button>
+          <button class="btn" onclick="location.hash='#/batches'">Manage Batches</button>
+          <button class="btn" onclick="location.hash='#/exams'">Manage Exams</button>
+        </div>
+      </div>`));
     }});
   }
 
