@@ -2,108 +2,301 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Student Results</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Student Results - Sahara Computers</title>
+<meta name="description" content="Check your exam results - Sahara Computers & Education Institute">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+<link href="assets/css/style.css" rel="stylesheet">
 <style>
-:root{--bg:#f3f5f7;--surface:#fff;--surface-2:#eef1f4;--line:#dde2e8;--text:#16202b;--muted:#64707d;--accent:#0b7a75;--accent-ink:#fff;--radius:10px;font:15px/1.5 'Plus Jakarta Sans',system-ui,sans-serif;color-scheme:light}
-@media (prefers-color-scheme:dark){:root{--bg:#12171d;--surface:#1a2129;--surface-2:#222b35;--line:#2c3743;--text:#e6ebf0;--muted:#92a0ae;--accent:#3cc2ba;--accent-ink:#06201e;color-scheme:dark}}
-*{box-sizing:border-box;margin:0}
-body{background:var(--bg);color:var(--text);padding:24px}
-.container{max-width:900px;margin:0 auto;display:grid;gap:20px}
-.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:20px}
-h1{font-size:22px}
-p{color:var(--muted)}
-form{display:flex;gap:12px;flex-wrap:wrap;align-items:end}
-.field{display:grid;gap:6px;flex:1;min-width:240px}
-input{border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:9px 10px}
-.btn{border:1px solid var(--line);background:var(--surface);padding:9px 16px;border-radius:8px;cursor:pointer;font-weight:600}
-.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
-table{width:100%;border-collapse:collapse;margin-top:16px;overflow-x:auto;display:block}
-th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);white-space:nowrap}
-th{color:var(--muted);font-weight:600;font-size:12px}
-.badge{padding:2px 9px;border-radius:99px;background:var(--surface-2);font-size:12px}
-.empty{padding:24px;text-align:center;color:var(--muted)}
+.results-hero {
+  padding-top: 120px;
+  padding-bottom: 60px;
+  background: radial-gradient(1200px 600px at 10% 0%, rgba(15,165,157,0.08), transparent), radial-gradient(1200px 600px at 90% 0%, rgba(255,107,53,0.08), transparent);
+}
+.results-card {
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-xl);
+  box-shadow: var(--shadow-soft);
+  background: var(--bg-secondary);
+  overflow: hidden;
+}
+.results-card .card-header {
+  background: linear-gradient(135deg, rgba(15,165,157,0.08) 0%, rgba(255,107,53,0.06) 100%);
+  border-bottom: 1px solid var(--border-color);
+  padding: 2rem 2rem 1.5rem;
+}
+.results-card .card-body {
+  padding: clamp(1rem, 4vw, 2rem);
+}
+.table-responsive {
+  border-radius: var(--border-radius-lg);
+  border: 1px solid var(--border-color);
+}
+.table thead th {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  font-weight: 600;
+  background: var(--bg-tertiary);
+  border-color: var(--border-color);
+  white-space: nowrap;
+}
+.table tbody td {
+  vertical-align: middle;
+  white-space: nowrap;
+}
+.badge-soft {
+  padding: 0.4rem 0.8rem;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  background: rgba(15,165,157,0.12);
+  color: var(--color-primary);
+}
+.empty-state {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: var(--text-muted);
+}
 </style>
 </head>
 <body>
-<div class="container">
-  <div class="card">
-    <h1>Check Your Exam Results</h1>
-    <p>Enter your System ID (e.g. STU-100001) or Admission ID (e.g. ADM-2026-0001)</p>
-    <form id="form">
-      <label class="field">Student ID or Admission ID
-        <input id="idInput" placeholder="STU-100001 or ADM-2026-0001" required>
-      </label>
-      <button class="btn primary" type="submit">Get Results</button>
-    </form>
+  <div class="loading-spinner">
+    <div class="spinner"></div>
   </div>
-  <div class="card" id="resultCard" hidden>
-    <h2 id="name">Student</h2>
-    <div id="meta" style="color:var(--muted)"></div>
-    <div id="tbl"></div>
-    <div id="empty" class="empty" hidden>No results found</div>
+
+  <div class="top-bar d-none d-md-block">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-md-8">
+          <div class="contact-info">
+            <span><i class="fa-solid fa-phone"></i> 9845668603 / 7019570143</span>
+            <span><i class="fa-solid fa-location-dot"></i> G B Palya, Bangalore – 560 068</span>
+          </div>
+        </div>
+        <div class="col-md-4 text-end">
+          <div class="social-links">
+            <span><i class="fa-solid fa-certificate"></i> ISO Certified 9001:2015</span>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-</div>
-<script>
-const DB_NAME='trainhub_admin', DB_VER=1, DB_STORE='data';
-function idbOpen(){
-  return new Promise((res,rej)=>{
-    if(!window.indexedDB) return rej('no');
-    const req=indexedDB.open(DB_NAME,DB_VER);
-    req.onupgradeneeded=e=>{const db=e.target.result; if(!db.objectStoreNames.contains(DB_STORE)) db.createObjectStore(DB_STORE,{keyPath:'key'});};
-    req.onsuccess=()=>res(req.result); req.onerror=()=>rej(req.error);
-  });
-}
-async function getState(){
-  try{
-    const db=await idbOpen();
+
+  <nav class="navbar navbar-expand-lg main-navbar" aria-label="Main navigation">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">
+        <img src="assets/images/SAHARA-LOGO.png" alt="Sahara Computers"> Sahara <span>Computers</span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="mainNav">
+        <ul class="navbar-nav ms-auto align-items-lg-center">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="courses.html">Courses</a></li>
+          <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+          <li class="nav-item"><a class="nav-link active" href="results.html">Results</a></li>
+          <li class="nav-item d-flex align-items-center me-2">
+            <button class="dark-mode-toggle" id="darkModeToggle" aria-label="Toggle dark mode" title="Toggle dark mode">
+              <i class="fa-solid fa-moon"></i>
+            </button>
+          </li>
+          <li class="nav-item nav-cta">
+            <a href="contact.html" class="btn btn-accent btn-sm">Enquire Now</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <section class="results-hero">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-10 col-xl-9">
+          <div class="text-center mb-4" data-aos="fade-down">
+            <h1 class="section-title mb-3">Check Your Exam Results</h1>
+            <p class="section-subtitle mx-auto mb-0">Enter your System ID (e.g. <strong>STU-100001</strong>) or Admission ID (e.g. <strong>ADM-2026-0001</strong>) to view your results.</p>
+          </div>
+          <div class="results-card" data-aos="fade-up" data-aos-delay="100">
+            <div class="card-header">
+              <form id="form" class="row g-3 align-items-end">
+                <div class="col-md-9">
+                  <label for="idInput" class="form-label fw-semibold">Student ID or Admission ID</label>
+                  <input id="idInput" class="form-control form-control-lg" placeholder="STU-100001 or ADM-2026-0001" required>
+                </div>
+                <div class="col-md-3 d-grid">
+                  <button class="btn btn-primary btn-lg" type="submit">
+                    <i class="fa-solid fa-magnifying-glass me-2"></i> Get Results
+                  </button>
+                </div>
+              </form>
+            </div>
+            <div class="card-body">
+              <div id="resultCard" class="d-none">
+                <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-3">
+                  <div>
+                    <h2 id="name" class="mb-1 h4 fw-bold"></h2>
+                    <div id="meta" class="text-muted small"></div>
+                  </div>
+                </div>
+                <div id="tbl"></div>
+                <div id="empty" class="empty-state d-none">
+                  <div class="fs-1 mb-3">📄</div>
+                  <h5 class="mb-2">No Results Found</h5>
+                  <p class="mb-0">There are no exam results available for this student yet.</p>
+                </div>
+              </div>
+              <div id="initialState" class="empty-state">
+                <div class="fs-1 mb-3">🎓</div>
+                <h5 class="mb-2">Enter Your Details</h5>
+                <p class="mb-0">Your exam results will appear here once you submit your ID.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-lg-3 col-md-6">
+          <h5><img src="assets/images/SAHARA-LOGO.png" alt="Sahara Computers" class="footer-logo me-2"> Sahara <span class="text-secondary">Computers</span></h5>
+          <p>Sahara Computers &amp; Education Institute offers computer and professional training courses in Bangalore. ISO Certified 9001:2015.</p>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <h5>Quick Links</h5>
+          <ul class="footer-links">
+            <li><a href="index.html"><i class="fa-solid fa-chevron-right"></i> Home</a></li>
+            <li><a href="about.html"><i class="fa-solid fa-chevron-right"></i> About Us</a></li>
+            <li><a href="courses.html"><i class="fa-solid fa-chevron-right"></i> Courses</a></li>
+            <li><a href="results.html"><i class="fa-solid fa-chevron-right"></i> Results</a></li>
+            <li><a href="contact.html"><i class="fa-solid fa-chevron-right"></i> Contact</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <h5>Popular Courses</h5>
+          <ul class="footer-links">
+            <li><a href="course-details.html?course=bci"><i class="fa-solid fa-chevron-right"></i> BCI</a></li>
+            <li><a href="course-details.html?course=pgdca"><i class="fa-solid fa-chevron-right"></i> PGDCA</a></li>
+            <li><a href="course-details.html?course=tally-erp-9"><i class="fa-solid fa-chevron-right"></i> Tally ERP 9</a></li>
+            <li><a href="course-details.html?course=graphic-designing"><i class="fa-solid fa-chevron-right"></i> Graphic Designing</a></li>
+            <li><a href="course-details.html?course=autocad"><i class="fa-solid fa-chevron-right"></i> AutoCAD</a></li>
+            <li><a href="course-details.html?course=achnp"><i class="fa-solid fa-chevron-right"></i> ACHNP</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <h5>Contact Us</h5>
+          <div class="contact-item">
+            <i class="fa-solid fa-location-dot"></i>
+            <span>#20, Manikanta Complex,<br>G B Palya, Bangalore – 560 068</span>
+          </div>
+          <div class="contact-item">
+            <i class="fa-solid fa-phone"></i>
+            <span>9845668603 / 7019570143</span>
+          </div>
+          <div class="contact-item">
+            <i class="fa-solid fa-certificate"></i>
+            <span>ISO Certified 9001:2015</span>
+          </div>
+        </div>
+      </div>
+      <hr class="footer-divider">
+      <div class="row align-items-center">
+        <div class="col-md-6">
+          <p class="copyright mb-md-0">&copy; <span id="currentYear"></span> Sahara Computers &amp; Education Institute. All Rights Reserved.</p>
+        </div>
+        <div class="col-md-6 text-md-end">
+          <div class="d-flex gap-3 justify-content-md-end flex-wrap">
+            <a href="index.html">Home</a>
+            <a href="courses.html">Courses</a>
+            <a href="contact.html">Contact</a>
+            <a href="results.html">Results</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <a href="#" class="scroll-top" aria-label="Scroll to top"><i class="fa-solid fa-arrow-up"></i></a>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script>
+  document.getElementById('currentYear').textContent = new Date().getFullYear();
+  AOS.init({ duration: 800, once: true, offset: 60 });
+  </script>
+  <script>
+  const DB_NAME='trainhub_admin', DB_VER=1, DB_STORE='data';
+  function idbOpen(){
     return new Promise((res,rej)=>{
-      const tx=db.transaction(DB_STORE,'readonly'); const st=tx.objectStore(DB_STORE);
-      const r=st.get('state'); r.onsuccess=()=>res(r.result?r.result.value:null); r.onerror=()=>rej(r.error);
+      if(!window.indexedDB) return rej('no');
+      const req=indexedDB.open(DB_NAME,DB_VER);
+      req.onupgradeneeded=e=>{const db=e.target.result; if(!db.objectStoreNames.contains(DB_STORE)) db.createObjectStore(DB_STORE,{keyPath:'key'});};
+      req.onsuccess=()=>res(req.result); req.onerror=()=>rej(req.error);
     });
-  }catch(e){ try{return JSON.parse(localStorage.getItem('ah_state'));}catch(e2){return null;} }
-}
-function esc(s){return String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
-const fmtNum=v=>v===null||v===undefined||v===''?'-':Number(v).toFixed(2).replace(/\.00$/,''); 
-document.getElementById('form').onsubmit=async e=>{
-  e.preventDefault();
-  const q=document.getElementById('idInput').value.trim();
-  const d=await getState();
-  if(!d){ alert('No data'); return; }
-  const students=d.students||[], admissions=d.admissions||[], exams=d.exams||[], res=d.examResults||[], courses=d.courses||[], batches=d.batches||[];
-  let student=null;
-  if(q.startsWith('ADM')){ const a=admissions.find(x=>(x.admissionId||'').toUpperCase()===q.toUpperCase()||(x.id===q)); if(a) student=students.find(s=>s.id===a.studentId); }
-  if(!student && q.startsWith('STU')){ student=students.find(s=>s.systemId.toUpperCase()===q.toUpperCase()); }
-  if(!student){ alert('Student not found'); return; }
-  let results = res.filter(r=>r.studentId===student.id);
-  results.sort((a,b)=>{
-    const ea=exams.find(x=>x.id===a.examId)||{}; const eb=exams.find(x=>x.id===b.examId)||{};
-    return (eb.date||'').localeCompare(ea.date||'') || 0;
-  });
-  const rc=document.getElementById('resultCard'), tbl=document.getElementById('tbl'), empty=document.getElementById('empty');
-  document.getElementById('name').textContent=student.name;
-  document.getElementById('meta').textContent=`System ID: ${student.systemId} | Admission ID: ${admissions.find(a=>a.studentId===student.id)?.admissionId||'-'}`;
-  rc.hidden=false;
-  if(!results.length){ tbl.innerHTML=''; empty.hidden=false; return; }
-  empty.hidden=true;
-  const courseName=id=>(courses.find(c=>c.id===id)||{}).title||'—';
-  const batchName=id=>(batches.find(c=>c.id===id)||{}).name||'—';
-  const examName=id=>(exams.find(c=>c.id===id)||{}).examName||'—';
-  const examDate=id=>(exams.find(c=>c.id===id)||{}).date||'-';
-  const examTot=id=>(exams.find(c=>c.id===id)||{}).totalMarks||'-';
-  const rows = results.map(r=>`<tr>
-    <td>${esc(examName(r.examId))}</td>
-    <td>${esc(courseName(r.courseId|| (exams.find(e=>e.id===r.examId)||{}).courseId))}</td>
-    <td>${esc(batchName(r.batchId|| (exams.find(e=>e.id===r.examId)||{}).batchId))}</td>
-    <td>${esc(examDate(r.examId))}</td>
-    <td>${fmtNum(r.marksObtained)} / ${fmtNum(r.totalMarks||examTot(r.examId))}</td>
-    <td>${fmtNum(r.percentage)}%</td>
-    <td><span class="badge">${esc(r.grade||'-')}</span></td>
-    <td>${esc(r.remarks||'')}</td>
-  </tr>`).join('');
-  tbl.innerHTML = `<div class="scroll"><table><thead><tr><th>Exam</th><th>Course</th><th>Batch</th><th>Date</th><th>Marks</th><th>%</th><th>Grade</th><th>Remarks</th></tr></thead><tbody>${rows}</tbody></table></div>`;
-};
-</script>
+  }
+  async function getState(){
+    try{
+      const db=await idbOpen();
+      return new Promise((res,rej)=>{
+        const tx=db.transaction(DB_STORE,'readonly'); const st=tx.objectStore(DB_STORE);
+        const r=st.get('state'); r.onsuccess=()=>res(r.result?r.result.value:null); r.onerror=()=>rej(r.error);
+      });
+    }catch(e){ try{return JSON.parse(localStorage.getItem('ah_state'));}catch(e2){return null;} }
+  }
+  function esc(s){return String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+  const fmtNum=v=>v===null||v===undefined||v===''?'-':Number(v).toFixed(2).replace(/\.00$/,''); 
+  document.getElementById('form').onsubmit=async e=>{
+    e.preventDefault();
+    const q=document.getElementById('idInput').value.trim();
+    const d=await getState();
+    if(!d){ alert('No data'); return; }
+    const students=d.students||[], admissions=d.admissions||[], exams=d.exams||[], res=d.examResults||[], courses=d.courses||[], batches=d.batches||[];
+    let student=null;
+    if(q.startsWith('ADM')){ const a=admissions.find(x=>(x.admissionId||'').toUpperCase()===q.toUpperCase()||(x.id===q)); if(a) student=students.find(s=>s.id===a.studentId); }
+    if(!student && q.startsWith('STU')){ student=students.find(s=>s.systemId.toUpperCase()===q.toUpperCase()); }
+    if(!student){ alert('Student not found'); return; }
+    let results = res.filter(r=>r.studentId===student.id);
+    results.sort((a,b)=>{
+      const ea=exams.find(x=>x.id===a.examId)||{}; const eb=exams.find(x=>x.id===b.examId)||{};
+      return (eb.date||'').localeCompare(ea.date||'') || 0;
+    });
+    const rc=document.getElementById('resultCard'), tbl=document.getElementById('tbl'), empty=document.getElementById('empty'), init=document.getElementById('initialState');
+    document.getElementById('name').textContent=student.name;
+    const admMatch = admissions.find(a=>a.studentId===student.id);
+    document.getElementById('meta').textContent=`System ID: ${student.systemId} • Admission ID: ${admMatch?.admissionId||'-'} • Phone: ${student.phone||'-'}`;
+    init.classList.add('d-none');
+    rc.classList.remove('d-none');
+    if(!results.length){ tbl.innerHTML=''; empty.classList.remove('d-none'); return; }
+    empty.classList.add('d-none');
+    const courseName=id=>(courses.find(c=>c.id===id)||{}).title||'—';
+    const batchName=id=>(batches.find(c=>c.id===id)||{}).name||'—';
+    const examName=id=>(exams.find(c=>c.id===id)||{}).examName||'—';
+    const examDate=id=>(exams.find(c=>c.id===id)||{}).date||'-';
+    const examTot=id=>(exams.find(c=>c.id===id)||{}).totalMarks||'-';
+    const rows = results.map(r=>`<tr>
+      <td class="fw-semibold">${esc(examName(r.examId))}</td>
+      <td>${esc(courseName(r.courseId|| (exams.find(e=>e.id===r.examId)||{}).courseId))}</td>
+      <td>${esc(batchName(r.batchId|| (exams.find(e=>e.id===r.examId)||{}).batchId))}</td>
+      <td>${esc(examDate(r.examId))}</td>
+      <td>${fmtNum(r.marksObtained)} / ${fmtNum(r.totalMarks||examTot(r.examId))}</td>
+      <td>${fmtNum(r.percentage)}%</td>
+      <td><span class="badge-soft">${esc(r.grade||'-')}</span></td>
+      <td>${esc(r.remarks||'')}</td>
+    </tr>`).join('');
+    tbl.innerHTML = `<div class="table-responsive"><table class="table table-hover mb-0"><thead><tr><th>Exam</th><th>Course</th><th>Batch</th><th>Date</th><th>Marks</th><th>%</th><th>Grade</th><th>Remarks</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+  };
+  </script>
 </body>
 </html>
