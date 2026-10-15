@@ -843,7 +843,7 @@ async function bootApp() {
             const tr = h(`<tr>
               <td>${esc(it.systemId)}</td>
               <td>${esc(it.name)}</td>
-              <td><input name="adm_${i}" value="${esc(it.admissionId)}" style="width:120px"></td>
+              <td>${esc(it.admissionId)}</td>
               <td><input name="m_${i}" type="number" min="0" max="${exam.totalMarks}" step="0.01" value="${it.marksObtained!==''?it.marksObtained:''}" style="width:110px"></td>
               <td><input name="g_${i}" value="${esc(it.grade||'')}" style="width:80px" placeholder="A/A+/B"></td>
               <td><input name="rm_${i}" value="${esc(it.remarks||'')}" style="width:200px"></td>
@@ -886,12 +886,12 @@ async function bootApp() {
           if(!list.length) return;
           let saved=0, updated=0;
           list.forEach((it,i)=>{
-            const admv = $('input[name=adm_'+i+']', wrap).value;
+            const admv = it.admissionId;
             const mv = $('input[name=m_'+i+']', wrap).value;
             const gv = $('input[name=g_'+i+']', wrap).value.trim();
             const rmv = $('input[name=rm_'+i+']', wrap).value.trim();
             it.marksObtained = mv===''? '' : Number(mv);
-            it.grade = gv; it.remarks = rmv; it.admissionId = admv;
+            it.grade = gv; it.remarks = rmv;             // admission id is read-only in display; keep as is
             let r = results.find(rr=>rr.examId===examId && rr.studentId===it.studentId);
             const mnum = it.marksObtained===''? null : Number(it.marksObtained);
             const tot = Number(exam.totalMarks||100);
