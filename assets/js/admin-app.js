@@ -689,6 +689,227 @@ async function bootApp() {
     }});
   }
 
+
+
+  // Exams
+  if (!Modules.find(m=>m.id==='exams')) {
+    register({ id:'exams', title:'Exams', icon:'doc', render(el) {
+      const exams = (d.exams = d.exams || []);
+      const results = (d.examResults = d.examResults || []);
+      const students = d.students || [];
+      const courses = d.courses || [];
+      const batches = d.batches || [];
+      const admissions = d.admissions || [];
+
+      const cap = s=>s? s.charAt(0).toUpperCase()+s.slice(1):s;
+      const courseTitle = id => (courses.find(c=>c.id===id)||{}).title || '—';
+      const batchName = id => { const b = batches.find(x=>x.id===id); return b ? b.name : '—'; };
+      const studentName = id => { const st = students.find(x=>x.id===id); return st ? st.name : '—'; };
+      const sysId = id => { const st = students.find(x=>x.id===id); return st ? st.systemId : ''; };
+
+      function showList() {
+        el.innerHTML='';
+        const t = dataTable({
+          columns:[
+            {key:'examName',label:'Exam Name'},
+            {key:'courseId',label:'Course',render:v=>esc(courseTitle(v))},
+            {key:'batchId',label:'Batch',render:v=>esc(batchName(v))},
+            {key:'date',label:'Date'},
+            {key:'totalMarks',label:'Total Marks'}
+          ],
+          rows: exams, pageSize:8,
+          toolbar:'<button class="btn primary" id="addEx">Add Exam</button>',
+          rowActions:x => `<button class="btn sm" data-view="${x.id}">Results</button> <button class="btn sm" data-ex="${x.id}">Edit</button> <button class="btn sm danger" data-dx="${x.id}">Delete</button>`
+        });
+        el.append(t);
+        t.addEventListener('click', async (e)=>{
+          if (e.target.id==='addEx'){ showForm(null); return; }
+          const ex=e.target.dataset.ex, dx=e.target.dataset.dx, v=e.target.dataset.view;
+          if (v){ showBulkResults(v); return; }
+          if (ex){ showForm(ex); return; }
+          if (dx){ const idx=exams.findIndex(a=>a.id===dx); if(idx>=0){ exams.splice(idx,1); await store.save(); t.refresh(); toast('Deleted'); } }
+        });
+      }
+
+      function showForm(id){
+        const editing = id ? exams.find(a=>a.id===id) : null;
+        const exm = editing || { examName:'', batchId:'', courseId:'', date:new Date().toISOString().slice(0,10), totalMarks:100, description:'' };
+        el.innerHTML='';
+        const form = h(`<form class="card aform" novalidate>
+          <div class="form-head"><h2 style="margin:0">${editing?'Edit Exam':'Add Exam'}</h2></div>
+          <div class="arow">
+            <label class="field">Batch<select name="batchId" required>
+              <option value="" disabled ${exm.batchId?'':'selected'}>Select Batch</option>
+              ${batches.map(b=>`<option value="${esc(b.id)}" ${exm.batchId===b.id?'selected':''}>${esc(b.name)}${b.year?(' ('+esc(b.year)+')'):''}</option>`).join('')}
+            </select></label>
+            <label class="field">Course<input name="courseDisp" readonly value="${esc(courseTitle(exm.courseId))}"></label>
+            <label class="field">Course ID<input name="courseId" readonly value="${esc(exm.courseId||'')}"></label>
+          </div>
+          <div class="arow">
+            <label class="field">Exam Name<input name="examName" required value="${esc(exm.examName||'')}"></label>
+            <label class="field">Date<input name="date" type="date" required value="${esc(exm.date||'')}"></label>
+            <label class="field">Total Marks<input name="totalMarks" type="number" min="0" step="0.01" required value="${esc(exm.totalMarks??100)}"></label>
+          </div>
+          <div class="arow full"><label class="field">Description<textarea name="description" rows="2">${esc(exm.description||'')}</textarea></label></div>
+          <div class="form-actions"><button type="button" class="btn" data-cancel>Cancel</button><button type="submit" class="btn primary">${editing?'Save':'Add'}</button></div>
+        </form>`);
+        el.append(form);
+        const q=s=>form.querySelector(s);
+        const batchSel=q('[name=batchId]');
+        const courseDisp=q('[name=courseDisp]');
+        const courseIdInp=q('[name=courseId]');
+        function fillCourseFromBatch(id){
+          const b=batches.find(x=>x.id===id); if(!b){ courseDisp.value=''; courseIdInp.value=''; return; }
+          courseDisp.value=courseTitle(b.courseId); courseIdInp.value=b.courseId||'';
+        }
+        batchSel.onchange=e=>fillCourseFromBatch(e.target.value);
+        if(exm.batchId) fillCourseFromBatch(exm.batchId);
+        q('[data-cancel]').onclick=showList;
+        form.onsubmit=async e=>{
+          e.preventDefault();
+          if(!batchSel.value) return toast('Select batch');
+          if(!q('[name=examName]').value) return toast('Enter exam name');
+          const data={
+            examName:q('[name=examName]').value.trim(),
+            batchId:batchSel.value,
+            courseId:courseIdInp.value,
+            date:q('[name=date]').value,
+            totalMarks: Number(q('[name=totalMarks]').value||0),
+            description:q('[name=description]').value
+          };
+          if(editing){ Object.assign(editing,data); }
+          else { exams.unshift(Object.assign({id:uid('ex')},data)); }
+          await store.save(); toast(editing?'Exam saved':'Exam added'); showList();
+        };
+      }
+
+      function gradeFor(p){
+        if (p===null||isNaN(p)) return '';
+        if (p>=90) return 'A+';
+        if (p>=80) return 'A';
+        if (p>=70) return 'B+';
+        if (p>=60) return 'B';
+        if (p>=50) return 'C';
+        if (p>=40) return 'D';
+        return 'F';
+      }
+
+      function showBulkResults(examId){
+        const exam = exams.find(e=>e.id===examId); if(!exam) return showList();
+        // get students in this batch: from admissions (unique studentId in batch)
+        const inBatch = new Map();
+        admissions.forEach(a=>{
+          if(a.batchId===exam.batchId){ inBatch.set(a.studentId, {admissionId:a.id||a.admissionId, studentId:a.studentId}); }
+        });
+        // fallback: if none, show students? but better by admissions
+        // build list
+        let list = Array.from(inBatch.values()).map(x=>{
+          const st = students.find(s=>s.id===x.studentId)||{};
+          const r = results.find(rr=>rr.examId===examId && rr.studentId===x.studentId);
+          return {
+            studentId:x.studentId,
+            systemId: st.systemId||'',
+            name: st.name||'',
+            admissionId: x.admissionId||'',
+            marksObtained: r ? r.marksObtained : '',
+            grade: r ? r.grade : '',
+            remarks: r ? r.remarks : '',
+            has: !!r
+          };
+        });
+        // if empty, include all students (no admissions yet)? maybe empty list
+        el.innerHTML='';
+        const card = h(`<div class="card">
+          <div class="form-head" style="margin-bottom:10px">
+            <h2 style="margin:0">Results: ${esc(exam.examName)}</h2>
+            <div style="display:flex;gap:8px;flex-wrap:wrap">
+              <button class="btn sm" id="rBack">Back to Exams</button>
+              <button class="btn sm" id="rCsv">Export CSV</button>
+              <button class="btn sm danger" id="rClear">Clear</button>
+              <button class="btn sm primary" id="rSave">Save All</button>
+            </div>
+          </div>
+          <div style="color:var(--muted);margin-bottom:10px">${esc(courseTitle(exam.courseId))} • ${esc(batchName(exam.batchId))} • Total ${esc(exam.totalMarks)}</div>
+          <div class="scroll"></div>
+        </div>`);
+        el.append(card);
+        const wrap = $('.scroll', card);
+        if(list.length===0){
+          wrap.innerHTML = '<div class="empty">No students found for this batch (based on admissions)</div>';
+        } else {
+          const tbl = h(`<table><thead><tr><th>System ID</th><th>Name</th><th>Admission ID</th><th>Marks Obtained</th><th>Grade</th><th>Remarks</th></tr></thead><tbody></tbody></table>`);
+          const tbody = $('tbody', tbl);
+          list.forEach((it,i)=>{
+            const tr = h(`<tr>
+              <td>${esc(it.systemId)}</td>
+              <td>${esc(it.name)}</td>
+              <td><input name="adm_${i}" value="${esc(it.admissionId)}" style="width:120px"></td>
+              <td><input name="m_${i}" type="number" min="0" max="${exam.totalMarks}" step="0.01" value="${it.marksObtained!==''?it.marksObtained:''}" style="width:110px"></td>
+              <td><input name="g_${i}" value="${esc(it.grade||'')}" style="width:80px" placeholder="A/A+/B"></td>
+              <td><input name="rm_${i}" value="${esc(it.remarks||'')}" style="width:200px"></td>
+            </tr>`);
+            // auto grade on marks change
+            const m = $('input[name=m_'+i+']', tr);
+            const g = $('input[name=g_'+i+']', tr);
+            m.oninput = ()=>{
+              const v = parseFloat(m.value); if(!isNaN(v)) g.value = gradeFor((v*100)/Number(exam.totalMarks||100));
+            };
+            // if empty grade and has marks, compute
+            if(it.marksObtained!=='' && !it.grade){ const v=parseFloat(it.marksObtained); if(!isNaN(v)) g.value = gradeFor((v*100)/Number(exam.totalMarks||100)); }
+            tbody.append(tr);
+          });
+          tbl.append(tbody); wrap.append(tbl);
+        }
+        $('#rBack', card).onclick=showList;
+        $('#rClear', card).onclick=async()=>{
+          if(!list.length) return; if(!confirm('Clear all results for this exam?')) return;
+          results.forEach((rr,idx)=>{
+            if(rr.examId===examId) results.splice(idx,1);
+          });
+          // rebuild in place? better filter
+          d.examResults = results.filter(rr=>rr.examId!==examId);
+          results.length=0; results.push(...d.examResults);
+          await store.save(); toast('Cleared'); showBulkResults(examId);
+        };
+        $('#rCsv', card).onclick=()=>{
+          if(!list.length) return;
+          const rowsCsv = [['System ID','Name','Admission ID','Marks Obtained','Total Marks','Percentage','Grade','Remarks']];
+          list.forEach(it=>{
+            const m = parseFloat(it.marksObtained); const tot=Number(exam.totalMarks||100); const p = !isNaN(m)&&tot>0? ((m/tot)*100).toFixed(2):'';
+            rowsCsv.push([it.systemId,it.name,it.admissionId, it.marksObtained!==''?it.marksObtained:'', String(tot), p, it.grade||'', it.remarks||'']);
+          });
+          const csv = rowsCsv.map(r=>r.map(x=>'"'+String(x).replace(/"/g,'""')+'"').join(',')).join('\n');
+          const blob = new Blob([csv],{type:'text/csv'});
+          const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download=`results_${exam.examName.replace(/\\s+/g,'_')}.csv`; a.click(); URL.revokeObjectURL(url);
+        };
+        $('#rSave', card).onclick=async()=>{
+          if(!list.length) return;
+          let saved=0, updated=0;
+          list.forEach((it,i)=>{
+            const admv = $('input[name=adm_'+i+']', wrap).value;
+            const mv = $('input[name=m_'+i+']', wrap).value;
+            const gv = $('input[name=g_'+i+']', wrap).value.trim();
+            const rmv = $('input[name=rm_'+i+']', wrap).value.trim();
+            it.marksObtained = mv===''? '' : Number(mv);
+            it.grade = gv; it.remarks = rmv; it.admissionId = admv;
+            let r = results.find(rr=>rr.examId===examId && rr.studentId===it.studentId);
+            const mnum = it.marksObtained===''? null : Number(it.marksObtained);
+            const tot = Number(exam.totalMarks||100);
+            const pcent = (mnum!==null && tot>0) ? ((mnum/tot)*100) : null;
+            const gcalc = gv || (pcent!==null? gradeFor(pcent): '');
+            if(!r){
+              r = { id: uid('er'), examId, studentId:it.studentId, systemId:it.systemId, batchId:exam.batchId, totalMarks:tot, admissionId:admv };
+              results.unshift(r); saved++;
+            } else { updated++; }
+            r.marksObtained = mnum; r.percentage = pcent; r.grade = gcalc; r.remarks = rmv; r.admissionId = admv; r.totalMarks = tot;
+          });
+          await store.save(); toast(`Saved (new ${saved}, updated ${updated})`); showBulkResults(examId);
+        };
+      }
+
+      showList();
+    }});
+  }
   // Settings
   if (!Modules.find(m=>m.id==='settings')) {
     register({ id:'settings', title:'Settings', icon:'gear', render(el) {

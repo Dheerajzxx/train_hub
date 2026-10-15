@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Student Results</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap">
+<style>
+:root{--bg:#f3f5f7;--surface:#fff;--surface-2:#eef1f4;--line:#dde2e8;--text:#16202b;--muted:#64707d;--accent:#0b7a75;--accent-ink:#fff;--radius:10px;font:15px/1.5 'Plus Jakarta Sans',system-ui,sans-serif;color-scheme:light}
+@media (prefers-color-scheme:dark){:root{--bg:#12171d;--surface:#1a2129;--surface-2:#222b35;--line:#2c3743;--text:#e6ebf0;--muted:#92a0ae;--accent:#3cc2ba;--accent-ink:#06201e;color-scheme:dark}}
+*{box-sizing:border-box;margin:0}
+body{background:var(--bg);color:var(--text);padding:24px}
+.container{max-width:900px;margin:0 auto;display:grid;gap:20px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:20px}
+h1{font-size:22px}
+p{color:var(--muted)}
+form{display:flex;gap:12px;flex-wrap:wrap;align-items:end}
+.field{display:grid;gap:6px;flex:1;min-width:240px}
+input{border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:9px 10px}
+.btn{border:1px solid var(--line);background:var(--surface);padding:9px 16px;border-radius:8px;cursor:pointer;font-weight:600}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+table{width:100%;border-collapse:collapse;margin-top:16px;overflow-x:auto;display:block}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);white-space:nowrap}
+th{color:var(--muted);font-weight:600;font-size:12px}
+.badge{padding:2px 9px;border-radius:99px;background:var(--surface-2);font-size:12px}
+.empty{padding:24px;text-align:center;color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="card">
+    <h1>Check Your Exam Results</h1>
+    <p>Enter your System ID (e.g. STU-100001) or Admission ID (e.g. ADM-2026-0001)</p>
+    <form id="form">
+      <label class="field">Student ID or Admission ID
+        <input id="idInput" placeholder="STU-100001 or ADM-2026-0001" required>
+      </label>
+      <button class="btn primary" type="submit">Get Results</button>
+    </form>
+  </div>
+  <div class="card" id="resultCard" hidden>
+    <h2 id="name">Student</h2>
+    <div id="meta" style="color:var(--muted)"></div>
+    <div id="tbl"></div>
+    <div id="empty" class="empty" hidden>No results found</div>
+  </div>
+</div>
+<script>
+const DB_NAME='trainhub_admin', DB_VER=1, DB_STORE='data';
+function idbOpen(){
+  return new Promise((res,rej)=>{
+    if(!window.indexedDB) return rej('no');
+    const req=indexedDB.open(DB_NAME,DB_VER);
+    req.onupgradeneeded=e=>{const db=e.target.result; if(!db.objectStoreNames.contains(DB_STORE)) db.createObjectStore(DB_STORE,{keyPath:'key'});};
+    req.onsuccess=()=>res(req.result); req.onerror=()=>rej(req.error);
+  });
+}
+async function getState(){
+  try{
+    const db=await idbOpen();
+    return new Promise((res,rej)=>{
+      const tx=db.transaction(DB_STORE,'readonly'); const st=tx.objectStore(DB_STORE);
+      const r=st.get('state'); r.onsuccess=()=>res(r.result?r.result.value:null); r.onerror=()=>rej(r.error);
+    });
+  }catch(e){ try{return JSON.parse(localStorage.getItem('ah_state'));}catch(e2){return null;} }
+}
+function esc(s){return String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+const fmtNum=v=>v===null||v===undefined||v===''?'-':Number(v).toFixed(2).replace(/\.00$/,''); 
+document.getElementById('form').onsubmit=async e=>{
+  e.preventDefault();
+  const q=document.getElementById('idInput').value.trim();
+  const d=await getState();
+  if(!d){ alert('No data'); return; }
+  const students=d.students||[], admissions=d.admissions||[], exams=d.exams||[], res=d.examResults||[], courses=d.courses||[], batches=d.batches||[];
+  let student=null;
+  if(q.startsWith('ADM')){ const a=admissions.find(x=>(x.admissionId||'').toUpperCase()===q.toUpperCase()||(x.id===q)); if(a) student=students.find(s=>s.id===a.studentId); }
+  if(!student && q.startsWith('STU')){ student=students.find(s=>s.systemId.toUpperCase()===q.toUpperCase()); }
+  if(!student){ alert('Student not found'); return; }
+  let results = res.filter(r=>r.studentId===student.id);
+  results.sort((a,b)=>{
+    const ea=exams.find(x=>x.id===a.examId)||{}; const eb=exams.find(x=>x.id===b.examId)||{};
+    return (eb.date||'').localeCompare(ea.date||'') || 0;
+  });
+  const rc=document.getElementById('resultCard'), tbl=document.getElementById('tbl'), empty=document.getElementById('empty');
+  document.getElementById('name').textContent=student.name;
+  document.getElementById('meta').textContent=`System ID: ${student.systemId} • Phone: ${student.phone||'-'}`;
+  rc.hidden=false;
+  if(!results.length){ tbl.innerHTML=''; empty.hidden=false; return; }
+  empty.hidden=true;
+  const courseName=id=>(courses.find(c=>c.id===id)||{}).title||'—';
+  const batchName=id=>(batches.find(c=>c.id===id)||{}).name||'—';
+  const examName=id=>(exams.find(c=>c.id===id)||{}).examName||'—';
+  const examDate=id=>(exams.find(c=>c.id===id)||{}).date||'-';
+  const examTot=id=>(exams.find(c=>c.id===id)||{}).totalMarks||'-';
+  const rows = results.map(r=>`<tr>
+    <td>${esc(examName(r.examId))}</td>
+    <td>${esc(courseName(r.courseId|| (exams.find(e=>e.id===r.examId)||{}).courseId))}</td>
+    <td>${esc(batchName(r.batchId|| (exams.find(e=>e.id===r.examId)||{}).batchId))}</td>
+    <td>${esc(examDate(r.examId))}</td>
+    <td>${fmtNum(r.marksObtained)} / ${fmtNum(r.totalMarks||examTot(r.examId))}</td>
+    <td>${fmtNum(r.percentage)}%</td>
+    <td><span class="badge">${esc(r.grade||'-')}</span></td>
+    <td>${esc(r.remarks||'')}</td>
+  </tr>`).join('');
+  tbl.innerHTML = `<div class="scroll"><table><thead><tr><th>Exam</th><th>Course</th><th>Batch</th><th>Date</th><th>Marks</th><th>%</th><th>Grade</th><th>Remarks</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+};
+</script>
+</body>
+</html>
