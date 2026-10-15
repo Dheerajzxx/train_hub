@@ -83,7 +83,7 @@ document.getElementById('form').onsubmit=async e=>{
   });
   const rc=document.getElementById('resultCard'), tbl=document.getElementById('tbl'), empty=document.getElementById('empty');
   document.getElementById('name').textContent=student.name;
-  document.getElementById('meta').textContent=`System ID: ${student.systemId} • Phone: ${student.phone||'-'}`;
+  document.getElementById('meta').textContent=`System ID: ${student.systemId} | Admission ID: ${admissions.find(a=>a.studentId===student.id)?.admissionId||'-'}`;
   rc.hidden=false;
   if(!results.length){ tbl.innerHTML=''; empty.hidden=false; return; }
   empty.hidden=true;
