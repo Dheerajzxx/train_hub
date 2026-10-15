@@ -799,7 +799,7 @@ async function bootApp() {
         // get students in this batch: from admissions (unique studentId in batch)
         const inBatch = new Map();
         admissions.forEach(a=>{
-          if(a.batchId===exam.batchId){ inBatch.set(a.studentId, {admissionId:a.id||a.admissionId, studentId:a.studentId}); }
+          if(a.batchId===exam.batchId){ inBatch.set(a.studentId, {admissionId: a.admissionId || a.id, studentId:a.studentId}); }
         });
         // fallback: if none, show students? but better by admissions
         // build list
