@@ -274,8 +274,7 @@
     });
     const rc=document.getElementById('resultCard'), tbl=document.getElementById('tbl'), empty=document.getElementById('empty'), init=document.getElementById('initialState');
     document.getElementById('name').textContent=student.name;
-    const admMatch = admissions.find(a=>a.studentId===student.id);
-    document.getElementById('meta').textContent=`System ID: ${student.systemId} • Admission ID: ${admMatch?.admissionId||'-'} • Phone: ${student.phone||'-'}`;
+    // removed meta details per request
     init.classList.add('d-none');
     rc.classList.remove('d-none');
     if(!results.length){ tbl.innerHTML=''; empty.classList.remove('d-none'); return; }
@@ -283,7 +282,15 @@
     const courseName=id=>(courses.find(c=>c.id===id)||{}).title||'—';
     const batchName=id=>(batches.find(c=>c.id===id)||{}).name||'—';
     const examName=id=>(exams.find(c=>c.id===id)||{}).examName||'—';
-    const examDate=id=>(exams.find(c=>c.id===id)||{}).date||'-';
+    const examDate=id=>{
+      const d=(exams.find(c=>c.id===id)||{}).date||'-';
+      if(!d||d==='-') return '-';
+      // try ISO or YYYY-MM-DD
+      const m=d.match(/(\d{4})-(\d{2})-(\d{2})/);
+      if(m) return m[3]+'/'+m[2]+'/'+m[1];
+      try{const dt=new Date(d); if(!isNaN(dt)) return dt.toLocaleDateString('en-GB');}catch(e){}
+      return d;
+    };
     const examTot=id=>(exams.find(c=>c.id===id)||{}).totalMarks||'-';
     const rows = results.map(r=>`<tr>
       <td class="fw-semibold">${esc(examName(r.examId))}</td>
