@@ -73,6 +73,27 @@
       "name": "Divya Menon",
       "phone": "9800033344",
       "email": "divya@example.com"
+    },
+    {
+      "id": "s_3",
+      "systemId": "STU-100003",
+      "name": "Karan Singh",
+      "phone": "9800055566",
+      "email": "karan@example.com"
+    },
+    {
+      "id": "s_4",
+      "systemId": "STU-100004",
+      "name": "Meera Raj",
+      "phone": "9800066677",
+      "email": "meera@example.com"
+    },
+    {
+      "id": "s_5",
+      "systemId": "STU-100005",
+      "name": "Ravi Kumar",
+      "phone": "9800077788",
+      "email": "ravi@example.com"
     }
   ],
   "batches": [
@@ -91,6 +112,14 @@
       "year": "2026",
       "seatType": "unlimited",
       "seats": null
+    },
+    {
+      "id": "b_3",
+      "courseId": "c_3",
+      "name": "AutoCAD Weekend",
+      "year": "2026",
+      "seatType": "fixed",
+      "seats": 25
     }
   ],
   "admissions": [
@@ -110,6 +139,74 @@
       "admissionDate": "2026-10-05",
       "batchId": "b_1",
       "referralStudentId": "s_2"
+    },
+    {
+      "id": "ad_2",
+      "admissionId": "ADM-2026-0002",
+      "studentId": "s_2",
+      "courseType": "accounts",
+      "courseId": "c_2",
+      "courseFee": 4500,
+      "discountType": "amount",
+      "discountValue": 0,
+      "gstTaken": false,
+      "gstAmount": 0,
+      "finalAmount": 4500,
+      "admissionFee": 500,
+      "admissionDate": "2026-10-07",
+      "batchId": "b_2",
+      "referralStudentId": ""
+    },
+    {
+      "id": "ad_3",
+      "admissionId": "ADM-2026-0003",
+      "studentId": "s_3",
+      "courseType": "computer",
+      "courseId": "c_1",
+      "courseFee": 8500,
+      "discountType": "amount",
+      "discountValue": 0,
+      "gstTaken": false,
+      "gstAmount": 0,
+      "finalAmount": 8500,
+      "admissionFee": 1000,
+      "admissionDate": "2026-10-09",
+      "batchId": "b_1",
+      "referralStudentId": ""
+    },
+    {
+      "id": "ad_4",
+      "admissionId": "ADM-2026-0004",
+      "studentId": "s_4",
+      "courseType": "design",
+      "courseId": "c_3",
+      "courseFee": 6000,
+      "discountType": "amount",
+      "discountValue": 200,
+      "gstTaken": false,
+      "gstAmount": 0,
+      "finalAmount": 5800,
+      "admissionFee": 800,
+      "admissionDate": "2026-10-11",
+      "batchId": "b_3",
+      "referralStudentId": ""
+    },
+    {
+      "id": "ad_5",
+      "admissionId": "ADM-2026-0005",
+      "studentId": "s_5",
+      "courseType": "design",
+      "courseId": "c_4",
+      "courseFee": 7500,
+      "discountType": "amount",
+      "discountValue": 0,
+      "gstTaken": false,
+      "gstAmount": 0,
+      "finalAmount": 7500,
+      "admissionFee": 1000,
+      "admissionDate": "2026-10-12",
+      "batchId": "b_3",
+      "referralStudentId": ""
     }
   ],
   "gallery": [
@@ -179,6 +276,15 @@
       "date": "2026-10-20",
       "totalMarks": 100,
       "description": ""
+    },
+    {
+      "id": "ex_2",
+      "examName": "Unit Test 1",
+      "batchId": "b_2",
+      "courseId": "c_2",
+      "date": "2026-10-22",
+      "totalMarks": 50,
+      "description": ""
     }
   ],
   "examResults": [
@@ -193,6 +299,32 @@
       "totalMarks": 100,
       "percentage": 85,
       "grade": "A",
+      "remarks": ""
+    },
+    {
+      "id": "er_2",
+      "examId": "ex_1",
+      "studentId": "s_3",
+      "admissionId": "ADM-2026-0003",
+      "systemId": "STU-100003",
+      "batchId": "b_1",
+      "marksObtained": 72,
+      "totalMarks": 100,
+      "percentage": 72,
+      "grade": "B+",
+      "remarks": ""
+    },
+    {
+      "id": "er_3",
+      "examId": "ex_2",
+      "studentId": "s_2",
+      "admissionId": "ADM-2026-0002",
+      "systemId": "STU-100002",
+      "batchId": "b_2",
+      "marksObtained": 45,
+      "totalMarks": 50,
+      "percentage": 90,
+      "grade": "A+",
       "remarks": ""
     }
   ]
