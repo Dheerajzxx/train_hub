@@ -96,7 +96,6 @@
       "discountValue": 500,
       "gstTaken": false,
       "gstAmount": 0,
-      "finalAmount": 8000,
       "admissionFee": 1000,
       "admissionDate": "2026-10-05",
       "batchId": "b_1",
@@ -114,7 +113,7 @@
       "nationality": "Indian",
       "caste": "General",
       "receiptNumber": "R001",
-      "totalFees": 8000
+      "totalFees": 9000
     },
     {
       "id": "ad_2",
@@ -126,7 +125,6 @@
       "discountValue": 0,
       "gstTaken": false,
       "gstAmount": 0,
-      "finalAmount": 4500,
       "admissionFee": 500,
       "admissionDate": "2026-10-07",
       "batchId": "b_2",
@@ -144,7 +142,7 @@
       "nationality": "Indian",
       "caste": "General",
       "receiptNumber": "R002",
-      "totalFees": 4500
+      "totalFees": 5000
     },
     {
       "id": "ad_3",
@@ -156,7 +154,6 @@
       "discountValue": 0,
       "gstTaken": false,
       "gstAmount": 0,
-      "finalAmount": 8500,
       "admissionFee": 1000,
       "admissionDate": "2026-10-09",
       "batchId": "b_1",
@@ -174,7 +171,7 @@
       "nationality": "Indian",
       "caste": "General",
       "receiptNumber": "R003",
-      "totalFees": 8500
+      "totalFees": 9500
     },
     {
       "id": "ad_4",
@@ -186,7 +183,6 @@
       "discountValue": 200,
       "gstTaken": false,
       "gstAmount": 0,
-      "finalAmount": 5800,
       "admissionFee": 800,
       "admissionDate": "2026-10-11",
       "batchId": "b_3",
@@ -204,7 +200,7 @@
       "nationality": "Indian",
       "caste": "General",
       "receiptNumber": "R004",
-      "totalFees": 5800
+      "totalFees": 6600
     },
     {
       "id": "ad_5",
@@ -216,7 +212,6 @@
       "discountValue": 0,
       "gstTaken": false,
       "gstAmount": 0,
-      "finalAmount": 7500,
       "admissionFee": 1000,
       "admissionDate": "2026-10-12",
       "batchId": "b_3",
@@ -234,7 +229,7 @@
       "nationality": "Indian",
       "caste": "General",
       "receiptNumber": "R005",
-      "totalFees": 7500
+      "totalFees": 8500
     }
   ],
   "gallery": [

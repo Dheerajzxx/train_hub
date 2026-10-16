@@ -166,7 +166,6 @@ async function bootApp() {
   // Dashboard
   if (!Modules.find(m=>m.id==='dashboard')) {
     register({ id:'dashboard', title:'Dashboard', icon:'home', render(el) {
-      const students = d.students||[];
       const courses = d.courses||[];
       const batches = d.batches||[];
       const admissions = d.admissions||[];
@@ -181,28 +180,19 @@ async function bootApp() {
       const admCur = admissions.filter(a=>inMonth(a,curKey));
       const admPrev = admissions.filter(a=>inMonth(a,prevKey));
       const money = n => Number(n||0);
-      const revCur = admCur.reduce((s,a)=>s+money(a.finalAmount),0);
-      const revPrev = admPrev.reduce((s,a)=>s+money(a.finalAmount),0);
-      const revenue = admissions.reduce((s,a)=>s+money(a.finalAmount),0);
+      const revCur = admCur.reduce((s,a)=>s+money(a.totalFees),0);
+      const revPrev = admPrev.reduce((s,a)=>s+money(a.totalFees),0);
+      const revenue = admissions.reduce((s,a)=>s+money(a.totalFees),0);
       const pct = (c,p) => p>0 ? Math.round((c-p)/p*100) : (c>0?100:0);
       const activeCourses = courses.filter(c=>c.active).length;
-        const enrolled = new Set((admissions||[]).map(a=>a.studentId).filter(Boolean)).size;
-        if (enrolled === 0 && admissions.length) {
-          // also count unique names/contact numbers if stored inline
-          const set = new Set();
-          admissions.forEach(a=>{ if(a.name) set.add(a.name.toLowerCase()+'|'+(a.contactNumber||'')); if(a.studentId) set.add('id:'+a.studentId); });
-          // fallback rough: count non-blank names as enrolled-like
-          const alt = new Set(admissions.filter(a=>a.name).map(a=>a.name.toLowerCase())).size;
-          var enrolledCount = set.size > enrolled ? set.size : enrolled;
-          if (enrolledCount === 0) enrolledCount = alt;
-        } else var enrolledCount = enrolled;
+      const enrolled = new Set(admissions.filter(a=>a.name).map(a=>(a.name||'').toLowerCase()+'|'+(a.contactNumber||''))).size;
       const seatsUsed = admissions.filter(a=>a.batchId).length;
       const today = now.toISOString().slice(0,10);
       const upcoming = exams.filter(e=>(e.date||'')>=today).sort((a,b)=>(a.date||'').localeCompare(b.date||''));
       const recent = [...admissions].sort((a,b)=>(b.admissionDate||'').localeCompare(a.admissionDate||'')).slice(0,5);
 
       el.append(h(`<div class="stats">${[
-          {label:'Students', value:String(students.length), sub:`${ (typeof enrolledCount==='number'?enrolledCount:enrolled) } enrolled via admissions`},
+          {label:'Students', value:String(enrolled), sub:`${admissions.length} admission${admissions.length===1?'':'s'}`},
         {label:'Admissions', value:String(admissions.length), delta:pct(admCur.length, admPrev.length)},
         {label:'Active Courses', value:String(activeCourses), sub:`${courses.length} total courses`},
         {label:'Batches', value:String(batches.length), sub:`${seatsUsed} seat${seatsUsed===1?'':'s'} filled`},
@@ -221,7 +211,7 @@ async function bootApp() {
         <div class="card"><h2>Admissions trend · last 6 months</h2>${lineChart({labels,values})}</div>
         <div class="card"><h2>Fee collection by month</h2>${barList(months.map((mo,i)=>{
           const k = mo.getFullYear()+'-'+String(mo.getMonth()+1).padStart(2,'0');
-          const v = admissions.filter(a=>(a.admissionDate||'').slice(0,7)===k).reduce((s,a)=>s+money(a.finalAmount),0);
+          const v = admissions.filter(a=>(a.admissionDate||'').slice(0,7)===k).reduce((s,a)=>s+money(a.totalFees),0);
           return {label:labels[i], value:v, sub:inr(v)};
         }))}</div>
       </div>`));
@@ -246,9 +236,8 @@ async function bootApp() {
 
       el.append(h(`<div class="grid2">
         <div class="card"><h2>Recent admissions</h2>${recent.length? recent.map(a=>{
-          const st = students.find(s=>s.id===a.studentId)||{};
           const c = courses.find(x=>x.id===a.courseId)||{};
-          return `<div class="row"><div><b>${esc(a.name || st.name || '—')}</b><p>${esc(c.title||'')} • ${esc(a.admissionDate||'')}</p></div><span class="badge ok">${inr(a.finalAmount)}</span></div>`;
+          return `<div class="row"><div><b>${esc(a.name || '—')}</b><p>${esc(c.title||'')} • ${esc(a.admissionDate||'')}</p></div><span class="badge ok">${inr(a.totalFees)}</span></div>`;
         }).join('') : '<div class="empty">No admissions yet</div>'}</div>
         <div class="card"><h2>Upcoming exams</h2>${upcoming.length? upcoming.slice(0,5).map(ex=>{
           const b = batches.find(x=>x.id===ex.batchId)||{};
@@ -471,7 +460,7 @@ async function bootApp() {
              {key:'name',label:'Name',render:(v,x)=>esc(x.name || studentName(x.studentId))},
              {key:'contactNumber',label:'Contact',render:(v,x)=>esc(x.contactNumber || (students.find(s=>s.id===x.studentId)||{}).phone || '')},
             {key:'courseId',label:'Course',render:v=>esc(courseTitle(v))},
-            {key:'finalAmount',label:'Final Amount',render:v=>money(v)},
+            {key:'totalFees',label:'Total Fees',render:v=>money(v)},
             {key:'admissionDate',label:'Date'}
           ],
           rows: admissions, pageSize:8,
@@ -550,16 +539,13 @@ async function bootApp() {
           </div>
           <div class="arow">
             <label class="field">GST Amount<input name="gstAmount" type="number" min="0" step="0.01" value="${esc((adm.gstAmount != null ? Number(adm.gstAmount) : 0).toFixed(2))}"></label>
-            <label class="field">Final Amount<input name="finalAmount" readonly value="0.00"></label>
             <label class="field">Admission Fee<input name="admissionFee" type="number" min="0" step="0.01" value="${adm.admissionFee==null?'':esc(adm.admissionFee)}"></label>
+            <label class="field">Total Fees<input name="totalFees" readonly value="${adm.totalFees==null?'':esc(adm.totalFees)}"></label>
           </div>
           <div class="arow">
             <label class="field">Admission Date<input name="admissionDate" type="date" required value="${esc(adm.admissionDate||'')}"></label>
             <label class="field">Batches<select name="batchId" required><option value="" disabled selected>Select Batch</option></select></label>
             <label class="field">Available Seats for This Batch<input name="availableSeats" readonly value="—"></label>
-          </div>
-          <div class="arow">
-            <label class="field">Total Fees<input name="totalFees" type="number" min="0" step="0.01" value="${adm.totalFees==null?'':esc(adm.totalFees)}"></label>
           </div>
           <div class="form-actions">
             <button type="button" class="btn" data-cancel>Cancel</button>
@@ -574,12 +560,11 @@ async function bootApp() {
         const feeInput = q('[name=courseFee]');
         const discVal = q('[name=discountValue]');
         const gstAmt = q('[name=gstAmount]');
-        const finalAmt = q('[name=finalAmount]');
+        const admFeeInput = q('[name=admissionFee]');
         const batchSel = q('[name=batchId]');
         const availInput = q('[name=availableSeats]');
         const totalFeesInput = q('[name=totalFees]');
         const radioVal = name => { const r = form.querySelector(`input[name=${name}]:checked`); return r ? r.value : ''; };
-        let totalFeesTouched = adm.totalFees != null && adm.totalFees !== '';
 
         function populateCourses(type) {
           const list = courses.filter(c => c.category === type);
@@ -606,8 +591,8 @@ async function bootApp() {
           const taxable = Math.max(0, fee - discount);
           const gst = radioVal('gstTaken') === 'yes' ? Number(gstAmt.value || 0) : 0;
           if (radioVal('gstTaken') !== 'yes') gstAmt.value = '0.00';
-          finalAmt.value = (taxable + gst).toFixed(2);
-          if (!totalFeesTouched) totalFeesInput.value = finalAmt.value;
+          const admFee = Number(admFeeInput.value || 0);
+          totalFeesInput.value = (taxable + gst + admFee).toFixed(2);
         }
         function syncGst() {
           const yes = radioVal('gstTaken') === 'yes';
@@ -628,7 +613,7 @@ async function bootApp() {
         batchSel.onchange = updateAvailable;
         discVal.oninput = recalc;
         gstAmt.oninput = recalc;
-        totalFeesInput.oninput = () => { totalFeesTouched = true; };
+        admFeeInput.oninput = recalc;
         form.querySelectorAll('input[name=discountType]').forEach(r => r.onchange = recalc);
         form.querySelectorAll('input[name=gstTaken]').forEach(r => r.onchange = syncGst);
         q('[data-cancel]').onclick = () => showList();
@@ -665,12 +650,11 @@ async function bootApp() {
             discountValue: Number(discVal.value || 0),
             gstTaken: radioVal('gstTaken') === 'yes',
             gstAmount: Number(gstAmt.value || 0),
-            finalAmount: Number(finalAmt.value || 0),
             admissionFee: q('[name=admissionFee]').value === '' ? null : Number(q('[name=admissionFee]').value),
             admissionDate: q('[name=admissionDate]').value,
             batchId: batchSel.value
           };
-          if (editing) { Object.assign(editing, data); }
+          if (editing) { Object.assign(editing, data); delete editing.finalAmount; }
           else { admissions.unshift(Object.assign({ id: uid('ad') }, data)); }
           await store.save();
           toast(editing ? 'Admission saved' : 'Admission added');
