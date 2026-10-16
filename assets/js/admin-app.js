@@ -921,11 +921,10 @@ async function bootApp() {
         if(list.length===0){
           wrap.innerHTML = '<div class="empty">No students found for this batch (based on admissions)</div>';
         } else {
-          const tbl = h(`<table><thead><tr><th>System ID</th><th>Name</th><th>Admission ID</th><th>Marks Obtained</th><th>Grade</th><th>Remarks</th></tr></thead><tbody></tbody></table>`);
+          const tbl = h(`<table><thead><tr><th>Name</th><th>Admission ID</th><th>Marks Obtained</th><th>Grade</th><th>Remarks</th></tr></thead><tbody></tbody></table>`);
           const tbody = $('tbody', tbl);
           list.forEach((it,i)=>{
             const tr = h(`<tr>
-              <td>${esc(it.systemId)}</td>
               <td>${esc(it.name)}</td>
               <td>${esc(it.admissionId)}</td>
               <td><input name="m_${i}" type="number" min="0" max="${exam.totalMarks}" step="0.01" value="${it.marksObtained!==''?it.marksObtained:''}" style="width:110px"></td>
