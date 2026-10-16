@@ -59,43 +59,6 @@
       "active": true
     }
   ],
-  "students": [
-    {
-      "id": "s_1",
-      "systemId": "STU-100001",
-      "name": "Arjun Verma",
-      "phone": "9800011122",
-      "email": "arjun@example.com"
-    },
-    {
-      "id": "s_2",
-      "systemId": "STU-100002",
-      "name": "Divya Menon",
-      "phone": "9800033344",
-      "email": "divya@example.com"
-    },
-    {
-      "id": "s_3",
-      "systemId": "STU-100003",
-      "name": "Karan Singh",
-      "phone": "9800055566",
-      "email": "karan@example.com"
-    },
-    {
-      "id": "s_4",
-      "systemId": "STU-100004",
-      "name": "Meera Raj",
-      "phone": "9800066677",
-      "email": "meera@example.com"
-    },
-    {
-      "id": "s_5",
-      "systemId": "STU-100005",
-      "name": "Ravi Kumar",
-      "phone": "9800077788",
-      "email": "ravi@example.com"
-    }
-  ],
   "batches": [
     {
       "id": "b_1",
@@ -126,7 +89,6 @@
     {
       "id": "ad_1",
       "admissionId": "ADM-2026-0001",
-      "studentId": "s_1",
       "courseType": "computer",
       "courseId": "c_1",
       "courseFee": 8500,
@@ -138,12 +100,25 @@
       "admissionFee": 1000,
       "admissionDate": "2026-10-05",
       "batchId": "b_1",
-      "referralStudentId": "s_2"
+      "name": "Arjun Verma",
+      "fatherName": "Rajesh Verma",
+      "contactNumber": "9800011122",
+      "maritalStatus": "Single",
+      "gender": "Male",
+      "qualification": "10+2",
+      "technicalQualification": "DCA",
+      "presentAddress": "Bangalore",
+      "permanentAddress": "UP",
+      "aadharNumber": "123456789012",
+      "religion": "Hindu",
+      "nationality": "Indian",
+      "caste": "General",
+      "receiptNumber": "R001",
+      "totalFees": 8000
     },
     {
       "id": "ad_2",
       "admissionId": "ADM-2026-0002",
-      "studentId": "s_2",
       "courseType": "accounts",
       "courseId": "c_2",
       "courseFee": 4500,
@@ -155,12 +130,25 @@
       "admissionFee": 500,
       "admissionDate": "2026-10-07",
       "batchId": "b_2",
-      "referralStudentId": ""
+      "name": "Divya Menon",
+      "fatherName": "Menon",
+      "contactNumber": "9800033344",
+      "maritalStatus": "Single",
+      "gender": "Female",
+      "qualification": "Graduate",
+      "technicalQualification": "Tally",
+      "presentAddress": "Karnataka",
+      "permanentAddress": "Kerala",
+      "aadharNumber": "123456789013",
+      "religion": "Hindu",
+      "nationality": "Indian",
+      "caste": "General",
+      "receiptNumber": "R002",
+      "totalFees": 4500
     },
     {
       "id": "ad_3",
       "admissionId": "ADM-2026-0003",
-      "studentId": "s_3",
       "courseType": "computer",
       "courseId": "c_1",
       "courseFee": 8500,
@@ -172,12 +160,25 @@
       "admissionFee": 1000,
       "admissionDate": "2026-10-09",
       "batchId": "b_1",
-      "referralStudentId": ""
+      "name": "Karan Singh",
+      "fatherName": "Baldev Singh",
+      "contactNumber": "9800055566",
+      "maritalStatus": "Single",
+      "gender": "Male",
+      "qualification": "10+2",
+      "technicalQualification": "Basic Computers",
+      "presentAddress": "GB Palya",
+      "permanentAddress": "Punjab",
+      "aadharNumber": "123456789014",
+      "religion": "Sikh",
+      "nationality": "Indian",
+      "caste": "General",
+      "receiptNumber": "R003",
+      "totalFees": 8500
     },
     {
       "id": "ad_4",
       "admissionId": "ADM-2026-0004",
-      "studentId": "s_4",
       "courseType": "design",
       "courseId": "c_3",
       "courseFee": 6000,
@@ -189,12 +190,25 @@
       "admissionFee": 800,
       "admissionDate": "2026-10-11",
       "batchId": "b_3",
-      "referralStudentId": ""
+      "name": "Meera Raj",
+      "fatherName": "Suresh Raj",
+      "contactNumber": "9800066677",
+      "maritalStatus": "Single",
+      "gender": "Female",
+      "qualification": "10+2",
+      "technicalQualification": "Photoshop",
+      "presentAddress": "Bangalore",
+      "permanentAddress": "Tamil Nadu",
+      "aadharNumber": "123456789015",
+      "religion": "Hindu",
+      "nationality": "Indian",
+      "caste": "General",
+      "receiptNumber": "R004",
+      "totalFees": 5800
     },
     {
       "id": "ad_5",
       "admissionId": "ADM-2026-0005",
-      "studentId": "s_5",
       "courseType": "design",
       "courseId": "c_4",
       "courseFee": 7500,
@@ -206,7 +220,21 @@
       "admissionFee": 1000,
       "admissionDate": "2026-10-12",
       "batchId": "b_3",
-      "referralStudentId": ""
+      "name": "Vikram Rao",
+      "fatherName": "Rao",
+      "contactNumber": "9800077788",
+      "maritalStatus": "Single",
+      "gender": "Male",
+      "qualification": "Diploma",
+      "technicalQualification": "CorelDRAW",
+      "presentAddress": "Bangalore",
+      "permanentAddress": "AP",
+      "aadharNumber": "123456789016",
+      "religion": "Hindu",
+      "nationality": "Indian",
+      "caste": "General",
+      "receiptNumber": "R005",
+      "totalFees": 7500
     }
   ],
   "gallery": [

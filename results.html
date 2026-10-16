@@ -295,10 +295,17 @@
     if(!d){ alert('No data'); return; }
     const students=d.students||[], admissions=d.admissions||[], exams=d.exams||[], res=d.examResults||[], courses=d.courses||[], batches=d.batches||[];
     let student=null;
-    if(q.startsWith('ADM')){ const a=admissions.find(x=>(x.admissionId||'').toUpperCase()===q.toUpperCase()||(x.id===q)); if(a) student=students.find(s=>s.id===a.studentId); }
+    if(q.startsWith('ADM')){
+      const a=admissions.find(x=>(x.admissionId||'').toUpperCase()===q.toUpperCase()||(x.id===q));
+      if(a){ student = students.find(s=>s.id===a.studentId); if(!student){ student = { id:a.id, name:a.name||a.studentName||'Student', systemId:a.admissionId||a.id }; } }
+    }
     if(!student && q.startsWith('STU')){ student=students.find(s=>s.systemId.toUpperCase()===q.toUpperCase()); }
     if(!student){ alert('Student not found'); return; }
-    let results = res.filter(r=>r.studentId===student.id);
+    let results = res.filter(r=>r.studentId===student.id || r.admissionId===student.id || (r.name && student.name && r.name.toLowerCase()===student.name.toLowerCase()));
+    if(!results.length && q.startsWith('ADM')){
+      const a=admissions.find(x=>(x.admissionId||'').toUpperCase()===q.toUpperCase()||(x.id===q));
+      if(a) results = res.filter(r=>r.admissionId===a.admissionId || r.admissionId===a.id);
+    }
     results.sort((a,b)=>{
       const ea=exams.find(x=>x.id===a.examId)||{}; const eb=exams.find(x=>x.id===b.examId)||{};
       return (eb.date||'').localeCompare(ea.date||'') || 0;

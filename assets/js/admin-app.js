@@ -186,14 +186,23 @@ async function bootApp() {
       const revenue = admissions.reduce((s,a)=>s+money(a.finalAmount),0);
       const pct = (c,p) => p>0 ? Math.round((c-p)/p*100) : (c>0?100:0);
       const activeCourses = courses.filter(c=>c.active).length;
-      const enrolled = new Set(admissions.map(a=>a.studentId)).size;
+        const enrolled = new Set((admissions||[]).map(a=>a.studentId).filter(Boolean)).size;
+        if (enrolled === 0 && admissions.length) {
+          // also count unique names/contact numbers if stored inline
+          const set = new Set();
+          admissions.forEach(a=>{ if(a.name) set.add(a.name.toLowerCase()+'|'+(a.contactNumber||'')); if(a.studentId) set.add('id:'+a.studentId); });
+          // fallback rough: count non-blank names as enrolled-like
+          const alt = new Set(admissions.filter(a=>a.name).map(a=>a.name.toLowerCase())).size;
+          var enrolledCount = set.size > enrolled ? set.size : enrolled;
+          if (enrolledCount === 0) enrolledCount = alt;
+        } else var enrolledCount = enrolled;
       const seatsUsed = admissions.filter(a=>a.batchId).length;
       const today = now.toISOString().slice(0,10);
       const upcoming = exams.filter(e=>(e.date||'')>=today).sort((a,b)=>(a.date||'').localeCompare(b.date||''));
       const recent = [...admissions].sort((a,b)=>(b.admissionDate||'').localeCompare(a.admissionDate||'')).slice(0,5);
 
       el.append(h(`<div class="stats">${[
-        {label:'Students', value:String(students.length), sub:`${enrolled} enrolled via admissions`},
+          {label:'Students', value:String(students.length), sub:`${ (typeof enrolledCount==='number'?enrolledCount:enrolled) } enrolled via admissions`},
         {label:'Admissions', value:String(admissions.length), delta:pct(admCur.length, admPrev.length)},
         {label:'Active Courses', value:String(activeCourses), sub:`${courses.length} total courses`},
         {label:'Batches', value:String(batches.length), sub:`${seatsUsed} seat${seatsUsed===1?'':'s'} filled`},
@@ -239,7 +248,7 @@ async function bootApp() {
         <div class="card"><h2>Recent admissions</h2>${recent.length? recent.map(a=>{
           const st = students.find(s=>s.id===a.studentId)||{};
           const c = courses.find(x=>x.id===a.courseId)||{};
-          return `<div class="row"><div><b>${esc(st.name||'—')}</b><p>${esc(c.title||'')} • ${esc(a.admissionDate||'')}</p></div><span class="badge ok">${inr(a.finalAmount)}</span></div>`;
+          return `<div class="row"><div><b>${esc(a.name || st.name || '—')}</b><p>${esc(c.title||'')} • ${esc(a.admissionDate||'')}</p></div><span class="badge ok">${inr(a.finalAmount)}</span></div>`;
         }).join('') : '<div class="empty">No admissions yet</div>'}</div>
         <div class="card"><h2>Upcoming exams</h2>${upcoming.length? upcoming.slice(0,5).map(ex=>{
           const b = batches.find(x=>x.id===ex.batchId)||{};
@@ -251,10 +260,9 @@ async function bootApp() {
 
       el.append(h(`<div class="card"><h2>Quick actions</h2>
         <div style="display:flex;gap:8px;flex-wrap:wrap">
-          <button class="btn primary" onclick="location.hash='#/admissions'">Add Admission</button>
-          <button class="btn" onclick="location.hash='#/students'">Manage Students</button>
           <button class="btn" onclick="location.hash='#/courses'">Manage Courses</button>
           <button class="btn" onclick="location.hash='#/batches'">Manage Batches</button>
+          <button class="btn primary" onclick="location.hash='#/admissions'">Add Admission</button>
           <button class="btn" onclick="location.hash='#/exams'">Manage Exams</button>
         </div>
       </div>`));
@@ -355,40 +363,6 @@ async function bootApp() {
     }});
   }
 
-  // Students
-  if (!Modules.find(m=>m.id==='students')) {
-    register({ id:'students', title:'Students', icon:'users', render(el) {
-      const rows = (d.students = d.students || []);
-      const t = dataTable({
-        columns:[
-          {key:'systemId',label:'System ID'},
-          {key:'name',label:'Name'},
-          {key:'phone',label:'Phone'},
-          {key:'email',label:'Email'}
-        ],
-        rows, pageSize:8,
-        toolbar:'<button class="btn primary" id="adds">Add Student</button>',
-        rowActions:x => `<button class="btn sm" data-es="${x.id}">Edit</button> <button class="btn sm danger" data-ds="${x.id}">Delete</button>`
-      });
-      el.append(t);
-      const form = (item=null, cb)=> modal({ title:item?'Edit Student':'Add Student', confirmLabel:item?'Save':'Add', body:`
-        <label class="field">System ID<input name="systemId" value="${esc(item?.systemId||'')}" readonly></label>
-        <label class="field">Name<input name="name" required value="${esc(item?.name||'')}"></label>
-        <label class="field">Phone<input name="phone" required value="${esc(item?.phone||'')}"></label>
-        <label class="field">Email<input name="email" type="email" value="${esc(item?.email||'')}"></label>
-      `, onConfirm:cb});
-      t.addEventListener('click', async (e)=>{
-        if (e.target.id === 'adds') { form({ systemId: makeSystemId(rows) }, async (v)=>{
-          rows.unshift({ id: uid('s'), systemId: v.systemId, name: v.name, phone: v.phone, email: v.email });
-          await store.save(); t.refresh(); toast('Student added');
-        }); return; }
-        const es=e.target.dataset.es, ds=e.target.dataset.ds;
-        if (es){ const it=rows.find(x=>x.id===es); if(!it)return; form(it, async (v)=>{ it.name=v.name; it.phone=v.phone; it.email=v.email; await store.save(); t.refresh(); toast('Student saved'); }); }
-        if (ds){ const idx=rows.findIndex(x=>x.id===ds); if(idx>=0){ rows.splice(idx,1); await store.save(); t.refresh(); toast('Deleted'); } }
-      });
-    }});
-  }
-
   // Batches
   if (!Modules.find(m=>m.id==='batches')) {
     register({ id:'batches', title:'Batches', icon:'cart', render(el) {
@@ -464,7 +438,14 @@ async function bootApp() {
       const cap = s => s ? s.charAt(0).toUpperCase() + s.slice(1) : s;
       const money = n => '₹' + Number(n||0).toLocaleString('en-IN', {minimumFractionDigits:2, maximumFractionDigits:2});
       const parseMoney = v => Number(String(v ?? '').replace(/[^0-9.]/g, '')) || 0;
-      const studentName = id => { const s = students.find(x=>x.id===id); return s ? (s.name + (s.phone ? ` (${s.phone})` : '')) : '—'; };
+      const studentName = id => {
+        const s = students.find(x=>x.id===id);
+        if (s) return s.name + (s.phone ? ` (${s.phone})` : '');
+        const a = (d.admissions||[]).find(x=>x.id===id || x.admissionId===id); // not expected
+        return a?.name || '—';
+      };
+      const studentNameFromAdm = a => (a && a.name) ? (a.contactNumber ? `${a.name} (${a.contactNumber})` : a.name) : studentName(a?.studentId);
+      const admissionStudentLabel = a => (a?.name || studentName(a?.studentId) === '—') ? (a?.name || '—') + (a?.contactNumber ? ` (${a?.contactNumber})` : '') : studentName(a?.studentId);
       const courseTitle = id => (courses.find(c=>c.id===id) || {}).title || '—';
       const courseTypes = Array.from(new Set(courses.map(c=>c.category).filter(Boolean)));
 
@@ -487,7 +468,8 @@ async function bootApp() {
         const t = dataTable({
           columns:[
             {key:'admissionId',label:'Admission ID'},
-            {key:'studentId',label:'Student',render:v=>esc(studentName(v))},
+             {key:'name',label:'Name',render:(v,x)=>esc(x.name || studentName(x.studentId))},
+             {key:'contactNumber',label:'Contact',render:(v,x)=>esc(x.contactNumber || (students.find(s=>s.id===x.studentId)||{}).phone || '')},
             {key:'courseId',label:'Course',render:v=>esc(courseTitle(v))},
             {key:'finalAmount',label:'Final Amount',render:v=>money(v)},
             {key:'admissionDate',label:'Date'}
@@ -507,7 +489,7 @@ async function bootApp() {
 
       function showForm(id) {
         const editing = id ? admissions.find(a=>a.id===id) : null;
-        const adm = editing || { admissionId: nextAdmissionId(), discountType:'amount', discountValue:0, gstTaken:false, admissionFee:'', admissionDate: new Date().toISOString().slice(0,10), referralStudentId:'' };
+        const adm = editing || { admissionId: nextAdmissionId(), discountType:'amount', discountValue:0, gstTaken:false, admissionFee:'', admissionDate: new Date().toISOString().slice(0,10) };
 
         el.innerHTML = '';
         const form = h(`<form class="card aform" novalidate>
@@ -515,8 +497,37 @@ async function bootApp() {
             <h2 style="margin:0">${editing ? 'Edit Admission' : 'Add Admission'}</h2>
             <span class="badge">${esc(adm.admissionId)}</span>
           </div>
+          <div class="arow">
+            <label class="field">Name<input name="name" required value="${esc(adm.name||'')}"></label>
+            <label class="field">Father Name<input name="fatherName" value="${esc(adm.fatherName||'')}"></label>
+            <label class="field">Contact Number<input name="contactNumber" value="${esc(adm.contactNumber||'')}"></label>
+          </div>
+          <div class="arow">
+            <label class="field">Marital Status<select name="maritalStatus">
+              <option value="" ${!adm.maritalStatus?'selected':''}>Select</option>
+              ${['Single','Married','Divorced','Widowed'].map(o=>`<option value="${o}" ${adm.maritalStatus===o?'selected':''}>${o}</option>`).join('')}
+            </select></label>
+            <label class="field">Gender<select name="gender">
+              <option value="" ${!adm.gender?'selected':''}>Select</option>
+              ${['Male','Female','Other'].map(o=>`<option value="${o}" ${adm.gender===o?'selected':''}>${o}</option>`).join('')}
+            </select></label>
+            <label class="field">Qualification<input name="qualification" value="${esc(adm.qualification||'')}"></label>
+          </div>
+          <div class="arow">
+            <label class="field">Technical Qualification<input name="technicalQualification" value="${esc(adm.technicalQualification||'')}"></label>
+            <label class="field">Aadhaar Number<input name="aadharNumber" value="${esc(adm.aadharNumber||'')}"></label>
+            <label class="field">Religion<input name="religion" value="${esc(adm.religion||'')}"></label>
+          </div>
+          <div class="arow">
+            <label class="field">Nationality<input name="nationality" value="${esc(adm.nationality||'Indian')}"></label>
+            <label class="field">Caste<input name="caste" value="${esc(adm.caste||'')}"></label>
+            <label class="field">Receipt Number<input name="receiptNumber" value="${esc(adm.receiptNumber||'')}"></label>
+          </div>
           <div class="arow full">
-            <label class="field">Student<div id="slotStudent"></div></label>
+            <label class="field">Present Address<textarea name="presentAddress" rows="2">${esc(adm.presentAddress||'')}</textarea></label>
+          </div>
+          <div class="arow full">
+            <label class="field">Permanent Address<textarea name="permanentAddress" rows="2">${esc(adm.permanentAddress||'')}</textarea></label>
           </div>
           <div class="arow">
             <label class="field">Course Type<select name="courseType" required>
@@ -548,7 +559,7 @@ async function bootApp() {
             <label class="field">Available Seats for This Batch<input name="availableSeats" readonly value="—"></label>
           </div>
           <div class="arow">
-            <label class="field">Referral By<select name="referralStudentId" disabled><option value="">Select Student First</option></select></label>
+            <label class="field">Total Fees<input name="totalFees" type="number" min="0" step="0.01" value="${adm.totalFees==null?'':esc(adm.totalFees)}"></label>
           </div>
           <div class="form-actions">
             <button type="button" class="btn" data-cancel>Cancel</button>
@@ -566,16 +577,9 @@ async function bootApp() {
         const finalAmt = q('[name=finalAmount]');
         const batchSel = q('[name=batchId]');
         const availInput = q('[name=availableSeats]');
-        const referralSel = q('[name=referralStudentId]');
+        const totalFeesInput = q('[name=totalFees]');
         const radioVal = name => { const r = form.querySelector(`input[name=${name}]:checked`); return r ? r.value : ''; };
-
-        const studentCombo = comboBox({
-          options: students.map(s => ({ value: s.id, label: s.name + (s.phone ? ` (${s.phone})` : '') })),
-          placeholder: 'Select Student',
-          onChange: () => { populateReferral(); }
-        });
-        q('#slotStudent').append(studentCombo);
-        if (adm.studentId) studentCombo._combo.value = adm.studentId;
+        let totalFeesTouched = adm.totalFees != null && adm.totalFees !== '';
 
         function populateCourses(type) {
           const list = courses.filter(c => c.category === type);
@@ -603,6 +607,7 @@ async function bootApp() {
           const gst = radioVal('gstTaken') === 'yes' ? Number(gstAmt.value || 0) : 0;
           if (radioVal('gstTaken') !== 'yes') gstAmt.value = '0.00';
           finalAmt.value = (taxable + gst).toFixed(2);
+          if (!totalFeesTouched) totalFeesInput.value = finalAmt.value;
         }
         function syncGst() {
           const yes = radioVal('gstTaken') === 'yes';
@@ -610,26 +615,12 @@ async function bootApp() {
           if (!yes) gstAmt.value = '0.00';
           recalc();
         }
-        function populateReferral() {
-          const sid = studentCombo._combo.value;
-          if (!sid) {
-            referralSel.disabled = true;
-            referralSel.innerHTML = '<option value="">Select Student First</option>';
-            return;
-          }
-          const others = students.filter(s => s.id !== sid);
-          referralSel.disabled = false;
-          referralSel.innerHTML = '<option value="">Select Referral</option>'
-            + others.map(s => `<option value="${esc(s.id)}" ${adm.referralStudentId===s.id?'selected':''}>${esc(s.name)}</option>`).join('');
-        }
-
         // init from existing record
         courseTypeSel.value = adm.courseType || '';
         populateCourses(adm.courseType || '');
         if (adm.courseId) courseSel.value = adm.courseId;
         populateBatches(adm.courseId || '');
         if (adm.batchId) { batchSel.value = adm.batchId; updateAvailable(); }
-        populateReferral();
         syncGst();
 
         courseTypeSel.onchange = () => { populateCourses(courseTypeSel.value); courseSel.value = ''; populateBatches(''); recalc(); };
@@ -637,14 +628,14 @@ async function bootApp() {
         batchSel.onchange = updateAvailable;
         discVal.oninput = recalc;
         gstAmt.oninput = recalc;
+        totalFeesInput.oninput = () => { totalFeesTouched = true; };
         form.querySelectorAll('input[name=discountType]').forEach(r => r.onchange = recalc);
         form.querySelectorAll('input[name=gstTaken]').forEach(r => r.onchange = syncGst);
         q('[data-cancel]').onclick = () => showList();
 
         form.onsubmit = async (e) => {
           e.preventDefault();
-          const studentId = studentCombo._combo.value;
-          if (!studentId) return toast('Please select a student');
+          if (!q('[name=name]').value.trim()) return toast('Please enter name');
           if (!courseTypeSel.value) return toast('Please select a course type');
           if (!courseSel.value) return toast('Please select a course');
           if (!batchSel.value) return toast('Please select a batch');
@@ -652,7 +643,21 @@ async function bootApp() {
           const course = courses.find(c => c.id === courseSel.value) || {};
           const data = {
             admissionId: adm.admissionId,
-            studentId,
+            name: q('[name=name]').value.trim(),
+            fatherName: q('[name=fatherName]').value.trim(),
+            contactNumber: q('[name=contactNumber]').value.trim(),
+            maritalStatus: q('[name=maritalStatus]').value,
+            gender: q('[name=gender]').value,
+            qualification: q('[name=qualification]').value.trim(),
+            technicalQualification: q('[name=technicalQualification]').value.trim(),
+            aadharNumber: q('[name=aadharNumber]').value.trim(),
+            religion: q('[name=religion]').value.trim(),
+            nationality: q('[name=nationality]').value.trim(),
+            caste: q('[name=caste]').value.trim(),
+            presentAddress: q('[name=presentAddress]').value.trim(),
+            permanentAddress: q('[name=permanentAddress]').value.trim(),
+            receiptNumber: q('[name=receiptNumber]').value.trim(),
+            totalFees: q('[name=totalFees]').value === '' ? null : Number(q('[name=totalFees]').value),
             courseType: courseTypeSel.value,
             courseId: courseSel.value,
             courseFee: parseMoney(course.fee),
@@ -663,8 +668,7 @@ async function bootApp() {
             finalAmount: Number(finalAmt.value || 0),
             admissionFee: q('[name=admissionFee]').value === '' ? null : Number(q('[name=admissionFee]').value),
             admissionDate: q('[name=admissionDate]').value,
-            batchId: batchSel.value,
-            referralStudentId: referralSel.disabled ? '' : (referralSel.value || '')
+            batchId: batchSel.value
           };
           if (editing) { Object.assign(editing, data); }
           else { admissions.unshift(Object.assign({ id: uid('ad') }, data)); }
@@ -872,17 +876,24 @@ async function bootApp() {
         // get students in this batch: from admissions (unique studentId in batch)
         const inBatch = new Map();
         admissions.forEach(a=>{
-          if(a.batchId===exam.batchId){ inBatch.set(a.studentId, {admissionId: a.admissionId || a.id, studentId:a.studentId}); }
+          if(a.batchId===exam.batchId){
+            inBatch.set(a.studentId || a.id || a.admissionId, {
+              admissionId: a.admissionId || a.id,
+              studentId: a.studentId || '',
+              name: a.name || '',
+              contactNumber: a.contactNumber || ''
+            });
+          }
         });
         // fallback: if none, show students? but better by admissions
         // build list
         let list = Array.from(inBatch.values()).map(x=>{
           const st = students.find(s=>s.id===x.studentId)||{};
-          const r = results.find(rr=>rr.examId===examId && rr.studentId===x.studentId);
+          const r = results.find(rr=>rr.examId===examId && (rr.studentId===x.studentId || (x.studentId==='' && rr.admissionId===x.admissionId)));
           return {
             studentId:x.studentId,
             systemId: st.systemId||'',
-            name: st.name||'',
+            name: x.name || st.name || '',
             admissionId: x.admissionId||'',
             marksObtained: r ? r.marksObtained : '',
             grade: r ? r.grade : '',
@@ -965,16 +976,16 @@ async function bootApp() {
             const rmv = $('input[name=rm_'+i+']', wrap).value.trim();
             it.marksObtained = mv===''? '' : Number(mv);
             it.grade = gv; it.remarks = rmv;             // admission id is read-only in display; keep as is
-            let r = results.find(rr=>rr.examId===examId && rr.studentId===it.studentId);
+            let r = results.find(rr=>rr.examId===examId && (rr.studentId===it.studentId || rr.admissionId===it.admissionId));
             const mnum = it.marksObtained===''? null : Number(it.marksObtained);
             const tot = Number(exam.totalMarks||100);
             const pcent = (mnum!==null && tot>0) ? ((mnum/tot)*100) : null;
             const gcalc = gv || (pcent!==null? gradeFor(pcent): '');
             if(!r){
-              r = { id: uid('er'), examId, studentId:it.studentId, systemId:it.systemId, batchId:exam.batchId, totalMarks:tot, admissionId:admv };
+              r = { id: uid('er'), examId, studentId:it.studentId, systemId:it.systemId, batchId:exam.batchId, totalMarks:tot, admissionId:admv, name:it.name };
               results.unshift(r); saved++;
             } else { updated++; }
-            r.marksObtained = mnum; r.percentage = pcent; r.grade = gcalc; r.remarks = rmv; r.admissionId = admv; r.totalMarks = tot;
+            r.marksObtained = mnum; r.percentage = pcent; r.grade = gcalc; r.remarks = rmv; r.admissionId = admv; r.totalMarks = tot; if(it.name) r.name = it.name;
           });
           await store.save(); toast(`Saved (new ${saved}, updated ${updated})`); showBulkResults(examId);
         };
