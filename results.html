@@ -123,14 +123,14 @@
         <div class="col-lg-10 col-xl-9">
           <div class="text-center mb-4" data-aos="fade-down">
             <h1 class="section-title mb-3">Check Your Exam Results</h1>
-            <p class="section-subtitle mx-auto mb-0">Enter your System ID or Admission ID to view your results.</p>
+            <p class="section-subtitle mx-auto mb-0">Enter your Admission ID to view your results.</p>
           </div>
           <div class="results-card" data-aos="fade-up" data-aos-delay="100">
             <div class="card-header">
               <form id="form" class="row g-3 align-items-end">
                 <div class="col-md-9">
-                  <label for="idInput" class="form-label fw-semibold">Student ID or Admission ID</label>
-                  <input id="idInput" class="form-control form-control-lg" placeholder="STU-100001 or ADM-2026-0001" required>
+                   <label for="idInput" class="form-label fw-semibold">Admission ID</label>
+                   <input id="idInput" class="form-control form-control-lg" placeholder="ADM-2026-0001" required>
                 </div>
                 <div class="col-md-3 d-grid">
                   <button class="btn btn-primary btn-lg" type="submit">
@@ -295,17 +295,10 @@
     if(!d){ alert('No data'); return; }
     const students=d.students||[], admissions=d.admissions||[], exams=d.exams||[], res=d.examResults||[], courses=d.courses||[], batches=d.batches||[];
     let student=null;
-    if(q.startsWith('ADM')){
-      const a=admissions.find(x=>(x.admissionId||'').toUpperCase()===q.toUpperCase()||(x.id===q));
-      if(a){ student = students.find(s=>s.id===a.studentId); if(!student){ student = { id:a.id, name:a.name||a.studentName||'Student', systemId:a.admissionId||a.id }; } }
-    }
-    if(!student && q.startsWith('STU')){ student=students.find(s=>s.systemId.toUpperCase()===q.toUpperCase()); }
+    const a=admissions.find(x=>(x.admissionId||'').toUpperCase()===q.toUpperCase()||(x.id===q));
+    if(a){ student = students.find(s=>s.id===a.studentId); if(!student){ student = { id:a.id, name:a.name||a.studentName||'Student', systemId:a.admissionId||a.id }; } }
     if(!student){ alert('Student not found'); return; }
-    let results = res.filter(r=>r.studentId===student.id || r.admissionId===student.id || (r.name && student.name && r.name.toLowerCase()===student.name.toLowerCase()));
-    if(!results.length && q.startsWith('ADM')){
-      const a=admissions.find(x=>(x.admissionId||'').toUpperCase()===q.toUpperCase()||(x.id===q));
-      if(a) results = res.filter(r=>r.admissionId===a.admissionId || r.admissionId===a.id);
-    }
+    let results = res.filter(r=>r.studentId===student.id || r.admissionId===student.id || r.admissionId===a.admissionId || (r.name && student.name && r.name.toLowerCase()===student.name.toLowerCase()));
     results.sort((a,b)=>{
       const ea=exams.find(x=>x.id===a.examId)||{}; const eb=exams.find(x=>x.id===b.examId)||{};
       return (eb.date||'').localeCompare(ea.date||'') || 0;
@@ -330,17 +323,28 @@
       return d;
     };
     const examTot=id=>(exams.find(c=>c.id===id)||{}).totalMarks||'-';
-    const rows = results.map(r=>`<tr>
-      <td class="fw-semibold">${esc(examName(r.examId))}</td>
-      <td>${esc(courseName(r.courseId|| (exams.find(e=>e.id===r.examId)||{}).courseId))}</td>
-      <td>${esc(batchName(r.batchId|| (exams.find(e=>e.id===r.examId)||{}).batchId))}</td>
-      <td>${esc(examDate(r.examId))}</td>
-      <td>${fmtNum(r.marksObtained)} / ${fmtNum(r.totalMarks||examTot(r.examId))}</td>
-      <td>${fmtNum(r.percentage)}%</td>
-      <td><span class="badge-soft">${esc(r.grade||'-')}</span></td>
-      <td>${esc(r.remarks||'')}</td>
-    </tr>`).join('');
-    tbl.innerHTML = `<div class="table-responsive"><table class="table table-hover mb-0"><thead><tr><th>Exam</th><th>Course</th><th>Batch</th><th>Date</th><th>Marks</th><th>%</th><th>Grade</th><th>Remarks</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+    const rows = results.map(r=>{
+      const c = courseName(r.courseId|| (exams.find(e=>e.id===r.examId)||{}).courseId);
+      const b = batchName(r.batchId|| (exams.find(e=>e.id===r.examId)||{}).batchId);
+      const en = examName(r.examId);
+      const ed = examDate(r.examId);
+      const m = fmtNum(r.marksObtained);
+      const t = fmtNum(r.totalMarks||examTot(r.examId));
+      const p = fmtNum(r.percentage);
+      return `<div class="card mb-3">
+        <div class="card-body">
+          <h5 class="card-title mb-2">${esc(en)}</h5>
+          <div class="small text-muted mb-3">${esc(c)} • ${esc(b)} • ${esc(ed)}</div>
+          <div class="row g-3 text-center">
+            <div class="col-6 col-md-3"><div class="text-muted small">Marks</div><div class="fw-bold">${m} / ${t}</div></div>
+            <div class="col-6 col-md-3"><div class="text-muted small">Percentage</div><div class="fw-bold">${p}%</div></div>
+            <div class="col-6 col-md-3"><div class="text-muted small">Grade</div><div class="fw-bold">${esc(r.grade||'-')}</div></div>
+            <div class="col-6 col-md-3"><div class="text-muted small">Remarks</div><div class="fw-bold">${esc(r.remarks||'-')}</div></div>
+          </div>
+        </div>
+      </div>`;
+    }).join('');
+    tbl.innerHTML = rows;
   };
   </script>
 </body>
